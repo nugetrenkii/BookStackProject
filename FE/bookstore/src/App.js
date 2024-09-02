@@ -21,6 +21,8 @@ import ShippingMode from "./pages/ShippingMode/ShippingMode";
 import BookDetail from "./pages/Book/BookDetail";
 import OrderDetail from "./pages/Order/OrderDetail";
 import Rating from "./pages/Rating/Rating";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
 
 function App() {
     const token = localStorage.getItem("token");
@@ -51,6 +53,18 @@ function App() {
             ) : (
                 <SignIn />
             )}
+            <ToastContainer 
+                    position="top-right" // Customize position
+                    autoClose={5000} // Auto close delay in milliseconds
+                    hideProgressBar={false} // Show progress bar
+                    newestOnTop={false} // Newest toast on top
+                    closeOnClick // Close on click
+                    rtl={false} // Right-to-left layout support
+                    pauseOnFocusLoss // Pause toast when window loses focus
+                    draggable // Allow to drag and close
+                    pauseOnHover // Pause on hover
+                    theme="colored" // You can set theme as light, dark or colored
+                    />
         </div>
     );
 }

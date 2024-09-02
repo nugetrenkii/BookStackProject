@@ -124,7 +124,6 @@ export default class SignIn extends Component {
       if (res?.code == 200 && res?.data.role?.name == "admin") {
         window.location = '/dashboard'
       }
-      else alert("Đăng nhập thất bại")
     };
 
     const onFinishFailed = (errorInfo) => {

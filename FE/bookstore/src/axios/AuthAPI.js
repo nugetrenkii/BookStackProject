@@ -1,20 +1,46 @@
+// Import the axios instance and toast
 import axiosHandle from "./AxiosHandle";
+import { toast } from "react-toastify";
 
 // Login function to authenticate and store JWT
-export const Login = async(username, password) => {
-    try {
-        const response = await axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/Login`, {
-            username,
-            password,
-        });
-        if (response.code === 200 && response.data.token) {
-            // Save JWT token to local storage or session storage
-            localStorage.setItem("token", response.data.token);
-            return response;
-        }
-        console.error("Login failed");
-    } catch (error) {
-        console.error("Login error:", error);
-        throw error;
+export const Login = async (username, password) => {
+  try {
+    // Make the API request to login
+    const response = await axiosHandle.post(`/Auth/Login`, {
+      username,
+      password,
+    });
+
+    // Check if the response is null or undefined
+    if (!response) {
+      toast.error("Login failed");
+      return null;
     }
+
+    // Check if the response status code is not 200
+    if (response.status !== 200) {
+      toast.error(response.data?.message || "Login failed");
+      return null;
+    }
+
+    // Check if response.data or response.data.token is missing
+    if (!response.data || !response.data.token) {
+      toast.error("Login failed");
+      return null;
+    }
+
+    // Save JWT token to local storage or session storage
+    localStorage.setItem("token", response.data.token);
+    toast.success("Login successful");
+    return response;
+  } catch (error) {
+    // Handle any errors that occur during the request
+    console.error("Login error:", error);
+
+    // Display a toast notification for the error
+    toast.error("Login failed. Please check your credentials and try again.");
+
+    // Return null to indicate the login failed
+    return null;
+  }
 };
