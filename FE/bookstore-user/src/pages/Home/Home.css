@@ -1,0 +1,106 @@
+.home-main .home-icon-tag {
+    background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_red.svg") no-repeat center center;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+}
+
+.home-main .home-list-tag .ant-list-item {
+    margin-block-end: 0px;
+}
+
+.home-main .home-list-tag .ant-list-item .ant-card-body {
+    padding: 6px;
+}
+
+.home-main .home-card-list-tag .ant-card-body {
+    padding: 2px;
+}
+
+.home-main .home-list-tag .home-tag-title{
+    font-size: 18px;
+}
+
+.home-main .home-list-tag .home-tag-title:hover {
+    font-size: 18px;
+}
+
+.home-main .home-tag-item{
+    cursor: pointer;
+}
+
+.home-main .home-tag-item a{
+    color: #000;
+}
+
+.home-main .home-tag-item:hover{
+    color: #C92127;
+}
+
+.home-main .home-card-list-book .home-icon-list-book{
+    background: url("https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png") no-repeat center center;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    margin-right: 10px;
+}
+
+
+.home-main .home-card-list-book .recomend{
+    background: url("https://cdn0.fahasa.com/media/wysiwyg/icon-menu/icon_dealhot_new.png") no-repeat center center;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    margin-right: 10px;
+}
+    
+.home-main .home-card-list-book{
+    border: none;
+}
+
+.home-main .home-card-list-book .ant-card-head{
+    background: #FCDAB0;
+    border-radius: 0;
+}
+
+/* .home-main .home-book img{
+    width: 100%;
+    height: 200px;
+} */
+
+.home-main .home-book-detail-price{
+    color: #C92127;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.home-main .home-book-title{
+    display: block;
+    color: #000;
+    font-size: 16px;
+    
+    height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* word-break: break-word; */
+    /* white-space: nowrap; */
+    /* padding-top: 0px !important;
+    line-height: 1.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 2.8em;
+    max-height: 2.8em;
+    font-size: 0.78em;
+    color: #333333; */
+}
+
+.home-main .home-card-list-book .ant-card-body{
+    padding: 12px 24px 12px 24px;
+}
+
+.home-main .home-book:hover{
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.09), 0 4px 4px 0px rgba(0, 0, 0, 0.08), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+}

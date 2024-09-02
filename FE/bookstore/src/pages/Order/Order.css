@@ -1,0 +1,31 @@
+.tag-status,
+.tag-status:hover {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+/* .new,
+.new:hover {
+    border-color: #ff2727;
+    background: #ff3434;
+} */
+
+.inp,
+.inp:hover {
+    border-color: #ffe927;
+    background: #fae73e;
+    color: #000;
+}
+
+.don,
+.don:hover {
+    border-color: #2cbd19;
+    background: #2cbd19;
+}
+
+.can,
+.can:hover {
+    border-color: #ff2727;
+    background: #ff3434;
+}

@@ -1,0 +1,35 @@
+.main-history-detail{
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.main-history-detail .history-information div{
+    padding: 10px 0px;
+}
+
+.main-history-detail .history-information div:first-child{
+    padding-top: 0px;
+}
+
+.main-history-detail .history-information div:last-child{
+    padding-bottom: 0px;
+}
+
+.main-history-detail .history-information span{
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.main-history-detail .ant-card-head{
+  min-height: 50px;
+}
+
+.main-history-detail .button-rating{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: rgb(253, 56, 56);
+    color: #fff;
+    padding: 5px 15px;
+    /* margin-left: 50px; */
+}

@@ -1,0 +1,7 @@
+.main-address {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+.main-address .ant-card-head{
+  min-height: 50px;
+}

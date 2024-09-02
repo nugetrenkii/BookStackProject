@@ -1,0 +1,116 @@
+.main-register{
+    min-height: 100vh;
+    /* padding-top: 100px;
+    padding-bottom: 100px; */
+    width: 100%;
+
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-size: cover;
+    background-image: url("https://img.freepik.com/free-photo/abundant-collection-antique-books-wooden-shelves-generated-by-ai_188544-29660.jpg?t=st=1698564489~exp=1698568089~hmac=bfc94097dda55db920ac301c92acb1554f6f1f78dcb9b76edbdc1becabe76dc3&w=1060");
+    /* background-image: url("https://www.refugeecouncil.org.au/wp-content/uploads/2018/02/University_library-1024x683.jpg"); */
+}
+
+.main-register .register-header{
+    font-size: 35px;
+    font-family: Oswald;
+
+    padding-bottom: 10px;
+}
+.main-register .input-form{
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+.input-form i{
+    position: absolute;
+    bottom: 9px;
+    right: 10px;
+    font-size: 20px;
+}
+
+.main-register .register-main input{
+    background: rgba(255, 255, 255);
+    width: 400px;
+    border-radius: 5px;
+    border: none;
+    padding-left:20px;
+    /* color: #fff; */
+
+    height: 50px;
+
+    margin-top: 20px;
+    font-size: large;
+}
+.main-register .register-main input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+.main-register .register-main input:hover,
+.main-register .register-main input:focus{
+    /* background: none; */
+    /* border: 1px solid #fff; */
+    color: #000;
+    outline: none;
+}
+
+.main-register span{
+    /* margin-bottom: 20px; */
+    font-size: 110%;
+    color: rgb(255, 15, 15);
+}
+
+.register-group{
+    width: 400px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.register-group label{
+    margin-left: 5px;
+}
+
+.register-group a{
+    color: #fff;
+    text-decoration: none;
+}
+.register-footer .register{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #fff;
+
+    text-align: center;
+}
+
+.register-footer .login{
+    padding-top: 20px;
+}
+.register-footer .btn-register{
+    width: 420px;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-family: Oswald;
+    font-size: 20px;
+}
+
+.register-footer .btn-login{
+    width: 420px;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-family: Oswald;
+    font-size: 20px;
+}
+

@@ -1,0 +1,95 @@
+.waviy {
+    position: relative;
+}
+
+.waviy .span1{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*1);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span2{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*2);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span3{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*3);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span4{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*4);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span5{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*5);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span6{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*6);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span7{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*7);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span8{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*8);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span9{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*9);
+    font-size: 25px;
+    color: #000;
+}
+.waviy .span10{
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*10);
+    font-size: 25px;
+    color: #000;
+}
+
+@keyframes waviy{
+    0%,
+    40%,
+    100%{
+        transform: translateY(0);
+    }
+    20%{
+        transform: translateY(-10px);
+    }
+}

@@ -1,0 +1,169 @@
+.navbar-main {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    align-items: center;
+    /* width: 100%; */
+    height: 70px;
+    background-color: #ff7e21;
+}
+
+.navbar-main .navbar-search {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-main .navbar-search .navbar-input {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.07);
+    border: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-main .navbar-search .navbar-input:focus {
+    /* width: 100%; */
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
+}
+
+.navbar-main .navbar-icon {
+    /* margin-right: 10px;
+    margin-left: 10px; */
+    font-size: 25px;
+}
+
+.navbar-main .navbar-logo {
+    font-size: 35px;
+    font-weight: 600;
+    cursor: pointer;
+
+    font-family: 'Dancing Script';
+}
+
+.navbar-main .navbar-footer{
+    display:  flex
+}
+
+.ant-popover{
+    width: 250px
+}
+.navbar-main .ant-popover-inner{
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Ephesis');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.waviy {
+    position: relative;
+}
+
+.waviy .span1 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*1);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span2 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*2);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span3 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*3);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span4 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*4);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span5 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*5);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span6 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*6);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span7 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*7);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span8 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*8);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span9 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*9);
+    font-size: 40px;
+    color: #000;
+}
+
+.waviy .span10 {
+    position: relative;
+    display: inline-block;
+    animation: waviy 2s infinite;
+    animation-delay: calc(.1s*10);
+    font-size: 40px;
+    color: #000;
+}
+
+@keyframes waviy {
+
+    0%,
+    40%,
+    100% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(-10px);
+    }
+}

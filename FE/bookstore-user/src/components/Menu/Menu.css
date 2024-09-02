@@ -1,0 +1,24 @@
+.card-menu .ant-card-body {
+    padding: 0px 24px;
+}
+
+.card-menu ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.card-menu ul li {
+    list-style-type: none;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(126, 126, 126, 0.6);
+    padding: 12px 0px;
+    font-size: 15px;
+}
+
+.card-menu ul li:hover {
+    color: #C92127;
+}
+
+.card-menu ul li:last-child {
+    border-bottom: none;
+}

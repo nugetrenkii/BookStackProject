@@ -1,0 +1,28 @@
+.cart-main  .cart-all:hover {
+    border-color: rgb(253, 56, 56) !important;
+}
+.cart-main  .cart-all:focus {
+    border-color: rgb(253, 56, 56) !important;
+    outline: rgba(253, 56, 56,0.5);
+}
+
+.cart-main .cart-all .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: rgb(253, 56, 56) !important;
+    border-color: rgb(253, 56, 56) !important;
+}
+
+.cart-main .cart-line .ant-card-body{
+    padding: 12px 24px;
+}
+
+.cart-main .cart-line-book{
+    padding: 20px 0px;
+    border-bottom: 1px solid #cfcfcf;
+}
+.cart-main .first{
+    padding-top: 0px;
+}
+
+.cart-main .last{
+    border-bottom: none;
+}

@@ -1,0 +1,54 @@
+.main-vnpay{
+    display: flex;
+    justify-content: center;
+}
+
+.main-vnpay .payment-error, .payment-success{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-error .error-lable{
+    font-size: 50px;
+    color: #000;
+}
+.payment-error .icon-error{
+    color: #dc3545;
+    margin-left: 20px   ;
+}
+
+.payment-success .icon-success{
+    color: #198754;
+    margin-left: 20px   ;
+}
+.payment-success .success-lable{
+    font-size: 50px;
+}
+
+.main-vnpay .button{
+    margin-top: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    
+    padding: 10px 20px;
+    background: rgb(253, 56, 56);
+    border: 2px solid rgba(253, 56, 56, 0.5);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.main-vnpay .money{
+    color: rgb(253, 56, 56);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.main-vnpay .back{
+    margin-left: 10px;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(253, 56, 56);
+    color: rgb(253, 56, 56);
+}

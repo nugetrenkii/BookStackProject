@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "3sHW9DH4CQWZb6rlNtscPKkvxg4Ix5I07YBlk4pDmPU=",
+  "Source": "BookStack",
+  "BasePath": "_content/BookStack",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
