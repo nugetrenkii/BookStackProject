@@ -539,6 +539,8 @@ coverage
 .vs
 bin
 obj
+**/bin/
+**/obj/
 
 # Resx Generated Code
 *.resx.ts
