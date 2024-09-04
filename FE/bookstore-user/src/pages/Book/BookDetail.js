@@ -8,6 +8,7 @@ import Waiting from '../Waiting/Waiting';
 import { GetRatingByBook, GetRatingByUser } from '../../axios/RateAPI';
 import { StarFilled } from '@ant-design/icons';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 function BookDetail() {
     const param = useParams()
@@ -39,10 +40,9 @@ function BookDetail() {
         if (res?.code == 200)
             setRating(res?.data)
 
-        var res = await GetBooksRecomend(param?.id)
+        var res = await GetBooksRecomend(3)
         if (res?.code == 200) {
-            var response = await GetBookByIds(res?.data)
-            if (response?.code == 200) setBookRecomend(response?.data)
+            setBookRecomend(res?.data);
         }
 
         console.log(res);
@@ -50,19 +50,27 @@ function BookDetail() {
     }
 
     const Add2Cart = async () => {
-        setWait(true)
-        var userId = localStorage.getItem('user')
-        if (!userId) {
-            var res = await AddToCart(localStorage.getItem('userId'), param?.id, quantity)
-            if (res?.code == 200)
-                setTimeout(() => {
-                    navigate(`/cart`)
-                }, 1000);
+
+        if (!localStorage.getItem('userId')) {
+            toast.error("Bạn phải đăng nhập để sử dụng tính năng này")
+            return
         }
-        setWait(false)
+        else{
+            setWait(true)
+            var res = await AddToCart(localStorage.getItem('userId'), param?.id, quantity)
+            if (res?.code == 200){
+                toast.success("Đã thêm vào giỏ hàng")
+            }
+            setWait(false)
+        }
     }
 
     const BuyNow = async () => {
+
+        if (!localStorage.getItem('userId')) {
+            toast.error("Bạn phải đăng nhập để sử dụng tính năng này")
+            return
+        }
         var order = {
             books: [],
             quantities: []

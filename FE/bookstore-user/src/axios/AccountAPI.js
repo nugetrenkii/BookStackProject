@@ -11,3 +11,11 @@ export const GetAddressByUser = (id) => {
 export const CreateAddress = (address) => {
     return axiosHandle.post(process.env.REACT_APP_URL_API + `Address`,address);
 }
+
+export const UpdateAddress = (id, address) => {
+    return axiosHandle.put(process.env.REACT_APP_URL_API + `Address/${id}`,address);
+}
+
+export const DeleteAddress = (id) => {
+    return axiosHandle.delete(process.env.REACT_APP_URL_API + `Address/${id}`);
+}

@@ -22,13 +22,13 @@ namespace BookStack.Persistence.Repositories.AddressRepository
         public Entities.Address GetAddressById(int? id = 0)
         {
             if (id != 0)
-                return _dataContext.Addresses.Include(a => a.User).FirstOrDefault(a => a.Id == id);
-            else return _dataContext.Addresses.Include(a => a.User).Where(a => a.User.Id == 2).OrderBy(a => a.Id).LastOrDefault();
+                return _dataContext.Addresses.Include(a => a.User).FirstOrDefault(a => a.Id == id && a.IsDeleted == false);
+            else return _dataContext.Addresses.Include(a => a.User).Where(a => a.User.Id == 2 && a.IsDeleted == false).OrderBy(a => a.Id).LastOrDefault();
         }
 
         public List<Entities.Address> GetAddressByUser(int userId)
         {
-            return _dataContext.Addresses.Include(a => a.User).Where(a => a.User.Id == userId).ToList();
+            return _dataContext.Addresses.Include(a => a.User).Where(a => a.User.Id == userId && a.IsDeleted == false).ToList();
         }
 
         public int GetAddressCount()
@@ -56,7 +56,7 @@ namespace BookStack.Persistence.Repositories.AddressRepository
             }
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
             else
-                return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+                return query.Where(a => a.IsDeleted == false).Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
         }
 
         public bool IsSaveChanges()

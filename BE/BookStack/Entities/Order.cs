@@ -23,6 +23,5 @@ namespace BookStack.Entities
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
         public virtual List<OrderBook> OrderBooks { get; set; } = new List<OrderBook>();
-        public virtual List<OrderSnapshot> OrderSnapshots { get; set; } = new List<OrderSnapshot>();
     }
 }

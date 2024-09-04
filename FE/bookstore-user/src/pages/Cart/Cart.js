@@ -190,16 +190,48 @@ function Cart() {
 
         setTotal(sum)
     }
-    const ChangeQuantity = async (index, number) => {
-        setWait(true)
-        var res = await AddToCart(localStorage.getItem('userId'), cart[index]?.book?.id, number)
-        if (res?.code == 200) {
-            setTimeout(() => {
-                window.location.reload()
-            }, 1000);
+    
+    // Function to handle quantity changes
+    const ChangeQuantity = async (index, change) => {
+        setWait(true);
+
+        try {
+            // Get the current item and its quantity
+            const currentItem = cart[index];
+            const currentQuantity = currentItem?.quantity;
+
+            // Calculate the new quantity based on the change
+            let newQuantity = currentQuantity + change;
+
+            // Ensure new quantity isn't negative
+            if (newQuantity < 0) {
+                newQuantity = 0;
+            }
+
+            // Call API with the change
+            const res = await AddToCart(
+                localStorage.getItem('userId'),
+                currentItem?.book?.id,
+                newQuantity - currentQuantity
+            );
+
+            // If response is successful, update the cart state
+            if (res?.code === 200) {
+                setCart((prevCart) =>
+                    prevCart.map((item, i) =>
+                        i === index ? { ...item, quantity: newQuantity } : item
+                    ).filter(item => item.quantity > 0) // Remove items with zero quantity
+                );
+
+                // Recalculate the cart total
+                Canculate();
+            }
+        } catch (error) {
+            console.error('Error updating cart:', error);
+        } finally {
+            setWait(false);
         }
-        setWait(false)
-    }
+    };
 
     const CheckOut = () => {
         var order = {
@@ -369,7 +401,7 @@ function Cart() {
                                                             }).format(item?.book?.price * item?.quantity)}
                                                         </div>
                                                         <div>
-                                                            <DeleteOutlined onClick={() => ChangeQuantity(index, -item?.quantity)} />
+                                                            <DeleteOutlined onClick={() => ChangeQuantity(index, -cart[index]?.quantity)} />
                                                         </div>
                                                     </div>
                                                 </div>

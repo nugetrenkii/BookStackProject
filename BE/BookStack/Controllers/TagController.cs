@@ -7,6 +7,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class TagController : ControllerBase
     {
         private readonly ITagService _tagService;

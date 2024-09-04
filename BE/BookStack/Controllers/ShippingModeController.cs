@@ -7,6 +7,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ShippingModeController : ControllerBase
     {
         private readonly IShippingModeService _shippingModeService;

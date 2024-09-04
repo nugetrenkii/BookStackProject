@@ -1,5 +1,6 @@
 ﻿using BookStack.DTOs.Address;
 using BookStack.Services.AddressService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AddressController : ControllerBase
     {
         private readonly IAddressService _addressService;

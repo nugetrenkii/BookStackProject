@@ -1,5 +1,6 @@
 ﻿using BookStack.DTOs.Cart;
 using BookStack.Services.CartService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;

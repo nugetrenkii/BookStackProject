@@ -135,7 +135,17 @@ namespace BookStack.Services.BookService
                 Total = BookRepository.Total
             };
         }
-
+        
+        public ResponseDTO GetBookRecommendations()
+        {
+            var books = _bookRepository.GetBooks();
+            return new ResponseDTO()
+            {
+                Data = _mapper.Map<List<BookDTO>>(books),
+                Total = _bookRepository.GetBookCount()
+            };
+        }
+        
         public ResponseDTO GetCart(List<int> bookIds)
         {
             var books = _bookRepository.GetCart(bookIds);

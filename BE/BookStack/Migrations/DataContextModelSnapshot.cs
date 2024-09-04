@@ -288,59 +288,6 @@ namespace BookStack.Migrations
                     b.ToTable("OrderBooks");
                 });
 
-            modelBuilder.Entity("BookStack.Entities.OrderSnapshot", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Create")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderAddressId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderBooks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderDescription")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("OrderIsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OrderPayMode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderShippingModeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Update")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderSnapshots");
-                });
-
             modelBuilder.Entity("BookStack.Entities.Publisher", b =>
                 {
                     b.Property<int>("Id")
@@ -692,17 +639,6 @@ namespace BookStack.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("BookStack.Entities.OrderSnapshot", b =>
-                {
-                    b.HasOne("BookStack.Entities.Order", "Order")
-                        .WithMany("OrderSnapshots")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("BookStack.Entities.Rating", b =>
                 {
                     b.HasOne("BookStack.Entities.Book", "Book")
@@ -773,8 +709,6 @@ namespace BookStack.Migrations
             modelBuilder.Entity("BookStack.Entities.Order", b =>
                 {
                     b.Navigation("OrderBooks");
-
-                    b.Navigation("OrderSnapshots");
                 });
 
             modelBuilder.Entity("BookStack.Entities.Quantity", b =>

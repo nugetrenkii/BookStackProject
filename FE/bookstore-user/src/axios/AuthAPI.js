@@ -1,22 +1,7 @@
 import axiosHandle from "./AxiosHandle";
-
-export const Login = async(username, password) => {
-    try {
-        const response = await axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/Login`, {
-            username,
-            password,
-        });
-        if (response.code === 200 && response.data.token) {
-            // Save JWT token to local storage or session storage
-            localStorage.setItem("token", response.data.token);
-            return response;
-        }
-        console.error("Login failed");
-    } catch (error) {
-        console.error("Login error:", error);
-        throw error;
-    }
-};
+export const Login = (username, password) => {
+    return axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/Login`, { username, password });
+}
 
 export const RegisterAPI = (user) => {
     return axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/Register`,user);
@@ -24,4 +9,12 @@ export const RegisterAPI = (user) => {
 
 export const GetUserById = (id) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `User/${id}`);
+}
+
+export const LoginWithGoogle = (accessToken) => {
+    return axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/LoginWithGoogle?accessToken=${accessToken}`);
+}
+
+export const LoginWithFacebook = (accessToken) => {
+    return axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/LoginWithFacebook?accessToken=${accessToken}`);
 }

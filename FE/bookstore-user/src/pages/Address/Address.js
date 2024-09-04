@@ -3,7 +3,8 @@ import Waiting from '../Waiting/Waiting'
 import { Avatar, Button, Card, Col, Form, Input, List, Modal, Row } from 'antd'
 import Menu from '../../components/Menu/Menu'
 import './Address.css'
-import { CreateAddress, GetAddressByUser } from '../../axios/AccountAPI'
+import { CreateAddress, GetAddressByUser, DeleteAddress } from '../../axios/AccountAPI'
+import { toast } from 'react-toastify';
 
 function Address() {
     const [wait, setWait] = useState(false)
@@ -22,6 +23,17 @@ function Address() {
         setWait(false)
     }
 
+    const onDeleteAddress = async (id) => {
+        try {
+          await DeleteAddress(id);
+          setAddresses(addresses.filter((address) => address.id !== id));
+          setWait(false);
+          toast.success("Đã xóa địa chỉ thành công");
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     const handleOk = async () => {
         setWait(true)
         var a = form.getFieldValue()
@@ -38,9 +50,8 @@ function Address() {
 
         if (res?.code == 200) {
             setIsModalOpen(false);
-            setTimeout(() => {
-                window.location.reload()
-            }, 500);
+            fecthData();
+            toast.success("Đã thêm địa chỉ thành công");
         }
         setWait(false)
     };
@@ -97,6 +108,7 @@ function Address() {
                                                 title={<a >{item?.name + " - " + item?.phone}</a>}
                                                 description={item?.street + " / " + item?.state + " / " + item?.city}
                                             />
+                                            <Button color="danger" onClick={() => onDeleteAddress(item.id)}>Xoá </Button>
                                         </List.Item>
                                     )}
                                 />

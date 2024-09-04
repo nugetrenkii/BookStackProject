@@ -43,6 +43,7 @@ import { GetPublishers } from "../../axios/PublisherAPI";
 import { CreateOrder } from "../../axios/OrderAPI";
 import { UploadImageAPI } from "../../axios/ImageAPI";
 import Loading from "../../components/loading/Loading";
+import { toast } from "react-toastify";
 
 const { Title } = Typography;
 
@@ -236,9 +237,10 @@ function Book() {
         console.log(res)
         if (res?.code == 200) {
             openNotificationWithIcon('success')
+            toast.success("Xóa thành công")
             setTimeout(() => {
                 window.location.reload()
-            }, 2000);
+            }, 1000);
         }
     }
     const showModal = () => {
@@ -265,6 +267,7 @@ function Book() {
         if (res?.code == 200) {
             setIsModalOpen(false);
             openNotificationWithIcon('success')
+            toast.success("Thêm thành công")
             setTimeout(() => {
                 window.location.reload()
             }, 1000);

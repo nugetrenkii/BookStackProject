@@ -11,15 +11,10 @@ export const Login = async (username, password) => {
       password,
     });
 
+    console.log(response);
     // Check if the response is null or undefined
     if (!response) {
       toast.error("Login failed");
-      return null;
-    }
-
-    // Check if the response status code is not 200
-    if (response.status !== 200) {
-      toast.error(response.data?.message || "Login failed");
       return null;
     }
 
@@ -31,7 +26,6 @@ export const Login = async (username, password) => {
 
     // Save JWT token to local storage or session storage
     localStorage.setItem("token", response.data.token);
-    toast.success("Login successful");
     return response;
   } catch (error) {
     // Handle any errors that occur during the request

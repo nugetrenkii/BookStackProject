@@ -27,6 +27,7 @@ namespace BookStack.Persistence.Repositories.RatingRepository
 
         public List<Rating> GetRatingByBook(int bookId, int? page = 1)
         {
+            if (_dataContext.Ratings.Any()) return Enumerable.Empty<Rating>().ToList();
             var query = _dataContext.Ratings.Include(r => r.User).Where(r=>r.Book.Id == bookId).AsQueryable();
 
             return query.Skip((page.Value - 1) * 10000).Take(10).ToList();
@@ -48,6 +49,7 @@ namespace BookStack.Persistence.Repositories.RatingRepository
 
         public List<Rating> GetRatings(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
         {
+            if(_dataContext.Ratings.Any()) return Enumerable.Empty<Rating>().ToList(); 
             var query = _dataContext.Ratings.Include(r => r.User).Include(r => r.Book).AsQueryable();
 
             if (!string.IsNullOrEmpty(key))

@@ -70,7 +70,7 @@ function Navbar() {
                             flexDirection: "column"
                         }}>
                             <span style={{ marginLeft: "15px", fontWeight: "600" }}>{res?.data?.firstName + " " + res?.data?.lastName}</span>
-                            <span style={{ marginLeft: "15px", color: "rgba(0,0,0,0.5)" }}>Thành viên BookStore</span>
+                            <span style={{ marginLeft: "15px", color: "rgba(0,0,0,0.5)" }}>Thành viên BookStack</span>
                         </div>
                     </div>
 
@@ -141,7 +141,7 @@ function Navbar() {
                 <Popover placement="bottomRight" content={content} className='hungtd34'>
                     {/* <Button>BR</Button> */}
                     <div style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <UserOutlined className='navbar-icon' onClick={() => navigate("/account")} />
+                        <UserOutlined className='navbar-icon' />
                         <span style={{ fontSize: "12px" }}>Tài khoản</span>
                     </div>
                 </Popover>

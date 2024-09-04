@@ -1,7 +1,7 @@
 using System.Text;
+using BookStack.DTOs;
 using BookStack.Extensions;
 using BookStack.Persistence;
-using BookStack.Profiles;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

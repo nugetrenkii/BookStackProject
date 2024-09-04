@@ -66,8 +66,7 @@ function Home() {
 
         var res = await GetBooksRecomend(3)
         if (res?.code == 200) {
-            var response = await GetBookByIds(res?.data)
-            if(response?.code == 200) setBookRecomend(response?.data)
+            setBookRecomend(res?.data);
         }
 
         var res = await GetTags(1, 10000, "", "ID")

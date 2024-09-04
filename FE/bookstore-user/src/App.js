@@ -16,6 +16,8 @@ import History from './pages/History/History';
 import HistoryDetail from './pages/History/HistoryDetail';
 import Rating from './pages/Rating/Rating';
 import Payment from './pages/Payment/Payment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
 
 function Layout() {
   return (
@@ -39,6 +41,18 @@ function Layout() {
         </div>
       </div>
       <Footer />
+      <ToastContainer 
+                    position="top-right" // Customize position
+                    autoClose={5000} // Auto close delay in milliseconds
+                    hideProgressBar={false} // Show progress bar
+                    newestOnTop={false} // Newest toast on top
+                    closeOnClick // Close on click
+                    rtl={false} // Right-to-left layout support
+                    pauseOnFocusLoss // Pause toast when window loses focus
+                    draggable // Allow to drag and close
+                    pauseOnHover // Pause on hover
+                    theme="colored" // You can set theme as light, dark or colored
+                    />
     </div>
   );
 }

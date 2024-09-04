@@ -8,6 +8,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;

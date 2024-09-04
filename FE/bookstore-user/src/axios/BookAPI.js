@@ -13,7 +13,7 @@ export const GetBookById = (id) => {
 }
 
 export const GetBooksRecomend = (id) => {
-    return axiosHandle.get(`http://127.0.0.1:5000/recommend/${id}`);
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `Book/Recommendations`);
 }
 
 export const GetBookByIds = (ids) => {

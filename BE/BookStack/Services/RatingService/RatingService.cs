@@ -80,8 +80,8 @@ namespace BookStack.Services.RatingService
             return new ResponseDTO()
             {
                 Data = new { 
-                    Ratings = _mapper.Map<List<RatingDTO>>(ratings),
-                    Average = average
+                    Ratings = ratings.Count > 0 ? _mapper.Map<List<RatingDTO>>(ratings) : new List<RatingDTO>(),
+                    Average = ratings.Count > 0 ? average : 0
                 },
                 Total = _ratingRepository.GetRatingCount()
             };

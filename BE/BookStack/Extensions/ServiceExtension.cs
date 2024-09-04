@@ -3,7 +3,10 @@ using BookStack.Services.AddressService;
 using BookStack.Services.AuthorService;
 using BookStack.Services.AuthService;
 using BookStack.Services.BookService;
+using BookStack.Services.CacheService;
 using BookStack.Services.CartService;
+using BookStack.Services.FileStorageService;
+using BookStack.Services.MailService;
 using BookStack.Services.OrderService;
 using BookStack.Services.PublisherService;
 using BookStack.Services.RatingService;
@@ -20,6 +23,8 @@ public static class ServiceExtension
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMemoryCache(); 
+        services.AddSingleton<ICacheService, InMemoryCacheService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IAuthorService, AuthorService>();
         services.AddScoped<IAuthService, AuthService>();
@@ -34,5 +39,7 @@ public static class ServiceExtension
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IVNPayService, VNPayService>();
+        services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<IMailService, MailService>();
     }
 }

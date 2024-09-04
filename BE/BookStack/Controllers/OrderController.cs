@@ -10,6 +10,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;

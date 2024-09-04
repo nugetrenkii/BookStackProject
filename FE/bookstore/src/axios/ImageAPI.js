@@ -15,5 +15,4 @@ export const UploadImageAPI = async(file) => {
     })
 
     return data
-
 }

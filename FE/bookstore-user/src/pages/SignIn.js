@@ -87,6 +87,7 @@ function SignIn() {
                 <div className='register'>
                     <button className='btn-register' onClick={() => navigate('/register')}>Đăng ký tài khoản mới</button>
                 </div>
+                
             </div>
         </div>
     )

@@ -1,4 +1,5 @@
 ﻿using BookStack.Services.VNPayService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class VnPayController : ControllerBase
     {
         private readonly IVNPayService _vnPayService;

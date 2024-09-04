@@ -4,6 +4,7 @@ using BookStack.DTOs.User;
 using BookStack.Entities;
 using BookStack.Persistence.Repositories.CartRepository;
 using BookStack.Persistence.Repositories.UserRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.UserService
 {
@@ -32,6 +33,9 @@ namespace BookStack.Services.UserService
             }
             user = _mapper.Map<User>(createUserDTO);
             user.RoleId = 2;
+            PasswordHelper.CreatePasswordHash(createUserDTO.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
             _userRepository.CreateUser(user);
 
 

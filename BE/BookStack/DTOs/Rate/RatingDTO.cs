@@ -10,7 +10,7 @@ namespace BookStack.DTOs.Rate
         public string Comment { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime Create { get; set; }
-        public virtual UserDTO User { get; set; }
-        public virtual BookDTO Book { get; set; }
+        public UserDTO User { get; set; } = new();
+        public BookDTO Book { get; set; } = new();
     }
 }

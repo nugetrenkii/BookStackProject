@@ -8,6 +8,7 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -31,6 +32,13 @@ namespace BookStack.Controllers
         public IActionResult GetBooks(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID", int? tagId = 0)
         {
             var res = _bookService.GetBooks(page, pageSize, key, sortBy, tagId);
+            return StatusCode(res.Code, res);
+        }
+
+        [HttpGet("Recommendations")]
+        public IActionResult GetBookRecommendations()
+        {
+            var res = _bookService.GetBookRecommendations();
             return StatusCode(res.Code, res);
         }
         [HttpPut("{id}")]

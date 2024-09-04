@@ -381,35 +381,6 @@ namespace BookStack.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "OrderSnapshots",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderPayMode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderDescription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    OrderIsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Create = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Update = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderUserId = table.Column<int>(type: "int", nullable: false),
-                    OrderShippingModeId = table.Column<int>(type: "int", nullable: false),
-                    OrderAddressId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    OrderBooks = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderSnapshots", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderSnapshots_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
@@ -476,11 +447,6 @@ namespace BookStack.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderSnapshots_OrderId",
-                table: "OrderSnapshots",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ratings_BookId",
                 table: "Ratings",
                 column: "BookId");
@@ -512,9 +478,6 @@ namespace BookStack.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderBooks");
-
-            migrationBuilder.DropTable(
-                name: "OrderSnapshots");
 
             migrationBuilder.DropTable(
                 name: "Ratings");
