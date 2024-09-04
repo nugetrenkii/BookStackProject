@@ -27,7 +27,7 @@ namespace BookStack.Services.AuthService
         {
             var user = _userRepository.GetUserByUsername(username);
 
-            if (user != null && PasswordHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (user != null && PasswordHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt) && user.IsDeleted == false)
             {
                 var token = _tokenService.GenerateToken(user);
                 var data = _mapper.Map<UserDTO>(user);

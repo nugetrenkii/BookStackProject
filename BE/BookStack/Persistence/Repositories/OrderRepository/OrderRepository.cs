@@ -56,7 +56,7 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             return _dataContext.Orders.Count();
         }
 
-        public List<Order> GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        public List<Order> GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID", string? status = "")
         {
             if (!_dataContext.Orders.Any()) return Enumerable.Empty<Order>().ToList();
             var query = _dataContext.Orders.Include(o => o.User).Include(o => o.ShippingMode).Include(o => o.Address).Include(o => o.OrderBooks).ThenInclude(s => s.Book).AsQueryable();
@@ -64,6 +64,11 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             if (!string.IsNullOrEmpty(key))
             {
                 query = query.Where(au => au.Description.ToLower().Contains(key.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(au => au.Status == status);
             }
 
             switch (sortBy)

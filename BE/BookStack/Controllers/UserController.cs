@@ -50,6 +50,7 @@ namespace BookStack.Controllers
             return StatusCode(res.Code, res);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult CreateUser(CreateUserDTO createUserDTO)
         {
             var res = _userService.CreateUser(createUserDTO);

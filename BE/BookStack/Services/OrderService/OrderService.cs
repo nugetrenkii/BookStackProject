@@ -90,10 +90,14 @@ namespace BookStack.Services.OrderService
 
             _orderRepository.CreateOrder(order);
             if (_orderRepository.IsSaveChanges())
+            {
+                //after create need clear cart
+                _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
                 return new ResponseDTO()
                 {
                     Message = "Tạo thành công"
                 };
+            }
             else return new ResponseDTO()
             {
                 Code = 400,
@@ -152,21 +156,24 @@ namespace BookStack.Services.OrderService
                     Message = "Order không tồn tại"
                 };
 
-            OrderDTO orderDTO = new OrderDTO();
+            OrderDTO orderDTO = _mapper.Map<OrderDTO>(order);
             List<OrderBookDTO> tmp = _mapper.Map<List<OrderBookDTO>>(order.OrderBooks);
             orderDTO.OrderBooks = tmp;
+            orderDTO.TotalPrice = tmp.Sum(b => b.Book.Price * b.Quantity);
             return new ResponseDTO
             {
-                Data = _mapper.Map<OrderDTO>(order)//orderDTO
+                Data = orderDTO
             };
         }
 
-        public ResponseDTO GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        public ResponseDTO GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID", string? status = "")
         {
-            var orders = _orderRepository.GetOrders(page, pageSize, key, sortBy);
+            var orders = _orderRepository.GetOrders(page, pageSize, key, sortBy, status);
+            var tmp = _mapper.Map<List<OrderDTO>>(orders);
+            tmp.ForEach(c => c.TotalPrice = c.OrderBooks.Sum(b => b.Book.Price * b.Quantity));
             return new ResponseDTO()
             {
-                Data = _mapper.Map<List<OrderDTO>>(orders),
+                Data = tmp,
                 Total = _orderRepository.GetOrderCount()
             };
         }

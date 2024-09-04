@@ -40,7 +40,7 @@ function Rating() {
         var rating = {
             rate: rate,
             comment: comment,
-            userId: sessionStorage.getItem("userId"),
+            userId: localStorage.getItem("userId"),
             bookId: param?.id
         }
 

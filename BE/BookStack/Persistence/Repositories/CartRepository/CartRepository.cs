@@ -35,6 +35,12 @@ namespace BookStack.Persistence.Repositories.CartRepository
             throw new NotImplementedException();
         }
 
+        public void ClearCartBook(List<int> ids)
+        {
+            _dataContext.CartBooks.Where(c => ids.Contains(c.BookId))
+                .ExecuteDelete();
+        }
+
         public bool IsSaveChanges()
         {
             return _dataContext.SaveChanges() > 0;

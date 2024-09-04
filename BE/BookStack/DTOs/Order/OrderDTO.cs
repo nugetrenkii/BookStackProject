@@ -13,6 +13,7 @@ namespace BookStack.DTOs.Order
         public string Status { get; set; }
         public string PayMode { get; set; }
         public string Description { get; set; }
+        public double TotalPrice { get; set; }
         public bool IsDeleted { get; set; }
         public virtual UserDTO User { get; set; }
         public virtual ShippingModeDTO ShippingMode { get; set; }

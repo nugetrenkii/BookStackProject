@@ -70,6 +70,11 @@ const columns = [
         dataIndex: "status",
     },
     {
+        title: "TOTAL",
+        key: "total",
+        dataIndex: "total",
+    },
+    {
         title: "DESCRIPTION",
         key: "description",
         dataIndex: "description",
@@ -103,6 +108,7 @@ function Order() {
     const [page, setPage] = useState(1)
     const [key, setKey] = useState("")
     const [total, setTotal] = useState(0)
+    const [statusFilter, setStatusFilter] = useState("");
     const [loading, setLoading] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [form] = Form.useForm()
@@ -118,12 +124,12 @@ function Order() {
 
     useEffect(() => {
         console.log("fetch");
-        fetchData(page, key);
-    }, [page])
+        fetchData(page, key, statusFilter)
+    }, [page, key, statusFilter])
 
-    const fetchData = async (page, key) => {
+    const fetchData = async (page, key, status) => {
         setLoading(true)
-        var res = await GetOrders(page, 10, key, "ID")
+        var res = await GetOrders(page, 10, key, "ID", status);
         console.log(res)
         var data = []
         res.data.map((item, index) => (
@@ -161,10 +167,17 @@ function Order() {
                                 </Button>
                         } */}
                         <Button type="primary" className={`tag-status ${item?.status?.toLowerCase()}`}>
-                            {item?.status == "DON" ? "DONE" :
-                                item?.status == "INP" ? "IN PROGRESS" :
-                                    item?.status == "CAN" ? "CANCEL" : "NEW"}
+                            {item?.status == "DON" ? "Hoàn thành" :
+                                item?.status == "INP" ? "Đang giao hàng" :
+                                    item?.status == "CAN" ? "Hủy" : "Mới"}
                         </Button>
+                    </>
+                ),
+                total: (
+                    <>
+                        <div className="ant-employed">
+                            <span>{item?.totalPrice}</span>
+                        </div>
                     </>
                 ),
                 user: (
@@ -274,7 +287,7 @@ function Order() {
         setIsModalOpen(true);
     };
     const handleSearch = () => {
-        fetchData(page, key)
+        fetchData(page, key, statusFilter)
     }
     return (
         <>
@@ -289,6 +302,14 @@ function Order() {
                             extra={
                                 <>
                                     <Space>
+                                       <Select value={statusFilter}
+                                        onChange={value => setStatusFilter(value)} style={{ width: 120 }}>
+                                            <Select.Option value="">All</Select.Option>
+                                            <Select.Option value="DON">Hoàn thành</Select.Option>
+                                            <Select.Option value="INP">Đã xác nhận và giao hàng</Select.Option>
+                                            <Select.Option value="CAN">Hủy</Select.Option>
+                                            <Select.Option value="NEW">Mới</Select.Option>
+                                        </Select>
                                         <Input onChange={e => setKey(e.target.value)} />
                                         <Button type="primary" onClick={handleSearch}>
                                             {/* <SearchOutlined /> */}

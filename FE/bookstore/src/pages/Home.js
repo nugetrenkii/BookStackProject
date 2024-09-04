@@ -462,12 +462,12 @@ function Home() {
 
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
+            <Card bordered={false} className="criclebox h-full" onClick={() => window.location.href = "/user"}>
               <Echart users={data?.user} />
             </Card>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
+            <Card bordered={false} className="criclebox h-full" onClick={() => window.location.href = "/order"}>
               <LineChart orders={data?.order} revenues={data?.revenue} />
             </Card>
           </Col>

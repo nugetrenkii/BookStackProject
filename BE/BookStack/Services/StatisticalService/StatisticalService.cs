@@ -84,7 +84,7 @@ namespace BookStack.Services.StatisticalService
                     {
                         totalMonth += (order.OrderBooks[i].Book.Price * order.OrderBooks[i].Quantity);
                     }
-                    arrOrder[order.Create.Month - 1] = totalMonth;
+                    arrOrder[order.Create.Month - 1] += totalMonth;
                     countOrder++;
                 }
             }

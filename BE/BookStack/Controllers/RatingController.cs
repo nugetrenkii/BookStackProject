@@ -48,7 +48,7 @@ namespace BookStack.Controllers
             return StatusCode(res.Code, res);
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public IActionResult CreateRating(CreateRatingDTO createRatingDTO)
         {
             var res = _ratingService.CreateRating(createRatingDTO);

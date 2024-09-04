@@ -241,9 +241,9 @@ function Cart() {
         for (var i = 0; i < cart?.length; i++) {
             if (checkes[i] == true){
             order.books.push(cart[i]?.book)
-            order.quantities.push(cart[i]?.quantity)}
+            order.quantities.push({ count: cart[i]?.quantity })}
         }
-
+    
         if (order.books.length > 0) {
             sessionStorage.setItem('order', JSON.stringify(order))
             navigate('/order')
@@ -422,7 +422,7 @@ function Cart() {
                                             alignItems: "center"
                                         }}>
                                             <div>
-                                                Tổng số tiền (VAT)
+                                                Tổng số tiền (giá mỗi sản phẩm đã bao gồm VAT)
                                             </div>
                                             <div
                                                 style={{

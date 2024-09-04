@@ -10,7 +10,6 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -25,9 +24,9 @@ namespace BookStack.Controllers
             return StatusCode(res.Code, res);
         }
         [HttpGet]
-        public IActionResult GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        public IActionResult GetOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID", string? status = "")
         {
-            var res = _orderService.GetOrders(page, pageSize, key, sortBy);
+            var res = _orderService.GetOrders(page, pageSize, key, sortBy, status);
             return StatusCode(res.Code, res);
         }
         [HttpGet("History")]

@@ -8,7 +8,6 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class AddressController : ControllerBase
     {
         private readonly IAddressService _addressService;

@@ -1,6 +1,6 @@
 import axiosHandle from "./AxiosHandle";
-export const GetOrders = (page, pageSize, key, sortBy) => {
-    return axiosHandle.get(process.env.REACT_APP_URL_API + `Order?page=${page}&pageSize=${pageSize}&key=${key}&sortBy=${sortBy}`);
+export const GetOrders = (page, pageSize, key, sortBy, status) => {
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `Order?page=${page}&pageSize=${pageSize}&key=${key}&sortBy=${sortBy}&status=${status}`);
 }
 
 export const GetOrderById = (id) => {

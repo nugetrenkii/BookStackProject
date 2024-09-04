@@ -151,6 +151,7 @@ function OrderDetail() {
             user: res?.data?.user?.lastName + " " + res?.data?.user?.firstName,
             address: res?.data?.address?.phone + ", " + res?.data?.address?.street + ", " + res?.data?.address?.state + ", " + res?.data?.address?.city,
             status: res?.data?.status,
+            total: res?.data?.totalPrice,
             shippingMode: res?.data?.shippingMode?.id,
 
         })
@@ -213,15 +214,6 @@ function OrderDetail() {
                             layout="vertical"
                             onFinish={onFinish}
                         >
-                            <Form.Item name="description" label="Description"
-                                rules={[
-                                    {
-                                        type: 'string',
-                                    },
-                                ]}
-                            >
-                                <TextArea />
-                            </Form.Item>
 
                             <Form.Item name="user" label="User"
                                 rules={[
@@ -236,9 +228,37 @@ function OrderDetail() {
                                 <Input disabled />
                             </Form.Item>
 
-                            <Form.Item name="address" label="Address"
+                            <Form.Item name="address" label="Address" 
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                    {
+                                        type: 'string',
+                                    },
+                                ]}
                             >
                                 <Input disabled />
+                            </Form.Item>
+
+                            <Form.Item name="total" label="Total"
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                ]}
+                            >
+                                <Input disabled />
+                            </Form.Item>
+
+                            <Form.Item name="description" label="Description"
+                                rules={[
+                                    {
+                                        type: 'string',
+                                    },
+                                ]}
+                            >
+                                <TextArea />
                             </Form.Item>
 
                             <Row gutter={[24, 0]} >
@@ -251,10 +271,10 @@ function OrderDetail() {
                                         ]}
                                     >
                                         <Select defaultValue={form.status}>
-                                            <Select.Option value="NEW">NEW</Select.Option>
-                                            <Select.Option value="INP">INPROGRESS</Select.Option>
-                                            <Select.Option value="DON">DONE</Select.Option>
-                                            <Select.Option value="CAN">CANCEL</Select.Option>
+                                            <Select.Option value="NEW">Mới</Select.Option>
+                                            <Select.Option value="INP">Xác nhận và Giao hàng</Select.Option>
+                                            <Select.Option value="DON">Hoàn thành</Select.Option>
+                                            <Select.Option value="CAN">Hủy</Select.Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>

@@ -11,7 +11,7 @@ import { ClockCircleOutlined, WarningOutlined } from '@ant-design/icons'
 function Order() {
     const [wait, setWait] = useState(false)
     const [total, setTotal] = useState(0)
-    const [payment, setPayment] = useState(0)
+    const [payment, setPayment] = useState(1)
     const [books, setBook] = useState([])
     const [quantities, setQuantities] = useState([])
     const [addresses, setAddresses] = useState([])
@@ -42,6 +42,7 @@ function Order() {
         var res = await GetAddressByUser(localStorage.getItem('userId'))
         if (res?.code == 200) {
             setAddresses(res?.data);
+            setAddress(res?.data[0].id);
         }
 
         var res = await GetShippingModes()
@@ -69,11 +70,12 @@ function Order() {
                     userId: localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId')) : 2,
                     shippingModeId: shippingMode,
                     addressId: res?.data?.id,
+                    payMode: payment == 1 ? "CASH" : "VNPAY", // Update this line
                     quantitieCounts: [
-
+                
                     ],
                     bookIds: [
-
+                
                     ]
                 }
                 for (var i = 0; i < books?.length; i++) {
@@ -96,6 +98,7 @@ function Order() {
                 userId: parseInt(localStorage.getItem('userId')),
                 shippingModeId: shippingMode,
                 addressId: address,
+                payMode: payment == 1 ? "CASH" : "VNPAY",
                 quantitieCounts: [
 
                 ],
@@ -149,11 +152,11 @@ function Order() {
                                             <a style={{
                                                 marginBottom: "10px"
                                             }} onClick={() => navigate('/account/address')}>+ Thêm địa chỉ</a>
-                                            <Radio.Group onChange={(e) => setAddress(e.target.value)}>
+                                            <Radio.Group onChange={(e) => setAddress(e.target.value)} defaultValue={1}>
                                                 <Space direction="vertical">
                                                     {
                                                         addresses?.map((item, index) => (
-                                                            <Radio value={item?.id}>{item?.name + " - " + item?.phone + ", " + item?.street + ", " + item?.state + ", " + item?.city}</Radio>
+                                                            <Radio checked value={item?.id}>{item?.name + " - " + item?.phone + ", " + item?.street + ", " + item?.state + ", " + item?.city}</Radio>
                                                         ))
                                                     }
                                                 </Space>
@@ -394,7 +397,7 @@ function Order() {
                                     justifyContent: "space-between",
                                     marginBottom: "12px"
                                 }}>
-                                    <div style={{ width: "85%", textAlign: "end", fontSize: "18px", fontWeight: "600", }}>Tổng số tiền (VAT)</div>
+                                    <div style={{ width: "85%", textAlign: "end", fontSize: "18px", fontWeight: "600", }}>Tổng số tiền (đã bao gồm VAT)</div>
                                     <div style={{ width: "10%", textAlign: "end", fontSize: "20px", fontWeight: "600", color: "#C92127", }}>
                                         {Intl.NumberFormat('vi-VN', {
                                             style: 'currency',
