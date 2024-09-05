@@ -44,6 +44,9 @@ namespace BookStack.DTOs
             CreateMap<CreateAddressDTO, Entities.Address>();
             CreateMap<Entities.Address, CreateAddressDTO>();
 
+            CreateMap<SelfCreateAddressDTO, Entities.Address>();
+            CreateMap<Entities.Address, SelfCreateAddressDTO>();
+
             CreateMap<UpdateAddressDTO, Entities.Address>();
             CreateMap<Entities.Address, UpdateAddressDTO>();
 
@@ -70,6 +73,9 @@ namespace BookStack.DTOs
 
             CreateMap<CreateOrderDTO, Entities.Order>();
             CreateMap<Entities.Order, CreateOrderDTO>();
+            
+            CreateMap<SelfCreateOrderDTO, Entities.Order>();
+            CreateMap<Entities.Order, SelfCreateOrderDTO>();
 
             CreateMap<UpdateOrderDTO, Entities.Order>();
             CreateMap<Entities.Order, UpdateOrderDTO>();

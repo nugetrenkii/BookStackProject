@@ -10,6 +10,7 @@ using BookStack.Persistence.Repositories.OrderRepository;
 using BookStack.Persistence.Repositories.QuantityRepository;
 using BookStack.Persistence.Repositories.ShippingModeRepository;
 using BookStack.Persistence.Repositories.UserRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.OrderService
 {
@@ -23,11 +24,11 @@ namespace BookStack.Services.OrderService
         private readonly IQuantityRepository _quantityRepository;
         private readonly IMapper _mapper;
         private readonly ICartRepository _cartRepository;
+        private readonly UserAccessor _userAccessor;
 
         public OrderService(IOrderRepository orderRepository, IMapper mapper, IBookRepository bookRepository,
             IUserRepository userRepository, IShippingModeRepository shippingModeRepository,
-            IAddressRepository addressRepository, IQuantityRepository quantityRepository, ICartRepository cartRepository
-            )
+            IAddressRepository addressRepository, IQuantityRepository quantityRepository, ICartRepository cartRepository, UserAccessor userAccessor)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
@@ -37,6 +38,7 @@ namespace BookStack.Services.OrderService
             _quantityRepository = quantityRepository;
             _addressRepository = addressRepository;
             _cartRepository = cartRepository;
+            _userAccessor = userAccessor;
         }
 
         public ResponseDTO CreateOrder(CreateOrderDTO createOrderDTO)
@@ -47,9 +49,7 @@ namespace BookStack.Services.OrderService
                 Code = 400,
                 Message = "User không tồn tại"
             };
-
-            var cart = _cartRepository.GetCartByUser(user.Id);
-
+            
             var shippingMode = _shippingModeRepository.GetShippingModeById(createOrderDTO.ShippingModeId);
             if (shippingMode == null) return new ResponseDTO()
             {
@@ -98,10 +98,87 @@ namespace BookStack.Services.OrderService
                     Message = "Tạo thành công"
                 };
             }
-            else return new ResponseDTO()
+
+            return new ResponseDTO()
             {
                 Code = 400,
                 Message = "Tạo thất bại"
+            };
+        }
+
+        public ResponseDTO SelfCreateOrder(SelfCreateOrderDTO selfCreateOrderDTO)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null)
+            {
+                var user = _userRepository.GetUserById((int)userId);
+                if (user == null) return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "User không tồn tại"
+                };
+            
+                var shippingMode = _shippingModeRepository.GetShippingModeById(selfCreateOrderDTO.ShippingModeId);
+                if (shippingMode == null) return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "ShippingMode không tồn tại"
+                };
+
+                var address = _addressRepository.GetAddressById(selfCreateOrderDTO.AddressId);
+                if (address == null) return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "Address không tồn tại"
+                };
+
+                if (user.Addresses.IndexOf(address) < 0)
+                {
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "Địa chỉ không hợp lệ"
+                    };
+                }
+
+                var order = _mapper.Map<Order>(selfCreateOrderDTO);
+                order.UserId = (int)userId;
+
+                for (int i = 0; i < selfCreateOrderDTO.BookIds.Count; i++)
+                {
+                    var book = _bookRepository.GetBookById(selfCreateOrderDTO.BookIds[i]);
+                    if (book != null)
+                    {
+                        order.OrderBooks.Add(new OrderBook()
+                        {
+                            BookId = book.Id,
+                            Quantity = selfCreateOrderDTO.QuantitieCounts[i],
+                        });
+                    }
+                }
+
+                _orderRepository.CreateOrder(order);
+                if (_orderRepository.IsSaveChanges())
+                {
+                    //after create need clear cart
+                    _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+                    return new ResponseDTO()
+                    {
+                        Message = "Tạo thành công"
+                    };
+                }
+
+                return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "Tạo thất bại"
+                };
+            }
+
+            return new ResponseDTO
+            {
+                Code = 404,
+                Message = "User không tồn tại"
             };
         }
 
@@ -143,6 +220,17 @@ namespace BookStack.Services.OrderService
             {
                 Code = 200,
                 Data = _mapper.Map<List<OrderDTO>>(orders),
+            };
+        }
+        
+        public ResponseDTO GetSelfOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null) return GetOrderByUser((int)userId, page, pageSize, key, sortBy);
+            return new ResponseDTO()
+            {
+                Code = 400,
+                Message = "User không tồn tại"
             };
         }
 

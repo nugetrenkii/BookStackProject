@@ -1,5 +1,6 @@
 ﻿using BookStack.DTOs.Address;
 using BookStack.Services.AddressService;
+using BookStack.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,12 @@ namespace BookStack.Controllers
             var res = _addressService.CreateAddress(createAddressDTO);
             return StatusCode(res.Code, res);
         }
+        [HttpPost("User/Self")]
+        public IActionResult SelfCreateAddress(SelfCreateAddressDTO selfCreateAddressDTO)
+        {
+            var res = _addressService.SelfCreateAddress(selfCreateAddressDTO);
+            return StatusCode(res.Code, res);
+        }
         [HttpGet("{id}")]
         public IActionResult GetAddressById(int id)
         {
@@ -33,7 +40,15 @@ namespace BookStack.Controllers
             var res = _addressService.GetAddressByUser(id);
             return StatusCode(res.Code, res);
         }
+        
+        [HttpGet("User/Self")]
+        public IActionResult GetSelfAddresses()
+        {
+            var res = _addressService.GetSelfAddresses();
+            return StatusCode(res.Code, res);
+        }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult GetAddresses(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
         {
             var res = _addressService.GetAddresses(page, pageSize, key, sortBy);

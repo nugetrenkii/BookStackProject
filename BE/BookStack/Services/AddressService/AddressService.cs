@@ -4,6 +4,7 @@ using BookStack.DTOs.Response;
 using BookStack.Entities;
 using BookStack.Persistence.Repositories.AddressRepository;
 using BookStack.Persistence.Repositories.UserRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.AddressService
 {
@@ -12,11 +13,13 @@ namespace BookStack.Services.AddressService
         private readonly IAddressRepository _addressRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public AddressService(IAddressRepository addressRepository, IUserRepository userRepository, IMapper mapper)
+        private readonly UserAccessor _userAccessor;
+        public AddressService(IAddressRepository addressRepository, IUserRepository userRepository, IMapper mapper, UserAccessor userAccessor)
         {
             _addressRepository = addressRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _userAccessor = userAccessor;
         }
         public ResponseDTO CreateAddress(CreateAddressDTO createAddressDTO)
         {
@@ -40,6 +43,35 @@ namespace BookStack.Services.AddressService
                     Code = 400,
                     Message = "Tạo thất bại"
                 };
+        }
+        
+        //self created
+        public ResponseDTO SelfCreateAddress(SelfCreateAddressDTO selfCreateAddressDTO)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null)
+            {
+                var address = _mapper.Map<Address>(selfCreateAddressDTO);
+                address.UserId = (int)userId;
+                _addressRepository.CreateAddress(address);
+                if (_addressRepository.IsSaveChanges())
+                    return new ResponseDTO()
+                    {
+                        Message = "Tạo mới",
+                        Data = _mapper.Map<AddressDTO>(_addressRepository.GetAddressById())
+                    };
+                return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "Tạo thát bị"
+                };
+            }
+
+            return new ResponseDTO()
+            {
+                Code = 404,
+                Message = "User không tồn tại"
+            };
         }
 
         public ResponseDTO DeleteAddress(int id)
@@ -92,6 +124,17 @@ namespace BookStack.Services.AddressService
             return new ResponseDTO()
             {
                 Data = _mapper.Map<List<AddressDTO>>(addresses)
+            };
+        }
+        
+        public ResponseDTO GetSelfAddresses()
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null) return GetAddressByUser((int)userId);
+            return new ResponseDTO()
+            {
+                Code = 400,
+                Message = "User không tồn tại"
             };
         }
 

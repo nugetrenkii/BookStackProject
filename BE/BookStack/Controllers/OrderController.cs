@@ -35,6 +35,12 @@ namespace BookStack.Controllers
             var res = _orderService.GetOrderByUser(userId, page, pageSize, key, sortBy);
             return StatusCode(res.Code, res);
         }
+        [HttpGet("Self")]
+        public IActionResult GetSelfHistoryOrders(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        {
+            var res = _orderService.GetSelfOrders(page, pageSize, key, sortBy);
+            return StatusCode(res.Code, res);
+        }
         [HttpPut("{id}")]
         public IActionResult UpdateOrder(int id, UpdateOrderDTO updateOrderDTO)
         {
@@ -52,6 +58,13 @@ namespace BookStack.Controllers
         public IActionResult CreateOrder(CreateOrderDTO createOrderDTO)
         {
             var res = _orderService.CreateOrder(createOrderDTO);
+            return StatusCode(res.Code, res);
+        }
+
+        [HttpPost("Self")]
+        public IActionResult SelfCreateOrder(SelfCreateOrderDTO selfCreateOrderDTO)
+        {
+            var res = _orderService.SelfCreateOrder(selfCreateOrderDTO);
             return StatusCode(res.Code, res);
         }
     }

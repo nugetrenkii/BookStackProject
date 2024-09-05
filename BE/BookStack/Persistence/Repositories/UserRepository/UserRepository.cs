@@ -30,6 +30,11 @@ namespace BookStack.Persistence.Repositories.UserRepository
             return _dataContext.Users.Include(r => r.Role).FirstOrDefault(u => u.Username == username);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return _dataContext.Users.Include(r => r.Role).FirstOrDefault(u => u.Email == email);
+        }
+
         public int GetUserCount()
         {
             return _dataContext.Users.Count();

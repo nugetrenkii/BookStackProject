@@ -6,8 +6,8 @@ namespace BookStack.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Status { get; set; } = "NEW";
-        public string PayMode { get; set; } = "CASH";
+        public string Status { get; set; } = "NEW"; 
+        public string PayMode { get; set; } = "CASH"; 
         [StringLength(255)]
         public string Description { get; set; } = "";
         public bool IsDeleted { get; set; } = false;

@@ -11,6 +11,8 @@ namespace BookStack.Persistence.Repositories.BookRepository
         void DeleteBook(Book book);
         void CreateBook(Book book);
         int GetBookCount();
+        List<Book> GetTopRatedBooks(int topCount = 10);
+        List<Book> GetTopOrderedBooks(int topCount = 10);
         bool IsSaveChanges();
     }
 }

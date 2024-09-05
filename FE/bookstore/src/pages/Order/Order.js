@@ -167,9 +167,22 @@ function Order() {
                                 </Button>
                         } */}
                         <Button type="primary" className={`tag-status ${item?.status?.toLowerCase()}`}>
-                            {item?.status == "DON" ? "Hoàn thành" :
-                                item?.status == "INP" ? "Đang giao hàng" :
-                                    item?.status == "CAN" ? "Hủy" : "Mới"}
+                        {(() => {
+                            switch (item?.status) {
+                            case "DON":
+                                return "Hoàn thành";
+                            case "COM":
+                                return "Đã xác nhận";
+                            case "SHI":
+                                return "Đang giao";
+                            case "CAN":
+                                return "Hủy";
+                            case "NEW":
+                                return "Mới";
+                            default:
+                                return "Mới"; // or any other default value
+                            }
+                        })()}
                         </Button>
                     </>
                 ),
@@ -306,7 +319,8 @@ function Order() {
                                         onChange={value => setStatusFilter(value)} style={{ width: 120 }}>
                                             <Select.Option value="">All</Select.Option>
                                             <Select.Option value="DON">Hoàn thành</Select.Option>
-                                            <Select.Option value="INP">Đã xác nhận và giao hàng</Select.Option>
+                                            <Select.Option value="COM">Đã xác nhận</Select.Option>
+                                            <Select.Option value="SHI">Đang giao</Select.Option>
                                             <Select.Option value="CAN">Hủy</Select.Option>
                                             <Select.Option value="NEW">Mới</Select.Option>
                                         </Select>

@@ -20,9 +20,9 @@ namespace BookStack.Entities
         [StringLength(32)]
         public string Username { get; set; }
         [Required]
-        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; } = new byte[32];
         [Required]
-        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; } = new byte[32];
         public bool IsDeleted { get; set; }
         public DateTime Create { get; set; } = DateTime.Now;
         public DateTime Update { get; set; } = DateTime.Now;

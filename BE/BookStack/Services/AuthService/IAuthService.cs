@@ -7,5 +7,7 @@ namespace BookStack.Services.AuthService
     {
         ResponseDTO Login(string username, string password);
         ResponseDTO Register(RegisterUserDTO registerUserDTO);
+        Task<ResponseDTO> LoginWithGoogle(string code);
+        Task<ResponseDTO> LoginWithFacebook(string code);
     }
 }

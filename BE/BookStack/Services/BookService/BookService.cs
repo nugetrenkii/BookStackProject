@@ -146,6 +146,28 @@ namespace BookStack.Services.BookService
             };
         }
         
+        public ResponseDTO GetTopRatedBooks(int topCount = 10)
+        {
+            var books = _bookRepository.GetTopRatedBooks(topCount);
+            var data = _mapper.Map<List<BookDTO>>(books);
+            return new ResponseDTO()
+            {
+                Data = data,
+                Total = data.Count
+            };
+        }
+        
+        public ResponseDTO GetTopOrderedBooks(int topCount = 10)
+        {
+            var books = _bookRepository.GetTopOrderedBooks(topCount);
+            var data = _mapper.Map<List<BookDTO>>(books);
+            return new ResponseDTO()
+            {
+                Data = data,
+                Total = data.Count
+            };
+        }
+        
         public ResponseDTO GetCart(List<int> bookIds)
         {
             var books = _bookRepository.GetCart(bookIds);
@@ -193,12 +215,11 @@ namespace BookStack.Services.BookService
                 {
                     Message = "Cập nhật thành công"
                 };
-            else
-                return new ResponseDTO()
-                {
-                    Data = 400,
-                    Message = "Cập nhật thất bại"
-                };
+            return new ResponseDTO()
+            {
+                Data = 400,
+                Message = "Cập nhật thất bại"
+            };
         }
     }
 }

@@ -1,45 +1,63 @@
 .main-history {
     margin-top: 24px;
     margin-bottom: 24px;
-}
-
-.main-history .ant-card-head {
+  }
+  
+  .main-history .ant-card-head {
     min-height: 50px;
-}
-
-.main-history .order-sratus {
+  }
+  
+  .main-history .order-sratus {
     padding: 3px 10px;
     border-radius: 50px;
-}
-
-.inp,
-.inp:hover {
+  }
+  
+  .inp,
+  .inp:hover {
     border-color: #ffd500;
     background: #ffd500;
     color: #000;
-}
-
-.cre,
-.cre:hover {
+  }
+  
+  .cre,
+  .cre:hover {
     border-color: #34a2fd;
     background: #34a2fd;
     color: #000;
-}
-
-.don,
-.don:hover {
+  }
+  
+  .don,
+  .don:hover {
     border-color: #41ca01;
     background: #41ca01;
-}
-
-.can,
-.can:hover {
+  }
+  
+  .can,
+  .can:hover {
     border-color: #ff2727;
     background: #ff3434;
-}
-
-.pay,
-.pay:hover {
+  }
+  
+  .pay,
+  .pay:hover {
     border-color: #ffd60a;
     background: #ffd60a;
-}
+  }
+  
+  .shi,
+  .shi:hover {
+    border-color: #66CCCC;
+    background: #66CCCC;
+  }
+  
+  .com,
+  .com:hover {
+    border-color: #99CC00;
+    background: #99CC00;
+  }
+  
+  .new,
+  .new:hover {
+    border-color: #ADD8E6;
+    background: #ADD8E6;
+  }

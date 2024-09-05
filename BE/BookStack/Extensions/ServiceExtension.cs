@@ -5,7 +5,9 @@ using BookStack.Services.AuthService;
 using BookStack.Services.BookService;
 using BookStack.Services.CacheService;
 using BookStack.Services.CartService;
+using BookStack.Services.FacebookService;
 using BookStack.Services.FileStorageService;
+using BookStack.Services.GoogleService;
 using BookStack.Services.MailService;
 using BookStack.Services.OrderService;
 using BookStack.Services.PublisherService;
@@ -16,6 +18,7 @@ using BookStack.Services.TagService;
 using BookStack.Services.TokenService;
 using BookStack.Services.UserService;
 using BookStack.Services.VNPayService;
+using BookStack.Utilities;
 
 namespace BookStack.Extensions;
 
@@ -41,5 +44,13 @@ public static class ServiceExtension
         services.AddScoped<IVNPayService, VNPayService>();
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IMailService, MailService>();
+        services.AddScoped<IGoogleService, GoogleService>();
+        services.AddScoped<IFacebookService, FacebookService>();
+    }
+    
+    public static void AddUtilities(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHttpContextAccessor();
+        services.AddScoped<UserAccessor>();
     }
 }

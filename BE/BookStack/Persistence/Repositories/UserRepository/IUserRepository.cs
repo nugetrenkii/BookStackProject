@@ -7,6 +7,7 @@ namespace BookStack.Persistence.Repositories.UserRepository
         List<User> GetUsers(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID");
         User GetUserById(int id);
         User GetUserByUsername(string username);
+        User GetUserByEmail(string email);
         void UpdateUser(User user);
         void DeleteUser(User user);
         void CreateUser(User user);

@@ -22,6 +22,13 @@ namespace BookStack.Controllers
             var res = _cartService.GetCartByUser(userId);
             return StatusCode(res.Code, res);
         }
+        [HttpGet("Self")]
+        public IActionResult GetSelfCart()
+        {
+            var res = _cartService.GetSelfCart();
+            return StatusCode(res.Code, res);
+        }
+        //get self cart
         //[HttpPost("{userId}")]
         //public IActionResult CreateCart(int userId, CreateCartDTO createCartDTO)
         //{
@@ -38,6 +45,13 @@ namespace BookStack.Controllers
         public IActionResult AddToCart(int userId, int bookId, int count)
         {
             var res = _cartService.AddToCart(userId, bookId, count);
+            return StatusCode(res.Code, res);
+        }
+
+        [HttpPut("Self")]
+        public IActionResult SelfAddToCart(int bookId, int count)
+        {
+            var res = _cartService.SelfAddToCart(bookId, count);
             return StatusCode(res.Code, res);
         }
     }

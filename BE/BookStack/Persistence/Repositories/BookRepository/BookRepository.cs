@@ -71,7 +71,45 @@ namespace BookStack.Persistence.Repositories.BookRepository
 
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
             else
-                return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+                return query.Where(b => !b.IsDeleted).Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+        }
+
+        public List<Book> GetTopRatedBooks(int topCount = 10)
+        {
+            var topRatedBooks = _dataContext.Books
+                .Include(b => b.Ratings)
+                .Where(b => !b.IsDeleted)
+                .Select(b => new
+                {
+                    Book = b,
+                    AverageRating = b.Ratings.Where(r => !r.IsDeleted).Average(r => (double?)r.Rate) ?? 0
+                })
+                .OrderByDescending(b => b.AverageRating)
+                .Take(topCount)
+                .Select(b => b.Book)
+                .ToList();
+
+            return topRatedBooks;
+        }
+
+        public List<Book> GetTopOrderedBooks(int topCount = 10)
+        {
+            var topOrderedBooks = _dataContext.OrderBooks
+                .Include(ob => ob.Book)
+                .Include(ob => ob.Order)
+                .Where(ob => ob.Order.Status == "DON" && !ob.Order.IsDeleted) // Filter by status "DON" and non-deleted orders
+                .GroupBy(ob => ob.Book) // Group by book
+                .Select(g => new
+                {
+                    Book = g.Key,
+                    TotalQuantity = g.Sum(ob => ob.Quantity) // Sum the quantities ordered
+                })
+                .OrderByDescending(g => g.TotalQuantity) // Order by total quantity in descending order
+                .Take(topCount) // Take the top results
+                .Select(g => g.Book) // Select the book entity
+                .ToList();
+
+            return topOrderedBooks;
         }
 
         public List<Book> GetCart(List<int> bookIds)

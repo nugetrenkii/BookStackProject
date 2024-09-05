@@ -13,11 +13,13 @@ namespace BookStack.Services.UserService
         private readonly IUserRepository _userRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, ICartRepository cartRepository, IMapper mapper)
+        private readonly UserAccessor _userAccessor;
+        public UserService(IUserRepository userRepository, ICartRepository cartRepository, IMapper mapper, UserAccessor userAccessor)
         {
             _userRepository = userRepository;
             _cartRepository = cartRepository;
             _mapper = mapper;
+            _userAccessor = userAccessor;
         }
 
         public ResponseDTO CreateUser(CreateUserDTO createUserDTO)
@@ -150,6 +152,17 @@ namespace BookStack.Services.UserService
             {
                 Code = 400,
                 Message = "Cập nhật thất bại"
+            };
+        }
+
+        public ResponseDTO SelfUpdateUser(UpdateUserDTO updateUserDTO)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if(userId != null) return UpdateUser((int)userId, updateUserDTO);
+            return new ResponseDTO()
+            {
+                Code = 400,
+                Message = "User không tồn tại"
             };
         }
     }

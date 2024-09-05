@@ -271,10 +271,11 @@ function OrderDetail() {
                                         ]}
                                     >
                                         <Select defaultValue={form.status}>
-                                            <Select.Option value="NEW">Mới</Select.Option>
-                                            <Select.Option value="INP">Xác nhận và Giao hàng</Select.Option>
                                             <Select.Option value="DON">Hoàn thành</Select.Option>
+                                            <Select.Option value="COM">Xác nhận</Select.Option>
+                                            <Select.Option value="SHI">Giao Hàng</Select.Option>
                                             <Select.Option value="CAN">Hủy</Select.Option>
+                                            <Select.Option value="NEW">Mới</Select.Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>

@@ -30,6 +30,15 @@ function HistoryDetail() {
         }
         return total
     }
+
+    const statusMap = {
+        can: "Đã hủy",
+        don: "Hoàn thành",
+        shi: "Đang giao hàng",
+        com: "Đã xác nhận đang chờ giao hàng",
+        new: "Chờ xác nhận", // add new status here
+      };
+
     return (
         <>
 
@@ -65,15 +74,9 @@ function HistoryDetail() {
                                         <div className='history-information'>
                                             <div>
                                                 Đơn hàng:
-                                                <span>
-                                                    {
-                                                        history?.status == "DON" ? "Đã hoàn thành" :
-                                                            history?.status == "CAN" ? "Đã bị hủy" :
-                                                                history?.status == "INP" ? "Đang được vận chuyển" :
-                                                                    history?.status == "PAY" ? "Đã thanh toán" :
-                                                                        "Đang chờ xác nhận"
-                                                    }
-                                                </span>
+                                                    <span>
+                                                    {statusMap[history?.status.toLowerCase()]}
+                                                    </span>
                                             </div>
                                             <div>
                                                 Mã đơn hàng:

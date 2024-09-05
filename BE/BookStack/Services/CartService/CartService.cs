@@ -7,6 +7,7 @@ using BookStack.Persistence.Repositories.BookRepository;
 using BookStack.Persistence.Repositories.CartRepository;
 using BookStack.Persistence.Repositories.QuantityRepository;
 using BookStack.Persistence.Repositories.UserRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.CartService
 {
@@ -17,12 +18,14 @@ namespace BookStack.Services.CartService
         private readonly IBookRepository _bookRepository;
         private readonly IQuantityRepository _quantityRepository;
         private readonly IMapper _mapper;
-        public CartService(ICartRepository cartRepository, IMapper mapper, IUserRepository userRepository, IQuantityRepository quantityRepository, IBookRepository bookRepository)
+        private readonly UserAccessor _userAccessor;
+        public CartService(ICartRepository cartRepository, IMapper mapper, IUserRepository userRepository, IQuantityRepository quantityRepository, IBookRepository bookRepository, UserAccessor userAccessor)
         {
             _cartRepository = cartRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _bookRepository = bookRepository;
+            _userAccessor = userAccessor;
             _quantityRepository = quantityRepository;
         }
 
@@ -74,6 +77,17 @@ namespace BookStack.Services.CartService
             };
 
         }
+        
+        public ResponseDTO SelfAddToCart(int bookId, int count)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null) return AddToCart((int)userId, bookId, count);
+            return new ResponseDTO
+            {
+                Code = 400,
+                Message = "User không tồn tại"
+            };
+        }
 
         public ResponseDTO GetCartByUser(int userId)
         {
@@ -92,6 +106,17 @@ namespace BookStack.Services.CartService
             {
                 Code = 400,
                 Message = "Giỏ hàng của user này không tồn tại"
+            };
+        }
+
+        public ResponseDTO GetSelfCart()
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null) return GetCartByUser((int)userId);
+            return new ResponseDTO
+            {
+                Code = 400,
+                Message = "User không tồn tại"
             };
         }
 

@@ -80,6 +80,7 @@ builder.Services.AddAuthentication(options =>
 // Add authorization
 builder.Services.AddAuthorization();
 
+services.AddUtilities(builder.Configuration);
 services.AddRepositories(builder.Configuration);
 services.AddServices(builder.Configuration);
 

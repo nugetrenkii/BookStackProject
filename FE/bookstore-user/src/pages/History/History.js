@@ -29,6 +29,14 @@ function History() {
         return total
     }
 
+    const statusMap = {
+        can: "Đã hủy",
+        don: "Hoàn thành",
+        shi: "Đang giao hàng",
+        com: "Đã xác nhận đang chờ giao hàng",
+        new: "Chờ xác nhận", // add new status here
+      };
+
     return (
         <>
 
@@ -97,12 +105,7 @@ function History() {
                                                             width: "20%"
                                                         }}>
                                                             <span className={`order-sratus ${history?.status?.toLowerCase()}`}>
-                                                                {history?.status == "CAN" ? "Đã hủy" :
-                                                                    history?.status == "DON" ? "Hoàn thành" :
-                                                                        history?.status == "INP" ? "Đang giao hàng" :
-                                                                        history?.status == "PAY" ? "Đã thanh toán" :
-                                                                            "Chờ xác nhận"
-                                                                }
+                                                                {statusMap[history?.status?.toLowerCase()] || "Chờ xác nhận"}
                                                             </span>
                                                         </div>
                                                         <div style={{

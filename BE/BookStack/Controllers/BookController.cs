@@ -41,6 +41,18 @@ namespace BookStack.Controllers
             var res = _bookService.GetBookRecommendations();
             return StatusCode(res.Code, res);
         }
+        [HttpGet("TopRated")]
+        public IActionResult GetTopRatedBooks(int topCount = 10)
+        {
+            var res = _bookService.GetTopRatedBooks(topCount);
+            return StatusCode(res.Code, res);
+        }
+        [HttpGet("TopOrdered")]
+        public IActionResult GetTopOrderedBooks(int topCount = 10)
+        {
+            var res = _bookService.GetTopOrderedBooks(topCount);
+            return StatusCode(res.Code, res);
+        }
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         public IActionResult UpdateBook(int id, UpdateBookDTO updateBookDTO)

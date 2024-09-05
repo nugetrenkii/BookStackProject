@@ -28,5 +28,17 @@ namespace BookStack.Controllers
             var res = _authService.Register(registerUserDTO);
             return StatusCode(res.Code, res);
         }
+        [HttpPost("LoginWithGoogle")]
+        public async Task<ActionResult> LoginWithGoogle([FromQuery] string code)
+        {
+            var res = await _authService.LoginWithGoogle(code);
+            return StatusCode(res.Code, res);
+        }
+        [HttpPost("LoginWithFacebook")]
+        public async Task<ActionResult> LoginWithFacebook([FromQuery] string code)
+        {
+            var res = await _authService.LoginWithFacebook(code);
+            return StatusCode(res.Code, res);
+        }
     }
 }
