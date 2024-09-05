@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { DeleteOutlined } from '@ant-design/icons'
 import { GetBookById } from '../../axios/BookAPI';
 import "./Cart.css"
-import { AddToCart, GetCartByUser } from '../../axios/CartAPI';
+import { AddToCart, GetCartByUser, GetSelfCart, SelfAddToCart } from '../../axios/CartAPI';
 import Waiting from '../Waiting/Waiting.js';
 
 const bookTmps = [
@@ -151,10 +151,8 @@ const bookTmps = [
         ]
     }
 ]
-const quantities = [1, 2, 3, 4]
 function Cart() {
     const [total, setTotal] = useState(0)
-    const [userId, setUserId] = useState(0)
     const [cart, setCart] = useState([])
     const [checkes, setCheck] = useState([])
     const navigate = useNavigate();
@@ -164,16 +162,19 @@ function Cart() {
     useEffect(() => {
         fecthData()
     }, [])
+    
     const fecthData = async () => {
-        setWait(true)
-        var res = await GetCartByUser(localStorage.getItem('userId'))
-        if (res?.code == 200) {
-            setCart(res?.data);
-            setCheck(new Array(res?.data?.books?.length).fill(false))
+        if (localStorage.getItem('token')) {
+            setWait(true)
+            var res = await GetSelfCart()
+            if (res?.code == 200) {
+                setCart(res?.data);
+                setCheck(new Array(res?.data?.books?.length).fill(false))
+            }
+    
+            console.log(res);
+            setWait(false)   
         }
-
-        console.log(res);
-        setWait(false)
     }
     const ChooseBook = (index) => {
         var tmp = checkes
@@ -209,8 +210,7 @@ function Cart() {
             }
 
             // Call API with the change
-            const res = await AddToCart(
-                localStorage.getItem('userId'),
+            const res = await SelfAddToCart(
                 currentItem?.book?.id,
                 newQuantity - currentQuantity
             );
@@ -255,7 +255,7 @@ function Cart() {
                 wait ? <Waiting /> : <></>
             }
             {
-                !localStorage.getItem('userId') ?
+                !localStorage.getItem('token') ?
                     <div style={{
                         marginTop: 20
                     }}>
@@ -413,29 +413,9 @@ function Cart() {
                             <Col span={24} md={8} className="mb-24">
                                 <Card
                                     title={(
-                                        <>THÀNH TIỀN</>
+                                        <>CHỨC NĂNG</>
                                     )}>
                                     <div>
-                                        <div style={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center"
-                                        }}>
-                                            <div>
-                                                Tổng số tiền (giá mỗi sản phẩm đã bao gồm VAT)
-                                            </div>
-                                            <div
-                                                style={{
-                                                    color: "#C92127",
-                                                    fontSize: "25px",
-                                                    fontWeight: "600"
-                                                }}>
-                                                {Intl.NumberFormat('vi-VN', {
-                                                    style: 'currency',
-                                                    currency: 'VND',
-                                                }).format(total)}
-                                            </div>
-                                        </div>
                                         <button style={{
                                             width: "100%",
                                             height: "40px",
@@ -447,6 +427,19 @@ function Cart() {
                                             marginTop: "20px"
                                             // fontWeight:"600"
                                         }} onClick={CheckOut}>THANH TOÁN</button>
+                                    </div>
+                                    <div>
+                                        <button style={{
+                                            width: "100%",
+                                            height: "40px",
+                                            borderRadius: "2px",
+                                            backgroundColor: "#ff7e21",
+                                            border: "1px solid #ff7e21",
+                                            color: "#fff",
+                                            fontSize: "16px",
+                                            marginTop: "20px",
+                                            // fontWeight:"600"
+                                        }} onClick={() => navigate("/")}>QUAY LẠI MUA SẮM</button>
                                     </div>
                                 </Card>
                             </Col>

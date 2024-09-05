@@ -14,7 +14,7 @@ function History() {
     }, [])
     const fecthData = async () => {
         setWait(true)
-        var res = await GetHistoryOrder(localStorage.getItem('userId'), 1, 1000, "", "ID")
+        var res = await GetHistoryOrder(1, 1000, "", "ID")
         setHistories(res?.data)
 
         console.log((res));
@@ -33,7 +33,7 @@ function History() {
         can: "Đã hủy",
         don: "Hoàn thành",
         shi: "Đang giao hàng",
-        com: "Đã xác nhận đang chờ giao hàng",
+        com: "Đã xác nhận",
         new: "Chờ xác nhận", // add new status here
       };
 

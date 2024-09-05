@@ -181,13 +181,39 @@ function OrderDetail() {
             openNotificationWithIcon('success', "Thành công")
             setTimeout(() => {
                 window.location.reload()
-            }, 2000);
+            }, 500);
         }
         else
             openNotificationWithIcon('error', "Thất bại")
 
         setWait(false)
     }
+    const statusLabels = {
+        NEW: "Mới",
+        COM: "Xác nhận",
+        SHI: "Giao hàng",
+        CAN: "Hủy",
+        DON: "Hoàn thành"
+    };
+    
+    const getStatusOptions = () => {
+        const currentStatus = form.getFieldValue("status");
+        switch (currentStatus) {
+            case "NEW":
+                return ["NEW", "COM", "CAN"];
+            case "COM":
+                return ["COM", "SHI"];
+            case "SHI":
+                return ["SHI", "DON"];
+            case "CAN":
+                return ["CAN"]; // No options allowed
+            case "DON":
+                return ["DON"];
+            default:
+                return [];
+        }
+    };
+    
 
     return (
         <>
@@ -263,20 +289,22 @@ function OrderDetail() {
 
                             <Row gutter={[24, 0]} >
                                 <Col span={24} md={12}>
-                                    <Form.Item name="status" label="Status"
+                                    <Form.Item 
+                                        name="status" 
+                                        label="Status"
                                         rules={[
                                             {
                                                 required: true,
                                             },
                                         ]}
                                     >
-                                        <Select defaultValue={form.status}>
-                                            <Select.Option value="DON">Hoàn thành</Select.Option>
-                                            <Select.Option value="COM">Xác nhận</Select.Option>
-                                            <Select.Option value="SHI">Giao Hàng</Select.Option>
-                                            <Select.Option value="CAN">Hủy</Select.Option>
-                                            <Select.Option value="NEW">Mới</Select.Option>
-                                        </Select>
+                                    <Select>
+                                        {getStatusOptions().map((status) => (
+                                            <Select.Option key={status} value={status}>
+                                                {statusLabels[status]} {/* Display the name instead of the value */}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
                                     </Form.Item>
                                 </Col>
                                 <Col span={24} md={12}>

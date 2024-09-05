@@ -24,6 +24,13 @@ namespace BookStack.Controllers
             var res = _userService.GetUserById(id);
             return StatusCode(res.Code, res);
         }
+
+        [HttpGet("Personal")]
+        public IActionResult GetPersonalInfo()
+        {
+            var res = _userService.GetPersonalInfo();
+            return StatusCode(res.Code, res);
+        }
         //[HttpGet("{username}")]
         //public IActionResult GetUserByUsername(string username)
         //{

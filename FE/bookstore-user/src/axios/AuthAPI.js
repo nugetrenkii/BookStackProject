@@ -11,6 +11,10 @@ export const GetUserById = (id) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `User/${id}`);
 }
 
+export const GetPersonalInfo = () => {
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `User/Personal`);
+}
+
 export const LoginWithGoogle = (accessToken) => {
     return axiosHandle.post(process.env.REACT_APP_URL_API + `Auth/LoginWithGoogle?accessToken=${accessToken}`);
 }

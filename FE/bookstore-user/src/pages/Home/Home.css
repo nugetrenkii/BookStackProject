@@ -1,7 +1,7 @@
 .home-main .home-icon-tag {
     background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_menu_red.svg") no-repeat center center;
-    height: 32px;
-    width: 32px;
+    height: 16px;
+    width: 16px;
     background-size: contain;
 }
 
@@ -38,6 +38,14 @@
 }
 
 .home-main .home-card-list-book .home-icon-list-book{
+    background: url("https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/category/ico_sachtrongnuoc.svg") no-repeat center center;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    margin-right: 10px;
+}
+
+.home-main .home-card-list-book .new{
     background: url("https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png") no-repeat center center;
     height: 32px;
     width: 32px;

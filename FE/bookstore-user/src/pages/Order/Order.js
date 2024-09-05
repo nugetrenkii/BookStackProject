@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Waiting from '../Waiting/Waiting'
 import { Card, Col, Image, Input, List, Radio, Row, Space, Typography } from 'antd'
 import './Order.css'
-import { CreateAddress, GetAddressByUser } from '../../axios/AccountAPI'
+import { CreateAddress, GetAddressByUser, GetSelfAddress, SelfCreateAddress } from '../../axios/AccountAPI'
 import { CreateUrlPayment } from '../../axios/PaymentAPI'
-import { CreateOrder, GetShippingModes } from '../../axios/OrderAPI'
+import { CreateOrder, GetShippingModes, SelfCreateOrder } from '../../axios/OrderAPI'
 import { useNavigate } from 'react-router-dom'
 import { ClockCircleOutlined, WarningOutlined } from '@ant-design/icons'
 
@@ -39,7 +39,7 @@ function Order() {
 
         console.log(books);
 
-        var res = await GetAddressByUser(localStorage.getItem('userId'))
+        var res = await GetSelfAddress()
         if (res?.code == 200) {
             setAddresses(res?.data);
             setAddress(res?.data[0].id);
@@ -61,13 +61,12 @@ function Order() {
     const Order = async () => {
         setWait(true)
 
-        if (!localStorage.getItem('userId')) {
-            var res = await CreateAddress(guestAddress)
+        if (!localStorage.getItem('token')) {
+            var res = await SelfCreateAddress(guestAddress)
             if (res?.code == 200) {
                 var order = {
-                    status: "CRE",
+                    status: "NEW",
                     description: "",
-                    userId: localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId')) : 2,
                     shippingModeId: shippingMode,
                     addressId: res?.data?.id,
                     payMode: payment == 1 ? "CASH" : "VNPAY", // Update this line
@@ -93,9 +92,8 @@ function Order() {
             }
         } else {
             var order = {
-                status: "CRE",
+                status: "NEW",
                 description: "",
-                userId: parseInt(localStorage.getItem('userId')),
                 shippingModeId: shippingMode,
                 addressId: address,
                 payMode: payment == 1 ? "CASH" : "VNPAY",
@@ -112,7 +110,7 @@ function Order() {
             }
 
             console.log(order);
-            var res = await CreateOrder(order)
+            var res = await SelfCreateOrder(order)
 
             if (res?.code == 200) {
                 if(payment == 2){
@@ -143,7 +141,7 @@ function Order() {
                             )}
                         >
                             {
-                                (localStorage.getItem("userId")) ?
+                                (localStorage.getItem("token")) ?
                                     <>
                                         <div style={{
                                             display: "flex",

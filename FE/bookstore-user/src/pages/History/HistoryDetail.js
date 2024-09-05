@@ -75,7 +75,7 @@ function HistoryDetail() {
                                             <div>
                                                 Đơn hàng:
                                                     <span>
-                                                    {statusMap[history?.status.toLowerCase()]}
+                                                    {statusMap[history?.status?.toLowerCase()]}
                                                     </span>
                                             </div>
                                             <div>

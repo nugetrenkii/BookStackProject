@@ -3,7 +3,7 @@ import './Navbar.css'
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, Popover } from 'antd';
-import { GetUserById } from '../../axios/AuthAPI';
+import { GetUserById, GetPersonalInfo } from '../../axios/AuthAPI';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -12,11 +12,11 @@ function Navbar() {
 
     useEffect(() => {
         fetchData()
-    }, [localStorage.getItem('userId')])
+    }, [localStorage.getItem('token')])
 
 
     const fetchData = async () => {
-        if (!localStorage.getItem('userId')) {
+        if (!localStorage.getItem('token')) {
             setContent(
                 < div style={{
                     display: "flex",
@@ -45,7 +45,7 @@ function Navbar() {
                 </div >
             )
         } else {
-            var res = await GetUserById(localStorage.getItem('userId'))
+            var res = await GetPersonalInfo()
             setContent(
                 < div style={{
                     display: "flex",

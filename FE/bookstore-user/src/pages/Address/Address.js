@@ -3,7 +3,7 @@ import Waiting from '../Waiting/Waiting'
 import { Avatar, Button, Card, Col, Form, Input, List, Modal, Row } from 'antd'
 import Menu from '../../components/Menu/Menu'
 import './Address.css'
-import { CreateAddress, GetAddressByUser, DeleteAddress } from '../../axios/AccountAPI'
+import { CreateAddress, GetAddressByUser, DeleteAddress, GetSelfAddress, SelfCreateAddress } from '../../axios/AccountAPI'
 import { toast } from 'react-toastify';
 
 function Address() {
@@ -17,7 +17,7 @@ function Address() {
     }, [])
     const fecthData = async () => {
         setWait(true)
-        var res = await GetAddressByUser(localStorage.getItem("userId"))
+        var res = await GetSelfAddress()
         if (res?.code == 200)
             setAddresses(res?.data);
         setWait(false)
@@ -42,11 +42,10 @@ function Address() {
             street: a.street,
             city: a.city,
             state: a.state,
-            phone: a.phone,
-            userId: localStorage.getItem('userId')
+            phone: a.phone
         }
         console.log(address);
-        var res = await CreateAddress(address)
+        var res = await SelfCreateAddress(address)
 
         if (res?.code == 200) {
             setIsModalOpen(false);

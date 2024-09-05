@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ToTopOutlined, PlusOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom';
 import "./Home.css"
-import { GetBookById, GetBookByIds, GetBooks, GetBooksRecomend } from '../../axios/BookAPI';
+import { GetBookById, GetBookByIds, GetBooks, GetBooksRecomend, GetTopOrderedBooks, GetTopRatedBooks } from '../../axios/BookAPI';
 import { GetTags } from '../../axios/TagAPI';
 const contentStyle = {
     margin: 0,
@@ -54,6 +54,7 @@ function Home() {
     const navigate = useNavigate();
     const [books, setBook] = useState([])
     const [bookRecomends, setBookRecomend] = useState([])
+    const [bookSale, setBookSale] = useState([])
     const [tags, setTag] = useState([])
 
     useEffect(() => {
@@ -61,12 +62,17 @@ function Home() {
     }, [])
 
     const fetchData = async () => {
-        var res = await GetBooks(1, 5, "", "ID")
+        var res = await GetBooks(1, 5, "", "CREATE")
         if (res?.code == 200) setBook(res?.data)
 
-        var res = await GetBooksRecomend(3)
+        var res = await GetTopRatedBooks(5)
         if (res?.code == 200) {
             setBookRecomend(res?.data);
+        }
+
+        var res = await GetTopOrderedBooks(5)
+        if (res?.code == 200) {
+            setBookSale(res?.data);
         }
 
         var res = await GetTags(1, 10000, "", "ID")
@@ -159,10 +165,12 @@ function Home() {
                                                     flexDirection: "column",
                                                     alignItems: "center",
                                                 }}>
-                                                <Image src={data[index].image} preview={false}
-                                                    height={80}
-                                                    width={80}
-                                                ></Image>
+                                                    <Image
+                                                        src={data[index] ? data[index].image : data[0].image}
+                                                        preview={false}
+                                                        height={80}
+                                                        width={80}
+                                                    ></Image>
                                                 <span href=""
                                                     className='home-tag-title'
                                                 >{tag.name}</span>
@@ -270,10 +278,10 @@ function Home() {
                                     alignItems: "center"
                                 }}
                             >
-                                <span className='home-icon-list-book most'></span>
+                                <span className='home-icon-list-book new'></span>
                                 <h3 style={{
                                     margin: 0
-                                }}>SÁCH NỔI BẬT</h3>
+                                }}>SÁCH MỚI</h3>
                             </div>
                         }
                     >
@@ -354,7 +362,103 @@ function Home() {
                     </Card>
                 </Col>
             </Row>
+            <Row gutter={[24, 0]} className="mb-24">
+                <Col span={24} md={24}>
+                    <Card style={{
+                        borderRadius: 0
+                    }}
+                        className='home-card-list-book'
+                        title={
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center"
+                                }}
+                            >
+                                <span className='home-icon-list-book most'></span>
+                                <h3 style={{
+                                    margin: 0
+                                }}>SÁCH NỔI BẬT</h3>
+                            </div>
+                        }
+                    >
+                        <List
+                            className='home-list-book'
+                            grid={{
+                                gutter: 12,
+                                xs: 1,
+                                sm: 2,
+                                md: 3,
+                                lg: 4,
+                                xl: 5,
+                                xxl: 5,
+                            }}
+                            dataSource={bookRecomends}
+                            renderItem={(item) => (
+                                <List.Item>
+                                    <Card bordered={false}
+                                        style={{
+                                            // outline: "none",
+                                            borderRadius: 0
+                                        }}
+                                        className='home-book'
+                                    >
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}>
+                                            <div style={{
+                                                cursor: "pointer"
+                                            }}
+                                                onClick={() => navigate(`/book/${item?.id}`)}>
+                                                <Image src={item?.image} preview={false}
+                                                    height={240}
+                                                    width={190}
+                                                    style={{
+                                                        objectFit: "cover"
+                                                    }}
+                                                ></Image>
+                                                <div className='home-book-detail'>
+                                                    <Link
+                                                        className='home-book-title'
+                                                    >
+                                                        {item?.title}
+                                                    </Link>
+                                                    <div className='home-book-detail-price'>
+                                                        {Intl.NumberFormat('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND',
+                                                        }).format(item?.price)}
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </List.Item>
+                            )}
+                        />
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
+                            <Button style={{
+                                color: "#C92127",
+                                border: "2px solid #C92127",
+                                fontSize: "18px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "40px",
+                                width: "150px"
+                            }}
+                                onClick={() => navigate("/book")}
+                            >Xem thêm</Button>
+                        </div>
+                    </Card>
+                </Col>
+            </Row>
             <Row gutter={[24, 0]} className="mb-24">
                 <Col span={24} md={24}>
                     <Card style={{
@@ -371,7 +475,7 @@ function Home() {
                                 <span className='recomend'></span>
                                 <h3 style={{
                                     margin: 0
-                                }}>SÁCH NỔI BẬT</h3>
+                                }}>SÁCH BÁN CHẠY</h3>
                             </div>
                         }
                     >

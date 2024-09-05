@@ -7,6 +7,7 @@ namespace BookStack.Services.UserService
     {
         ResponseDTO GetUsers(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID");
         ResponseDTO GetUserById(int id);
+        ResponseDTO GetPersonalInfo();
         ResponseDTO GetUserByUsername(string username);
         ResponseDTO UpdateUser(int id, UpdateUserDTO updateUserDTO);
         ResponseDTO DeleteUser(int id);

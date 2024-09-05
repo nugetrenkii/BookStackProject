@@ -96,6 +96,21 @@ namespace BookStack.Services.UserService
                 Data = _mapper.Map<UserDTO>(user)
             };
         }
+        
+        public ResponseDTO GetPersonalInfo()
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null)
+            {
+                return GetUserById((int)userId);
+            }
+
+            return new ResponseDTO()
+            {
+                Code = 404,
+                Message = "User không tồn tại"
+            };
+        }
 
         public ResponseDTO GetUserByUsername(string username)
         {

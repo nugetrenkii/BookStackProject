@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { GetBookById, GetBookByIds, GetBooksRecomend } from '../../axios/BookAPI';
 import "./BookDetail.css";
-import AddToCartAPI, { AddToCart } from '../../axios/CartAPI'
+import AddToCartAPI, { AddToCart, SelfAddToCart } from '../../axios/CartAPI'
 import Waiting from '../Waiting/Waiting';
 import { GetRatingByBook, GetRatingByUser } from '../../axios/RateAPI';
 import { StarFilled } from '@ant-design/icons';
@@ -51,13 +51,13 @@ function BookDetail() {
 
     const Add2Cart = async () => {
 
-        if (!localStorage.getItem('userId')) {
+        if (!localStorage.getItem('token')) {
             toast.error("Bạn phải đăng nhập để sử dụng tính năng này")
             return
         }
         else{
             setWait(true)
-            var res = await AddToCart(localStorage.getItem('userId'), param?.id, quantity)
+            var res = await SelfAddToCart(param?.id, quantity)
             if (res?.code == 200){
                 toast.success("Đã thêm vào giỏ hàng")
             }
@@ -67,7 +67,7 @@ function BookDetail() {
 
     const BuyNow = async () => {
 
-        if (!localStorage.getItem('userId')) {
+        if (!localStorage.getItem('token')) {
             toast.error("Bạn phải đăng nhập để sử dụng tính năng này")
             return
         }
@@ -119,15 +119,19 @@ function BookDetail() {
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Năm xuất bản: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.publishDate?.slice(0, 4)}</div></div>
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tác giả: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.author?.name}</div></div>
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Ngôn ngữ: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.language}</div></div>
-                                    <div style={{ display: "flex", alignItems: "center" }}>Thể loại: {book?.tags?.map((tag, index) => (
-                                        <div style={{
-                                            border: "1px solid rgba(180,180,180,0.8)",
-                                            borderRadius: "2px",
-                                            padding: "5px 15px",
-                                            margin: "0px 10px",
-                                            fontWeight: "600"
-                                        }}>{tag?.name}</div>
-                                    ))}</div>
+                                    <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tổng số sách: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.count}</div></div>
+                                    <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tổng số trang: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.numberOfPages}</div></div>
+                                    <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                                        Thể loại: {book?.tags?.map((tag, index) => (
+                                                <div style={{
+                                                    border: "1px solid rgba(180,180,180,0.8)",
+                                                    borderRadius: "2px",
+                                                    padding: "5px 15px",
+                                                    margin: index === 0 ? "0px 10px 10px 15px" : "0px 10px 10px 0px",
+                                                    fontWeight: "600"
+                                                }}>{tag?.name}</div>
+                                            ))}
+                                    </div>
                                 </div>
                                 <div className='book-detail-price'>
                                     {Intl.NumberFormat('vi-VN', {

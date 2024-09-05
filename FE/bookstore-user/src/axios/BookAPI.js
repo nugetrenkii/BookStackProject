@@ -16,6 +16,14 @@ export const GetBooksRecomend = (id) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `Book/Recommendations`);
 }
 
+export const GetTopRatedBooks = (count) => {
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `Book/TopRated?topCount=${count}`);
+}
+
+export const GetTopOrderedBooks = (count) => {
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `Book/TopOrdered?topCount=${count}`);
+}
+
 export const GetBookByIds = (ids) => {
     return axiosHandle.post(process.env.REACT_APP_URL_API + `Book/ids`, ids);
 }

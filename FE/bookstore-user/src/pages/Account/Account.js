@@ -3,7 +3,7 @@ import "./Account.css"
 import Waiting from '../Waiting/Waiting'
 import Menu from '../../components/Menu/Menu'
 import { Button, Card, Col, DatePicker, Form, Image, Input, Radio, Row, Upload } from 'antd'
-import { GetUserById } from '../../axios/AuthAPI'
+import { GetPersonalInfo, GetUserById } from '../../axios/AuthAPI'
 import { UploadOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs';
 import { UpdateUser } from '../../axios/AccountAPI'
@@ -30,7 +30,7 @@ function Account() {
   }, [])
   const fecthData = async () => {
     setWait(true)
-    var res = await GetUserById(localStorage.getItem('userId'))
+    var res = await GetPersonalInfo();
     console.log(res);
     if (res?.code == 200) {
       form.setFieldsValue({
@@ -101,7 +101,7 @@ function Account() {
       {
         wait ? <Waiting /> : <></>
       }
-      {!localStorage.getItem('userId') ?
+      {!localStorage.getItem('token') ?
         <div style={{
           marginTop: 20
         }}>

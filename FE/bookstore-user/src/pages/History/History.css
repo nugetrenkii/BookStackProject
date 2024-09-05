@@ -8,56 +8,70 @@
   }
   
   .main-history .order-sratus {
-    padding: 3px 10px;
+    padding: 3px 12px;
     border-radius: 50px;
   }
   
-  .inp,
-  .inp:hover {
-    border-color: #ffd500;
-    background: #ffd500;
-    color: #000;
-  }
-  
-  .cre,
-  .cre:hover {
-    border-color: #34a2fd;
-    background: #34a2fd;
-    color: #000;
-  }
-  
-  .don,
-  .don:hover {
-    border-color: #41ca01;
-    background: #41ca01;
-  }
-  
-  .can,
-  .can:hover {
-    border-color: #ff2727;
-    background: #ff3434;
-  }
-  
-  .pay,
-  .pay:hover {
-    border-color: #ffd60a;
-    background: #ffd60a;
-  }
-  
-  .shi,
-  .shi:hover {
-    border-color: #66CCCC;
-    background: #66CCCC;
-  }
-  
-  .com,
-  .com:hover {
-    border-color: #99CC00;
-    background: #99CC00;
-  }
-  
-  .new,
-  .new:hover {
-    border-color: #ADD8E6;
-    background: #ADD8E6;
-  }
+ /* Pending Status (Yellow) */
+.inp,
+.inp:hover {
+  border-color: #ffcc00; /* Slightly darker yellow for better visibility */
+  background: #ffcc00;
+  color: #000;
+}
+
+/* Created Status (Blue) */
+.cre,
+.cre:hover {
+  border-color: #007bff; /* More vivid blue for better distinction */
+  background: #007bff;
+  color: #fff; /* White text for contrast */
+}
+
+/* Done Status (Green) */
+.don,
+.don:hover {
+  border-color: #28a745; /* Standard green with high contrast */
+  background: #28a745;
+  color: #fff;
+}
+
+/* Canceled Status (Red) */
+.can,
+.can:hover {
+  border-color: #dc3545; /* Bright red for immediate attention */
+  background: #dc3545;
+  color: #fff;
+}
+
+/* Payment Status (Gold) */
+.pay,
+.pay:hover {
+  border-color: #ffc107; /* Gold with better contrast */
+  background: #ffc107;
+  color: #000;
+}
+
+/* Shipped Status (Teal) */
+.shi,
+.shi:hover {
+  border-color: #17a2b8; /* Darker teal for clarity */
+  background: #17a2b8;
+  color: #fff;
+}
+
+/* Completed Status (Light Green) */
+.com,
+.com:hover {
+  border-color: #8bc34a; /* Light green with high contrast */
+  background: #8bc34a;
+  color: #fff;
+}
+
+/* New Status (Light Blue) */
+.new,
+.new:hover {
+  border-color: #5bc0de; /* Lighter blue with improved clarity */
+  background: #5bc0de;
+  color: #fff;
+}

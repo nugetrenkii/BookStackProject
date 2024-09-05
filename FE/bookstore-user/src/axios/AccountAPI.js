@@ -8,8 +8,16 @@ export const GetAddressByUser = (id) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `Address/User/${id}`);
 }
 
+export const GetSelfAddress = () => {
+    return axiosHandle.get(process.env.REACT_APP_URL_API + `Address/User/Self`);
+}
+
 export const CreateAddress = (address) => {
     return axiosHandle.post(process.env.REACT_APP_URL_API + `Address`,address);
+}
+
+export const SelfCreateAddress = (address) => {
+    return axiosHandle.post(process.env.REACT_APP_URL_API + `Address/User/Self`,address);
 }
 
 export const UpdateAddress = (id, address) => {
