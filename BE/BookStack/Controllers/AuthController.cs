@@ -40,5 +40,13 @@ namespace BookStack.Controllers
             var res = await _authService.LoginWithFacebook(code);
             return StatusCode(res.Code, res);
         }
+        
+        [HttpPost("ChangePassword")]
+        [Authorize]
+        public ActionResult ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            var res = _authService.ChangePassword(changePasswordDTO);
+            return StatusCode(res.Code, res);
+        }
     }
 }

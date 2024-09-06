@@ -10,7 +10,6 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,6 +18,7 @@ namespace BookStack.Controllers
             _userService = userService;
         }
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult GetUserById(int id)
         {
             var res = _userService.GetUserById(id);
@@ -31,6 +31,7 @@ namespace BookStack.Controllers
             var res = _userService.GetPersonalInfo();
             return StatusCode(res.Code, res);
         }
+        
         //[HttpGet("{username}")]
         //public IActionResult GetUserByUsername(string username)
         //{
@@ -38,17 +39,28 @@ namespace BookStack.Controllers
         //    return StatusCode(res.Code, res);
         //}
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult GetUsers(int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
         {
             var res = _userService.GetUsers(page, pageSize, key, sortBy);
             return StatusCode(res.Code, res);
         }
+        
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult UpdateUser(int id, UpdateUserDTO updateUserDTO)
         {
             var res = _userService.UpdateUser(id,updateUserDTO);
             return StatusCode(res.Code, res);
         }
+
+        [HttpPut("Self")]
+        public IActionResult SelfUpdateUser(UpdateUserDTO updateUserDTO)
+        {
+            var res = _userService.SelfUpdateUser(updateUserDTO);
+            return StatusCode(res.Code, res);
+        }
+        
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public IActionResult DeleteUser(int id)

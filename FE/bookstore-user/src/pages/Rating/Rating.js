@@ -8,7 +8,7 @@ import { GetOrderById } from '../../axios/OrderAPI'
 import TextArea from 'antd/es/input/TextArea'
 import { StarFilled } from '@ant-design/icons'
 import { GetBookById } from '../../axios/BookAPI'
-import { CreateRating } from '../../axios/RateAPI'
+import { CreateRating, SelfRating } from '../../axios/RateAPI'
 
 function Rating() {
     const navigate = useNavigate()
@@ -40,11 +40,10 @@ function Rating() {
         var rating = {
             rate: rate,
             comment: comment,
-            userId: localStorage.getItem("userId"),
             bookId: param?.id
         }
 
-        var res = await CreateRating(rating)
+        var res = await SelfRating(rating)
         if (res?.code == 200) {
             success()
             setTimeout(() => {

@@ -27,7 +27,6 @@ function SignIn() {
                 console.log(res)
                 if (res?.code == 200 && res?.data?.role?.name == "user") {
                     localStorage.setItem('token', res?.data?.token)
-                    localStorage.setItem('userId', res?.data?.id)
                     window.location = '/'
                 }
                 else {

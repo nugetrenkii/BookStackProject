@@ -20,83 +20,59 @@ namespace BookStack.DTOs
     {
         public MapperProfile()
         {
-            CreateMap<UserDTO, Entities.User>();
-            CreateMap<Entities.User, UserDTO>();
+            CreateMap<UserDTO, Entities.User>().ReverseMap();
 
-            CreateMap<RegisterUserDTO, Entities.User>();
-            CreateMap<Entities.User, RegisterUserDTO>();
+            CreateMap<RegisterUserDTO, Entities.User>().ReverseMap();
 
-            CreateMap<CreateUserDTO, Entities.User>();
-            CreateMap<Entities.User, CreateUserDTO>();
+            CreateMap<CreateUserDTO, Entities.User>().ReverseMap();
 
-            CreateMap<UpdateUserDTO, Entities.User>();
-            CreateMap<Entities.User, UpdateUserDTO>();
+            CreateMap<UpdateUserDTO, Entities.User>().ReverseMap();
 
-            CreateMap<AuthorDTO, Entities.Author>();
-            CreateMap<Entities.Author, AuthorDTO>();
+            CreateMap<AuthorDTO, Entities.Author>().ReverseMap();
 
-            CreateMap<PublisherDTO, Entities.Publisher>();
-            CreateMap<Entities.Publisher, PublisherDTO>();
+            CreateMap<PublisherDTO, Entities.Publisher>().ReverseMap();
 
-            CreateMap<AddressDTO, Entities.Address>();
-            CreateMap<Entities.Address, AddressDTO>();
+            CreateMap<AddressDTO, Entities.Address>().ReverseMap();
 
-            CreateMap<CreateAddressDTO, Entities.Address>();
-            CreateMap<Entities.Address, CreateAddressDTO>();
+            CreateMap<CreateAddressDTO, Entities.Address>().ReverseMap();
 
-            CreateMap<SelfCreateAddressDTO, Entities.Address>();
-            CreateMap<Entities.Address, SelfCreateAddressDTO>();
+            CreateMap<SelfCreateAddressDTO, Entities.Address>().ReverseMap();
 
-            CreateMap<UpdateAddressDTO, Entities.Address>();
-            CreateMap<Entities.Address, UpdateAddressDTO>();
+            CreateMap<UpdateAddressDTO, Entities.Address>().ReverseMap();
 
-            CreateMap<TagDTO, Entities.Tag>();
-            CreateMap<Entities.Tag, TagDTO>();
+            CreateMap<TagDTO, Entities.Tag>().ReverseMap();
 
-            CreateMap<ShippingModeDTO, Entities.ShippingMode>();
-            CreateMap<Entities.ShippingMode, ShippingModeDTO>();
+            CreateMap<ShippingModeDTO, Entities.ShippingMode>().ReverseMap();
 
-            CreateMap<BookDTO, Entities.Book>();
-            CreateMap<Entities.Book, BookDTO>();
+            CreateMap<BookDTO, Entities.Book>().ReverseMap();
 
-            CreateMap<CreateBookDTO, Entities.Book>();
-            CreateMap<Entities.Book, CreateBookDTO>();
+            CreateMap<CreateBookDTO, Entities.Book>().ReverseMap();
 
-            CreateMap<UpdateBookDTO, Entities.Book>();
-            CreateMap<Entities.Book, UpdateBookDTO>();
+            CreateMap<UpdateBookDTO, Entities.Book>().ReverseMap();
 
-            CreateMap<QuantityDTO, Quantity>();
-            CreateMap<Quantity, QuantityDTO>();
+            CreateMap<QuantityDTO, Quantity>().ReverseMap();
 
-            CreateMap<OrderDTO, Entities.Order>();
-            CreateMap<Entities.Order, OrderDTO>();
+            CreateMap<OrderDTO, Entities.Order>().ReverseMap();
 
-            CreateMap<CreateOrderDTO, Entities.Order>();
-            CreateMap<Entities.Order, CreateOrderDTO>();
-            
-            CreateMap<SelfCreateOrderDTO, Entities.Order>();
-            CreateMap<Entities.Order, SelfCreateOrderDTO>();
+            CreateMap<CreateOrderDTO, Entities.Order>().ReverseMap();
 
-            CreateMap<UpdateOrderDTO, Entities.Order>();
-            CreateMap<Entities.Order, UpdateOrderDTO>();
+            CreateMap<SelfCreateOrderDTO, Entities.Order>().ReverseMap();
 
-            CreateMap<CartDTO, Entities.Cart>();
-            CreateMap<Entities.Cart, CartDTO>();
+            CreateMap<UpdateOrderDTO, Entities.Order>().ReverseMap();
 
-            CreateMap<RoleDTO, Entities.Role>();
-            CreateMap<Entities.Role, RoleDTO>();
+            CreateMap<CartDTO, Entities.Cart>().ReverseMap();
 
-            CreateMap<RatingDTO, Rating>();
-            CreateMap<Rating, RatingDTO>();
+            CreateMap<RoleDTO, Entities.Role>().ReverseMap();
 
-            CreateMap<CreateRatingDTO, Rating>();
-            CreateMap<Rating, CreateRatingDTO>();
+            CreateMap<RatingDTO, Rating>().ReverseMap();
 
-            CreateMap<CartBookDTO, Entities.CartBook>();
-            CreateMap<Entities.CartBook, CartBookDTO>();
+            CreateMap<CreateRatingDTO, Rating>().ReverseMap();
 
-            CreateMap<Entities.OrderBook, OrderBookDTO>();
-            CreateMap<OrderBookDTO, Entities.OrderBook>();
+            CreateMap<SelfCreateRatingDTO, Rating>().ReverseMap();
+
+            CreateMap<CartBookDTO, Entities.CartBook>().ReverseMap();
+
+            CreateMap<Entities.OrderBook, OrderBookDTO>().ReverseMap();
 
             //CreateMap<Book, CreateBookDTO>()
             //.ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags));

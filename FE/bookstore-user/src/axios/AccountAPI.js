@@ -4,6 +4,10 @@ export const UpdateUser = (id,user) => {
     return axiosHandle.put(process.env.REACT_APP_URL_API + `User/${id}`,user);
 }
 
+export const SelfUpdateUser = (user) => {
+    return axiosHandle.put(process.env.REACT_APP_URL_API + `User/Self`,user);
+}
+
 export const GetAddressByUser = (id) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `Address/User/${id}`);
 }

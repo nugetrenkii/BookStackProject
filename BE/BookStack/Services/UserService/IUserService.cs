@@ -10,6 +10,7 @@ namespace BookStack.Services.UserService
         ResponseDTO GetPersonalInfo();
         ResponseDTO GetUserByUsername(string username);
         ResponseDTO UpdateUser(int id, UpdateUserDTO updateUserDTO);
+        ResponseDTO SelfUpdateUser(UpdateUserDTO updateUserDTO);
         ResponseDTO DeleteUser(int id);
         ResponseDTO CreateUser(CreateUserDTO createUserDTO);
     }

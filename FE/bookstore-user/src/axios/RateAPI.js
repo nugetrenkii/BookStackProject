@@ -7,6 +7,13 @@ export const CreateRating = (rating) => {
     );
 }
 
+export const SelfRating = (rating) => {
+    return axiosHandle.post(
+        process.env.REACT_APP_URL_API + `Rating/Self`,
+        rating
+    )
+}
+
 export const GetRatingByBook = (bookId, page) => {
     return axiosHandle.get(process.env.REACT_APP_URL_API + `Rating/Book?bookId=${bookId}&page=${page}`,);
 }

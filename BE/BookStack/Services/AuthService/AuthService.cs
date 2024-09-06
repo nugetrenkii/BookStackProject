@@ -22,11 +22,13 @@ namespace BookStack.Services.AuthService
         private readonly IGoogleService _googleService;
         private readonly IFacebookService _facebookService;
         private readonly ICacheService _cacheService;
+        private readonly UserAccessor _userAccessor;
         public AuthService(IUserRepository userRepository, 
             ICartRepository cartRepository, IMapper mapper, 
             ITokenService tokenService, IGoogleService googleService, 
             IFacebookService facebookService, 
-            ICacheService cacheService)
+            ICacheService cacheService,
+            UserAccessor userAccessor)
         {
             _userRepository = userRepository;
             _cartRepository = cartRepository;
@@ -35,6 +37,7 @@ namespace BookStack.Services.AuthService
             _googleService = googleService;
             _facebookService = facebookService;
             _cacheService = cacheService;
+            _userAccessor = userAccessor;
         }
         public ResponseDTO Login(string username, string password)
         {
@@ -60,6 +63,7 @@ namespace BookStack.Services.AuthService
                 Message = "Tài khoản hoặc mật khẩu không chính xác" 
             };
         }
+        
         public ResponseDTO Register(RegisterUserDTO registerUserDTO)
         {
             var user = _userRepository.GetUserByUsername(registerUserDTO.Username);
@@ -201,6 +205,52 @@ namespace BookStack.Services.AuthService
                 Message = "Login thành công",
                 Data = data
             }; 
+        }
+
+        public ResponseDTO ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null)
+            {
+                var user = _userRepository.GetUserById((int)userId);
+                if (user == null)
+                {
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "User không tồn tại"
+                    };
+                }
+                if (!PasswordHelper.VerifyPasswordHash(changePasswordDTO.OldPassword, user.PasswordHash, user.PasswordSalt))
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "Mật khẩu cũ không đúng"
+                    };
+                if (changePasswordDTO.NewPassword != changePasswordDTO.CfPassword)
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "Mật khẩu không trùng khớp",
+                    };
+                PasswordHelper.CreatePasswordHash(changePasswordDTO.NewPassword, out var passwordHash, out var passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                _userRepository.UpdateUser(user);
+                if (_userRepository.IsSaveChanges())
+                {
+                    return new ResponseDTO()
+                    {
+                        Code = 200,
+                        Message = "Thay đổi mật khẩu thành công"
+                    };
+                }
+            }
+            return new ResponseDTO()
+            {
+                Code = 400,
+                Message = "Thay đổi mật khẩu thất bại",
+            };
         }
     }
 }

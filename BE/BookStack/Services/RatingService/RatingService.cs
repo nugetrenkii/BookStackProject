@@ -5,6 +5,7 @@ using BookStack.Entities;
 using BookStack.Persistence.Repositories.BookRepository;
 using BookStack.Persistence.Repositories.RatingRepository;
 using BookStack.Persistence.Repositories.UserRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.RatingService
 {
@@ -14,10 +15,13 @@ namespace BookStack.Services.RatingService
         private readonly IUserRepository _userRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
-        public RatingService(IRatingRepository ratingRepository, IMapper mapper, IBookRepository bookRepository, IUserRepository userRepository)
+        private readonly UserAccessor _userAccessor;
+        
+        public RatingService(IRatingRepository ratingRepository, IMapper mapper, IBookRepository bookRepository, IUserRepository userRepository, UserAccessor userAccessor)
         {
             _ratingRepository = ratingRepository;
             _userRepository = userRepository;
+            _userAccessor = userAccessor;
             _bookRepository = bookRepository;
             _mapper = mapper;
         }
@@ -36,6 +40,25 @@ namespace BookStack.Services.RatingService
             _ratingRepository.CreateRating(rating);
             if (_ratingRepository.IsSaveChanges()) return new ResponseDTO() { Message = "Tạo thành công" };
             else return new ResponseDTO() { Code = 400, Message = "Tạo thất bại" };
+        }
+
+        public ResponseDTO SelfRating(SelfCreateRatingDTO selfCreateRatingDTO)
+        {
+            var userId = _userAccessor.GetCurrentUserId();
+            if (userId != null)
+            {
+                var rating = new CreateRatingDTO
+                {
+                    Rate = selfCreateRatingDTO.Rate,
+                    Comment = selfCreateRatingDTO.Comment,
+                    UserId = (int)userId,
+                    BookId = selfCreateRatingDTO.BookId
+                };
+
+                return CreateRating(rating);
+            }
+            
+            return new ResponseDTO() { Code = 400, Message = "Không tìm thấy User" };
         }
 
         public ResponseDTO DeleteRating(int id)

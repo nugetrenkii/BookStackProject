@@ -11,5 +11,6 @@ namespace BookStack.Services.RatingService
         //ResponseDTO UpdateRating(int id, string name);
         ResponseDTO DeleteRating(int id);
         ResponseDTO CreateRating(CreateRatingDTO createRatingDTO);
+        ResponseDTO SelfRating(SelfCreateRatingDTO selfCreateRatingDTO);
     }
 }

@@ -22,7 +22,7 @@ namespace BookStack.Controllers
             var resData = await _vnPayService.CreateUrlPayment(orderId, total);
             return StatusCode(resData.Code, resData);
         }
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> ReturnPayment()
         {
             var vnpayData = Request.Query;

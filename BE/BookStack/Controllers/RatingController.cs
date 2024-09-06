@@ -54,5 +54,12 @@ namespace BookStack.Controllers
             var res = _ratingService.CreateRating(createRatingDTO);
             return StatusCode(res.Code, res);
         }
+
+        [HttpPost("Self")]
+        public IActionResult SelfRating(SelfCreateRatingDTO selfCreateRatingDto)
+        {
+            var res = _ratingService.SelfRating(selfCreateRatingDto);
+            return StatusCode(res.Code, res);
+        }
     }
 }

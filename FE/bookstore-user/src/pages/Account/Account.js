@@ -3,10 +3,10 @@ import "./Account.css"
 import Waiting from '../Waiting/Waiting'
 import Menu from '../../components/Menu/Menu'
 import { Button, Card, Col, DatePicker, Form, Image, Input, Radio, Row, Upload } from 'antd'
-import { GetPersonalInfo, GetUserById } from '../../axios/AuthAPI'
+import { GetPersonalInfo } from '../../axios/AuthAPI'
 import { UploadOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs';
-import { UpdateUser } from '../../axios/AccountAPI'
+import { SelfUpdateUser, UpdateUser } from '../../axios/AccountAPI'
 import { UploadImageAPI } from '../../axios/ImageAPI'
 import { useNavigate } from 'react-router-dom'
 
@@ -60,7 +60,7 @@ function Account() {
       dob: dayjs(values?.dob).add(1, 'day').toJSON().slice(0, 10)
     }
 
-    var res = await UpdateUser(localStorage.getItem('userId'), user)
+    var res = await SelfUpdateUser(user)
     if (res?.code == 200) {
       setTimeout(() => {
         window.location.reload()
@@ -86,7 +86,7 @@ function Account() {
       dob: dayjs(values?.dob).add(1, 'day').toJSON().slice(0, 10)
     }
 
-    var res = await UpdateUser(localStorage.getItem('userId'), user)
+    var res = await SelfUpdateUser(user)
     if (res?.code == 200) {
       setTimeout(() => {
         window.location.reload()
