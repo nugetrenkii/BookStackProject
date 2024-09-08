@@ -71,7 +71,7 @@
 /* New Status (Light Blue) */
 .new,
 .new:hover {
-  border-color: #5bc0de; /* Lighter blue with improved clarity */
-  background: #5bc0de;
+  border-color: #ffcc00; /* Slightly darker yellow for better visibility */
+  background: #ffcc00;
   color: #fff;
 }

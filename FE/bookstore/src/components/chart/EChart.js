@@ -242,9 +242,9 @@ function EChart(props) {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Active Users</Title>
+          <Title level={5}>Người dùng mới</Title>
           <Paragraph className="lastweek">
-            than last month <span style={{color : props?.users?.diff < 0 ? "red" : "#52c41a"}}>{props?.users?.diff}%</span>
+            so với tháng trước <span style={{color : props?.users?.diff < 0 ? "red" : "#52c41a"}}>{props?.users?.diff}%</span>
           </Paragraph>
         </div>
       </div>

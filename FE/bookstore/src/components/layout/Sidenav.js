@@ -197,7 +197,7 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Dashboard</span>
+            <span className="label">Trang chủ</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
@@ -210,7 +210,7 @@ function Sidenav({ color }) {
             >
               <UserOutlined />
             </span>
-            <span className="label">Users</span>
+            <span className="label">Người dùng</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3">
@@ -223,7 +223,7 @@ function Sidenav({ color }) {
             >
               {billing}
             </span>
-            <span className="label">Order</span>
+            <span className="label">Đơn hàng</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="4">
@@ -236,7 +236,7 @@ function Sidenav({ color }) {
             >
               <StarOutlined />
             </span>
-            <span className="label">Rating</span>
+            <span className="label">Đánh giá</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="5">
@@ -249,7 +249,7 @@ function Sidenav({ color }) {
             >
               <BookOutlined />
             </span>
-            <span className="label">Book</span>
+            <span className="label">Sách</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="6">
@@ -262,7 +262,7 @@ function Sidenav({ color }) {
             >
               <TagsOutlined />
             </span>
-            <span className="label">Tag</span>
+            <span className="label">Thẻ</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
@@ -275,7 +275,7 @@ function Sidenav({ color }) {
             >
               {rtl}
             </span>
-            <span className="label">Author</span>
+            <span className="label">Tác giả</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="8">
@@ -288,7 +288,7 @@ function Sidenav({ color }) {
             >
               <FolderOpenTwoTone />
             </span>
-            <span className="label">Publisher</span>
+            <span className="label">Nhà xuất bản</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="9">
@@ -301,7 +301,7 @@ function Sidenav({ color }) {
             >
               <DeliveredProcedureOutlined />
             </span>
-            <span className="label">Shipping mode</span>
+            <span className="label">Đơn vị giao hàng</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item className="menu-item-header" key="10">
@@ -313,7 +313,7 @@ function Sidenav({ color }) {
             <span className="icon">
               {signup}
             </span>
-            <span className="label">Logout</span>
+            <span className="label">Đăng xuất</span>
           </a>
         </Menu.Item>
 

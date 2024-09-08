@@ -371,7 +371,7 @@ function Home() {
               <div className="number">
                 <Row align="middle" gutter={[24, 0]}>
                   <Col xs={18}>
-                    <span>Month's revenues</span>
+                    <span>Doanh thu tháng</span>
                     <Title level={3}>
                       {data?.revenue?.statistical[month]} VNĐ {data?.revenue?.diff < 0 ? <small className="redtext">{data?.revenue?.diff}%</small> : <small className="bnb2">+{data?.revenue?.diff}%</small>}
                     </Title>
@@ -396,7 +396,7 @@ function Home() {
               <div className="number">
                 <Row align="middle" gutter={[24, 0]}>
                   <Col xs={18}>
-                    <span>Month's users</span>
+                    <span>Người dùng mới trong tháng</span>
                     <Title level={3}>
                       {data?.user?.statistical[month]} User {data?.user?.diff < 0 ? <small className="redtext">{data?.user?.diff}%</small> : <small className="bnb2">+{data?.user?.diff}%</small>}
                     </Title>
@@ -421,7 +421,7 @@ function Home() {
               <div className="number">
                 <Row align="middle" gutter={[24, 0]}>
                   <Col xs={18}>
-                    <span>Month's orders</span>
+                    <span>Đơn hàng trong tháng</span>
                     <Title level={3}>
                       {data?.order?.statistical[month]} Order {data?.order?.diff < 0 ? <small className="redtext">{data?.order?.diff}%</small> : <small className="bnb2">+{data?.order?.diff}%</small>}
                     </Title>
@@ -462,12 +462,12 @@ function Home() {
 
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full" onClick={() => window.location.href = "/user"}>
+            <Card bordered={false} className="criclebox h-full">
               <Echart users={data?.user} />
             </Card>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full" onClick={() => window.location.href = "/order"}>
+            <Card bordered={false} className="criclebox h-full">
               <LineChart orders={data?.order} revenues={data?.revenue} />
             </Card>
           </Col>

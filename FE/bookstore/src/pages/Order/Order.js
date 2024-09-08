@@ -129,7 +129,7 @@ function Order() {
 
     const fetchData = async (page, key, status) => {
         setLoading(true)
-        var res = await GetOrders(page, 10, key, "ID", status);
+        var res = await GetOrders(page, 10, key, "CREATE", status);
         console.log(res)
         var data = []
         res.data.map((item, index) => (

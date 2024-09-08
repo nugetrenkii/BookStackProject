@@ -27,6 +27,8 @@ namespace BookStack.Controllers
         {
             var vnpayData = Request.Query;
             var resData = await _vnPayService.ReturnPayment(vnpayData);
+            if (resData.Code == 200)
+                return Redirect(resData.Data.ToString() ?? "https://localhost:3000");
             return StatusCode(resData.Code, resData);
         }
     }

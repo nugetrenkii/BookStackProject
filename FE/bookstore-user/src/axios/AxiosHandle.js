@@ -49,7 +49,9 @@ instance.interceptors.response.use(
     // Clear the token from local storage and redirect to login
     localStorage.removeItem("token");
     toast.error("Unauthorized. Please log in again.");
-    window.location.href = "/login";
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 1000);
   }
   
   function handleNetworkError() {

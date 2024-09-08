@@ -74,7 +74,7 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             switch (sortBy)
             {
                 case "CREATE":
-                    query = query.OrderBy(u => u.Create);
+                    query = query.OrderByDescending(u => u.Create).ThenBy(u => u.Id);
                     break;
                 default:
                     query = query.OrderBy(u => u.IsDeleted).ThenBy(u => u.Id);

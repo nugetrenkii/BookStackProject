@@ -211,9 +211,9 @@ function LineChart(props) {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Revenues</Title>
+          <Title level={5}>Doanh thu</Title>
           <Paragraph className="lastweek">
-            than last month <span className="bnb2">{props?.revenues?.diff}%</span>
+            so với tháng trước <span className="bnb2">{props?.revenues?.diff}%</span>
           </Paragraph>
         </div>
         <div className="sales">

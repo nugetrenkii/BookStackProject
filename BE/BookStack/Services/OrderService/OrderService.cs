@@ -112,25 +112,28 @@ namespace BookStack.Services.OrderService
             if (userId != null)
             {
                 var user = _userRepository.GetUserById((int)userId);
-                if (user == null) return new ResponseDTO()
-                {
-                    Code = 400,
-                    Message = "User không tồn tại"
-                };
-            
+                if (user == null)
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "User không tồn tại"
+                    };
+
                 var shippingMode = _shippingModeRepository.GetShippingModeById(selfCreateOrderDTO.ShippingModeId);
-                if (shippingMode == null) return new ResponseDTO()
-                {
-                    Code = 400,
-                    Message = "ShippingMode không tồn tại"
-                };
+                if (shippingMode == null)
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "ShippingMode không tồn tại"
+                    };
 
                 var address = _addressRepository.GetAddressById(selfCreateOrderDTO.AddressId);
-                if (address == null) return new ResponseDTO()
-                {
-                    Code = 400,
-                    Message = "Address không tồn tại"
-                };
+                if (address == null)
+                    return new ResponseDTO()
+                    {
+                        Code = 400,
+                        Message = "Address không tồn tại"
+                    };
 
                 if (user.Addresses.IndexOf(address) < 0)
                 {
@@ -160,11 +163,16 @@ namespace BookStack.Services.OrderService
                 _orderRepository.CreateOrder(order);
                 if (_orderRepository.IsSaveChanges())
                 {
-                    //after create need clear cart
+                    // Retrieve the OrderId after SaveChanges
+                    var orderId = order.Id;
+
+                    // Clear cart books
                     _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+
                     return new ResponseDTO()
                     {
-                        Message = "Tạo thành công"
+                        Message = "Tạo thành công",
+                        Data = orderId // Return the OrderId in response
                     };
                 }
 
@@ -181,6 +189,7 @@ namespace BookStack.Services.OrderService
                 Message = "User không tồn tại"
             };
         }
+
 
         public ResponseDTO DeleteOrder(int id)
         {

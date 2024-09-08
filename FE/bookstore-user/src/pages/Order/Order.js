@@ -114,7 +114,7 @@ function Order() {
 
             if (res?.code == 200) {
                 if(payment == 2){
-                    var res = await CreateUrlPayment(res?.data?.id, total)
+                    var res = await CreateUrlPayment(res?.data, total)
                     if (res.code == 200) window.location = res?.data
                 }
                 else
@@ -287,7 +287,7 @@ function Order() {
                             <Radio.Group defaultValue={1} onChange={(e)=>setPayment(e.target.value)}>
                                 <Space direction="vertical">
                                     <Radio value={1}>Thanh toán khi nhận hàng</Radio>
-                                    <Radio value={2}><Image src='https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_vnpay.svg?q=10298' />   VN Pay (Đang phát triển)</Radio>
+                                    <Radio value={2}><Image src='https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_vnpay.svg?q=10298' />   VN Pay </Radio>
                                 </Space>
                             </Radio.Group>
                         </Card>
