@@ -1,4 +1,5 @@
 ﻿using BookStack.DTOs.Response;
+using BookStack.DTOs.Tag;
 
 namespace BookStack.Services.TagService
 {
@@ -8,6 +9,6 @@ namespace BookStack.Services.TagService
         ResponseDTO GetTagById(int id);
         ResponseDTO UpdateTag(int id, string name);
         ResponseDTO DeleteTag(int id);
-        ResponseDTO CreateTag(string name);
+        ResponseDTO CreateTag(CreateTagDTO createTagDto);
     }
 }

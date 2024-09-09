@@ -171,7 +171,8 @@ function Tag() {
         }
         else {
             var a = form.getFieldValue()
-            res = await CreateTag(a.name)
+            var tag = { name: a.name, image: "" }
+            res = await CreateTag(tag)
         }
         if (res?.code == 200) {
             setIsModalOpen(false);

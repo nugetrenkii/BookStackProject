@@ -125,7 +125,7 @@ function Order() {
     useEffect(() => {
         console.log("fetch");
         fetchData(page, key, statusFilter)
-    }, [page, key, statusFilter])
+    }, [page, statusFilter])
 
     const fetchData = async (page, key, status) => {
         setLoading(true)

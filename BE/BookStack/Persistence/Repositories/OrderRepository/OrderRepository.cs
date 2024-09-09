@@ -63,7 +63,7 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             }
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
             else
-                return query.Where(o => o.IsDeleted == true).Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+                return query.Where(o => o.IsDeleted == false).Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
         }
 
         public int GetOrderCount()
@@ -83,7 +83,10 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             
             if (!string.IsNullOrEmpty(key))
             {
-                query = query.Where(au => au.Id == int.Parse(key) || au.User.Username.Contains(key, StringComparison.OrdinalIgnoreCase) || au.OrderBooks.Any(b => b.Book.Title.Contains(key)));
+                if (int.TryParse(key, out int id))
+                {
+                    query = query.Where(au => au.Id == id);
+                }
             }
 
             switch (sortBy)

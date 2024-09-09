@@ -6,6 +6,7 @@ namespace BookStack.Entities
     {
         [Key]
         public int Id { get; set; }
+        public string Type { get; set; } = "ONLINE";
         public string Status { get; set; } = "NEW"; 
         public string PayMode { get; set; } = "CASH";
         [StringLength(255)]

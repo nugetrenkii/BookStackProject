@@ -16,9 +16,9 @@ namespace BookStack.Services.TagService
             _mapper = mapper;
         }
 
-        public ResponseDTO CreateTag(string name)
+        public ResponseDTO CreateTag(CreateTagDTO createTagDto)
         {
-            var tag = new Tag { Name = name };
+            var tag = new Tag { Name = createTagDto.Name, Image = createTagDto.Image };
             _tagRepository.CreateTag(tag);
             if (_tagRepository.IsSaveChanges()) return new ResponseDTO() { Message = "Tạo thành công" };
             else return new ResponseDTO() { Code = 400, Message = "Tạo thất bại" };

@@ -258,6 +258,7 @@ function Book() {
             publishDate: a.publishDate.toJSON(),
             numberOfPages: a.numberOfPages,
             count: a.count,
+            maxOrder: a.maxOrder,
             publisherId: a.publisherId,
             authorId: a.authorId,
             tagIds: a.tagIds,
@@ -330,7 +331,7 @@ function Book() {
                         </Card>
                     </Col>
                 </Row>
-                <Modal title="Form create book" open={isModalOpen}
+                <Modal title="Tạo mới sách" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -349,7 +350,7 @@ function Book() {
                         }}
                         layout="vertical"
                     >
-                        <Form.Item name="title" label="Title"
+                        <Form.Item name="title" label="Tiêu đề"
                             rules={[
                                 {
                                     required: true,
@@ -363,7 +364,7 @@ function Book() {
                             <Input />
                         </Form.Item>
 
-                        <Form.Item name="description" label="Description"
+                        <Form.Item name="description" label="Mô tả"
                             rules={[
                                 {
                                     required: true,
@@ -377,7 +378,7 @@ function Book() {
                             <TextArea />
                         </Form.Item>
 
-                        <Form.Item name="language" label="Language"
+                        <Form.Item name="language" label="Ngôn ngữ"
                             rules={[
                                 {
                                     required: true,
@@ -391,7 +392,7 @@ function Book() {
                         </Form.Item>
                         <Row gutter={[24, 0]} >
                             <Col span={24} md={12}>
-                                <Form.Item name="price" label="Price"
+                                <Form.Item name="price" label="Giá bán"
                                     rules={[
                                         {
                                             required: true,
@@ -403,7 +404,7 @@ function Book() {
                             </Col>
 
                             <Col span={24} md={12}>
-                                <Form.Item name="publishDate" label="Publish date"
+                                <Form.Item name="publishDate" label="Ngày phát hành"
                                     rules={[
                                         {
                                             required: true,
@@ -414,34 +415,40 @@ function Book() {
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Row gutter={[24, 0]} >
+                        <Row gutter={[24, 0]}>
                             <Col span={24} md={12}>
-                                <Form.Item name="numberOfPages" label="Number of pages"
-                                    rules={[
-                                        {
-                                            required: true,
-                                        },
-                                    ]}
+                                <Form.Item
+                                    name="numberOfPages"
+                                    label="Số trang"
+                                    rules={[{ required: true }]}
                                 >
                                     <InputNumber min={1} max={2500} />
                                 </Form.Item>
                             </Col>
                             <Col span={24} md={12}>
-                                <Form.Item name="count" label="Count"
-                                    rules={[
-                                        {
-                                            required: true,
-                                        },
-                                    ]}
+                                <Form.Item
+                                    name="count"
+                                    label="Số lượng"
+                                    rules={[{ required: true }]}
+                                >
+                                    <InputNumber min={1} max={100} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={24} md={12}>
+                                <Form.Item
+                                    name="maxOrder"
+                                    label="Số lượng đặt hàng tối đa"
+                                    rules={[{ required: true }]}
                                 >
                                     <InputNumber min={1} max={100} />
                                 </Form.Item>
                             </Col>
                         </Row>
 
+
                         <Row gutter={[24, 0]} >
                             <Col span={24} md={12}>
-                                <Form.Item name="publisherId" label="Publisher"
+                                <Form.Item name="publisherId" label="Nhà xuất bản"
                                     rules={[
                                         {
                                             required: true,
@@ -458,7 +465,7 @@ function Book() {
                                 </Form.Item>
                             </Col>
                             <Col span={24} md={12}>
-                                <Form.Item name="authorId" label="Author"
+                                <Form.Item name="authorId" label="Tác giả"
                                     rules={[
                                         {
                                             required: true,
@@ -475,7 +482,7 @@ function Book() {
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Form.Item name="tagIds" label="Tag"
+                        <Form.Item name="tagIds" label="Thẻ"
                             rules={[
                                 {
                                     required: true,
@@ -491,7 +498,7 @@ function Book() {
                             </Select>
                         </Form.Item>
 
-                        <Form.Item name="image" label="Image"
+                        <Form.Item name="image" label="Hình ảnh"
                             rules={[
                                 {
                                     required: true,

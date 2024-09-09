@@ -57,13 +57,13 @@ namespace BookStack.Services.AddressService
                 if (_addressRepository.IsSaveChanges())
                     return new ResponseDTO()
                     {
-                        Message = "Tạo mới",
-                        Data = _mapper.Map<AddressDTO>(_addressRepository.GetAddressById())
+                        Message = "Tạo mới thành công",
+                        Data = address.Id
                     };
                 return new ResponseDTO()
                 {
                     Code = 400,
-                    Message = "Tạo thát bị"
+                    Message = "Tạo thất bại",
                 };
             }
 

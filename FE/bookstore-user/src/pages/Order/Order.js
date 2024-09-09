@@ -66,9 +66,10 @@ function Order() {
             if (res?.code == 200) {
                 var order = {
                     status: "NEW",
+                    type: "ONLINE",
                     description: "",
                     shippingModeId: shippingMode,
-                    addressId: res?.data?.id,
+                    addressId: res?.data,
                     payMode: payment == 1 ? "CASH" : "VNPAY", // Update this line
                     quantitieCounts: [
                 
@@ -84,15 +85,16 @@ function Order() {
 
                 console.log(order);
 
-                var res = await CreateOrder(order)
+                var res = await SelfCreateOrder(order)
 
                 if (res?.code == 200) {
-                    navigate('/')
+                    navigate('/account/history')
                 }
             }
         } else {
             var order = {
                 status: "NEW",
+                type: "ONLINE",
                 description: "",
                 shippingModeId: shippingMode,
                 addressId: address,

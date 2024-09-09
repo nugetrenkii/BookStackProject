@@ -22,6 +22,7 @@ namespace BookStack.Controllers
             return StatusCode(resData.Code, resData);
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ReturnPayment()
         {
             var vnpayData = Request.Query;

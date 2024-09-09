@@ -1,4 +1,5 @@
-﻿using BookStack.Services.TagService;
+﻿using BookStack.DTOs.Tag;
+using BookStack.Services.TagService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,9 +44,9 @@ namespace BookStack.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult CreateTag(string name)
+        public IActionResult CreateTag(CreateTagDTO createTagDTO)
         {
-            var res = _tagService.CreateTag(name);
+            var res = _tagService.CreateTag(createTagDTO);
             return StatusCode(res.Code, res);
         }
     }
