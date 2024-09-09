@@ -21,8 +21,7 @@ function Order() {
         street: "",
         city: "",
         state: "",
-        phone: "",
-        userId: 2
+        phone: ""
     })
     const [shippingMode, setShippingMode] = useState(1)
     const [shippingModes, setShippingModes] = useState([])
@@ -40,7 +39,7 @@ function Order() {
         console.log(books);
 
         var res = await GetSelfAddress()
-        if (res?.code == 200) {
+        if (res?.code == 200 && res?.data?.length > 0) {
             setAddresses(res?.data);
             setAddress(res?.data[0].id);
         }
@@ -60,38 +59,7 @@ function Order() {
 
     const Order = async () => {
         setWait(true)
-
-        if (!localStorage.getItem('token')) {
-            var res = await SelfCreateAddress(guestAddress)
-            if (res?.code == 200) {
-                var order = {
-                    status: "NEW",
-                    type: "ONLINE",
-                    description: "",
-                    shippingModeId: shippingMode,
-                    addressId: res?.data,
-                    payMode: payment == 1 ? "CASH" : "VNPAY", // Update this line
-                    quantitieCounts: [
-                
-                    ],
-                    bookIds: [
-                
-                    ]
-                }
-                for (var i = 0; i < books?.length; i++) {
-                    order.bookIds.push(books[i]?.id)
-                    order.quantitieCounts.push(quantities[i]?.count)
-                }
-
-                console.log(order);
-
-                var res = await SelfCreateOrder(order)
-
-                if (res?.code == 200) {
-                    navigate('/account/history')
-                }
-            }
-        } else {
+        if (addresses?.length > 0) {
             var order = {
                 status: "NEW",
                 type: "ONLINE",
@@ -122,6 +90,41 @@ function Order() {
                 else
                 navigate('/account/history')
             }
+        } else {
+            var res = await SelfCreateAddress(guestAddress)
+            if (res?.code == 200) {
+                var order = {
+                    status: "NEW",
+                    type: "ONLINE",
+                    description: "",
+                    shippingModeId: shippingMode,
+                    addressId: res?.data,
+                    payMode: payment == 1 ? "CASH" : "VNPAY", // Update this line
+                    quantitieCounts: [
+                
+                    ],
+                    bookIds: [
+                
+                    ]
+                }
+                for (var i = 0; i < books?.length; i++) {
+                    order.bookIds.push(books[i]?.id)
+                    order.quantitieCounts.push(quantities[i]?.count)
+                }
+
+                console.log(order);
+
+                var res = await SelfCreateOrder(order)
+
+                if (res?.code == 200) {
+                    if(payment == 2){
+                        var res = await CreateUrlPayment(res?.data, total)
+                        if (res.code == 200) window.location = res?.data
+                    }
+                    else
+                    navigate('/account/history')
+                }
+            }
         }
         setWait(false)
     }
@@ -143,23 +146,33 @@ function Order() {
                             )}
                         >
                             {
-                                (localStorage.getItem("token")) ?
+                                (addresses?.length > 0) ?
                                     <>
-                                        <div style={{
+                                        <div
+                                            style={{
                                             display: "flex",
-                                            flexDirection: "column"
-                                        }}>
-                                            <a style={{
-                                                marginBottom: "10px"
-                                            }} onClick={() => navigate('/account/address')}>+ Thêm địa chỉ</a>
-                                            <Radio.Group onChange={(e) => setAddress(e.target.value)} defaultValue={1}>
-                                                <Space direction="vertical">
-                                                    {
-                                                        addresses?.map((item, index) => (
-                                                            <Radio checked value={item?.id}>{item?.name + " - " + item?.phone + ", " + item?.street + ", " + item?.state + ", " + item?.city}</Radio>
-                                                        ))
-                                                    }
-                                                </Space>
+                                            flexDirection: "column",
+                                            }}
+                                        >
+                                            <a
+                                            style={{
+                                                marginBottom: "10px",
+                                            }}
+                                            onClick={() => navigate("/account/address")}
+                                            >
+                                            + Thêm địa chỉ
+                                            </a>
+                                            <Radio.Group
+                                            onChange={(e) => setAddress(e.target.value)}
+                                            defaultValue={addresses?.[0]?.id} // Set defaultValue to the first item's id
+                                            >
+                                            <Space direction="vertical">
+                                                {addresses?.map((item, index) => (
+                                                <Radio key={item?.id} value={item?.id}>
+                                                    {`${item?.name} - ${item?.phone}, ${item?.street}, ${item?.state}, ${item?.city}`}
+                                                </Radio>
+                                                ))}
+                                            </Space>
                                             </Radio.Group>
                                         </div>
                                     </>
