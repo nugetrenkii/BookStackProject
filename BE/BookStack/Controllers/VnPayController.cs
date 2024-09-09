@@ -7,7 +7,6 @@ namespace BookStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class VnPayController : ControllerBase
     {
         private readonly IVNPayService _vnPayService;

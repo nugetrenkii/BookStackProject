@@ -60,7 +60,8 @@ namespace BookStack.Persistence.Repositories.ShippingModeRepository
 
         public void UpdateShippingMode(ShippingMode shippingMode)
         {
-            _dataContext.Entry(shippingMode).State = EntityState.Modified;
+            shippingMode.Update = DateTime.Now;
+            _dataContext.ShippingModes.Update(shippingMode);
         }
     }
 }

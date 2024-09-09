@@ -60,7 +60,8 @@ namespace BookStack.Persistence.Repositories.AuthorRepository
 
         public void UpdateAuthor(Author author)
         {
-            _dataContext.Entry(author).State = EntityState.Modified;
+            author.Update = DateTime.Now;
+            _dataContext.Authors.Update(author);
         }
     }
 }

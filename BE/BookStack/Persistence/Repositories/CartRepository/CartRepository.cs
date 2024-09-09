@@ -48,7 +48,8 @@ namespace BookStack.Persistence.Repositories.CartRepository
 
         public void UpdateCart(Cart cart)
         {
-            _dataContext.Entry(cart).State = EntityState.Modified;
+            cart.Update = DateTime.Now;
+            _dataContext.Carts.Update(cart);
         }
     }
 }

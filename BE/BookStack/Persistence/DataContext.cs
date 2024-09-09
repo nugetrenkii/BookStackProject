@@ -22,6 +22,8 @@ namespace BookStack.Persistence
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartBook> CartBooks { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<UserVoucher> UserVouchers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>()

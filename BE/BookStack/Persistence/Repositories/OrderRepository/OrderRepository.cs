@@ -25,16 +25,28 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             return _dataContext.Orders.Include(o => o.User).Include(o => o.ShippingMode).Include(o => o.Address).Include(o => o.OrderBooks).ThenInclude(s => s.Book).FirstOrDefault(t => t.Id == id);
         }
 
-        public List<Order> GetOrderByUser(int userId, int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID")
+        public List<Order> GetOrderByUser(int userId, int? page = 1, int? pageSize = 10, string? key = "", string? sortBy = "ID", string? status = "")
         {
             //check order is null
             if (!_dataContext.Orders.Any()) return Enumerable.Empty<Order>().ToList();
             
-            var query = _dataContext.Orders.Include(o => o.User).Include(o => o.ShippingMode).Include(o => o.Address).Include(o => o.OrderBooks).ThenInclude(s => s.Book).Where(o => o.User.Id == userId).AsQueryable();
+            var query = _dataContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.ShippingMode)
+                .Include(o => o.Address)
+                .Include(o => o.OrderBooks)
+                .ThenInclude(s => s.Book)
+                .AsSplitQuery()
+                .Where(o => o.User.Id == userId).AsQueryable();
+            
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(o => o.Status == status);
+            }
             
             if (!string.IsNullOrEmpty(key))
             {
-                query = query.Where(au => au.Description.ToLower().Contains(key.ToLower()));
+                query = query.Where(au => au.Id == int.Parse(key) || au.User.Username.Contains(key) || au.OrderBooks.Any(b => b.Book.Title.Contains(key)));
             }
 
             switch (sortBy)
@@ -42,13 +54,16 @@ namespace BookStack.Persistence.Repositories.OrderRepository
                 case "CREATE":
                     query = query.OrderBy(u => u.Create).ThenByDescending(u => u.Id);
                     break;
+                case "CREATE_DESC":
+                    query = query.OrderByDescending(u => u.Create).ThenByDescending(u => u.Id);
+                    break;
                 default:
                     query = query.OrderBy(u => u.IsDeleted).ThenByDescending(u => u.Id);
                     break;
             }
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
             else
-                return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+                return query.Where(o => o.IsDeleted == true).Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
         }
 
         public int GetOrderCount()
@@ -61,19 +76,22 @@ namespace BookStack.Persistence.Repositories.OrderRepository
             if (!_dataContext.Orders.Any()) return Enumerable.Empty<Order>().ToList();
             var query = _dataContext.Orders.Include(o => o.User).Include(o => o.ShippingMode).Include(o => o.Address).Include(o => o.OrderBooks).ThenInclude(s => s.Book).AsQueryable();
 
-            if (!string.IsNullOrEmpty(key))
-            {
-                query = query.Where(au => au.Description.ToLower().Contains(key.ToLower()));
-            }
-
             if (!string.IsNullOrEmpty(status))
             {
                 query = query.Where(au => au.Status == status);
+            }
+            
+            if (!string.IsNullOrEmpty(key))
+            {
+                query = query.Where(au => au.Id == int.Parse(key) || au.User.Username.Contains(key, StringComparison.OrdinalIgnoreCase) || au.OrderBooks.Any(b => b.Book.Title.Contains(key)));
             }
 
             switch (sortBy)
             {
                 case "CREATE":
+                    query = query.OrderBy(u => u.Create).ThenBy(u => u.Id);
+                    break;
+                case "CREATE_DESC":
                     query = query.OrderByDescending(u => u.Create).ThenBy(u => u.Id);
                     break;
                 default:
@@ -81,8 +99,8 @@ namespace BookStack.Persistence.Repositories.OrderRepository
                     break;
             }
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
-            else
-                return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+
+            return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
         }
 
         public bool IsSaveChanges()
@@ -92,7 +110,8 @@ namespace BookStack.Persistence.Repositories.OrderRepository
 
         public void UpdateOrder(Order order)
         {
-            _dataContext.Entry(order).State = EntityState.Modified;
+            order.Update = DateTime.Now;
+            _dataContext.Orders.Update(order);
         }
     }
 }

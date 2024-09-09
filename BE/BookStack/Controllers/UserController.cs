@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Globalization;
+﻿using Microsoft.AspNetCore.Mvc;
 using BookStack.DTOs.User;
 using BookStack.Services.UserService;
 using Microsoft.AspNetCore.Authorization;

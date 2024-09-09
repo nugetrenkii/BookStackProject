@@ -31,4 +31,9 @@ public class UserAccessor
     {
         return _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
     }
+    
+    public string? GetCurrentUserIpAddress()
+    {
+        return _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+    }
 }

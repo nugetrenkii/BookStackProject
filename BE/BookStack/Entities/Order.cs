@@ -7,7 +7,7 @@ namespace BookStack.Entities
         [Key]
         public int Id { get; set; }
         public string Status { get; set; } = "NEW"; 
-        public string PayMode { get; set; } = "CASH"; 
+        public string PayMode { get; set; } = "CASH";
         [StringLength(255)]
         public string Description { get; set; } = "";
         public bool IsDeleted { get; set; } = false;
@@ -23,5 +23,7 @@ namespace BookStack.Entities
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
         public virtual List<OrderBook> OrderBooks { get; set; } = new List<OrderBook>();
+        public int? VoucherId { get; set; }
+        public virtual Voucher Voucher { get; set; }
     }
 }

@@ -66,7 +66,8 @@ namespace BookStack.Persistence.Repositories.AddressRepository
 
         public void UpdateAddress(Entities.Address address)
         {
-            _dataContext.Entry(address).State = EntityState.Modified;
+            address.Update = DateTime.Now;
+            _dataContext.Addresses.Update(address);
         }
     }
 }

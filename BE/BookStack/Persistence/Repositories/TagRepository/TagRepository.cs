@@ -60,7 +60,8 @@ namespace BookStack.Persistence.Repositories.TagRepository
 
         public void UpdateTag(Tag tag)
         {
-            _dataContext.Entry(tag).State = EntityState.Modified;
+            tag.Update = DateTime.Now;
+            _dataContext.Tags.Update(tag);
         }
     }
 }

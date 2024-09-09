@@ -70,7 +70,8 @@ namespace BookStack.Persistence.Repositories.UserRepository
 
         public void UpdateUser(User user)
         {
-            _dataContext.Entry(user).State = EntityState.Modified;
+            user.Update = DateTime.Now;
+            _dataContext.Users.Update(user);
         }
     }
 }

@@ -131,7 +131,8 @@ namespace BookStack.Persistence.Repositories.BookRepository
 
         public void UpdateBook(Book book)
         {
-            _dataContext.Entry(book).State = EntityState.Modified;
+            book.Update = DateTime.Now;
+            _dataContext.Books.Update(book);
         }
     }
 }

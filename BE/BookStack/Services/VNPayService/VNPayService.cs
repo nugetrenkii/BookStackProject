@@ -1,20 +1,23 @@
 ﻿using BookStack.DTOs.Response;
 using BookStack.DTOs.User;
 using BookStack.Persistence.Repositories.OrderRepository;
+using BookStack.Utilities;
 
 namespace BookStack.Services.VNPayService
 {
     public class VNPayService : IVNPayService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly UserAccessor _userAccessor;
         private readonly string _vnp_ReturnUrl;
         private readonly string _vnp_Url;
         private readonly string _vnp_TmnCode;
         private readonly string _vnp_HashSecret;
 
-        public VNPayService(IOrderRepository orderRepository, IConfiguration configuration)
+        public VNPayService(IOrderRepository orderRepository, IConfiguration configuration, UserAccessor userAccessor)
         {
             _orderRepository = orderRepository;
+            _userAccessor = userAccessor;
 
             // Retrieve configuration values from IConfiguration
             _vnp_ReturnUrl = configuration.GetValue<string>("VnPaySettings:vnp_ReturnUrl");
@@ -44,10 +47,10 @@ namespace BookStack.Services.VNPayService
             vnpay.AddRequestData("vnp_Amount", (total * 100).ToString());
             vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
-            vnpay.AddRequestData("vnp_IpAddr", "192.168.1.7");
+            vnpay.AddRequestData("vnp_IpAddr", _userAccessor.GetCurrentUserIpAddress() ?? "192.168.1.7");
             vnpay.AddRequestData("vnp_Locale", "vn");
             vnpay.AddRequestData("vnp_OrderInfo", orderId.ToString());
-            vnpay.AddRequestData("vnp_OrderType", "210000");
+            vnpay.AddRequestData("vnp_OrderType", "150000");
             vnpay.AddRequestData("vnp_ReturnUrl", _vnp_ReturnUrl);
             vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString());
             vnpay.AddRequestData("vnp_ExpireDate", DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss"));
@@ -81,9 +84,9 @@ namespace BookStack.Services.VNPayService
             string vnp_SecureHash = vnpayData.FirstOrDefault(kvp => kvp.Key == "vnp_SecureHash").Value;
             string terminalID = vnpayData.FirstOrDefault(kvp => kvp.Key == "vnp_TmnCode").Value;
             double total = Convert.ToDouble(vnpay.GetResponseData("vnp_Amount")) / 100;
-            int orderId = Convert.ToInt32(vnpayData.FirstOrDefault(kvp => kvp.Key == "vnp_OrderInfo").Value);
             string paymentInfo = vnpayData.FirstOrDefault(kvp => kvp.Key == "vnp_OrderInfo").Value;
             string bankCode = vnpayData.FirstOrDefault(kvp => kvp.Key == "vnp_BankCode").Value;
+            int orderId = Convert.ToInt32(paymentInfo);
 
             // Validate the VNPAY signature
             bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, _vnp_HashSecret);

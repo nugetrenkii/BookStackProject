@@ -18,6 +18,7 @@ namespace BookStack.Entities
         [Required]
         public string Language { get; set; }
         public int Count { get; set; } = 0;
+        public int MaxOrder { get; set; } = 0;
         public double Price { get; set; } = 0;
         [Required]
         [StringLength(255)]

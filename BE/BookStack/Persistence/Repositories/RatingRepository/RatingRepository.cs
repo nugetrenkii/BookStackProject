@@ -83,7 +83,8 @@ namespace BookStack.Persistence.Repositories.RatingRepository
 
         public void UpdateRating(Rating rating)
         {
-            _dataContext.Entry(rating).State = EntityState.Modified;
+            rating.Update = DateTime.Now;
+            _dataContext.Ratings.Update(rating);
         }
     }
 }

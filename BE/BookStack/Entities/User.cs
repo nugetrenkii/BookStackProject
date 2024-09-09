@@ -35,6 +35,7 @@ namespace BookStack.Entities
         public virtual Cart Cart { get; set; }
         public virtual List<Address> Addresses { get; set; } = new List<Address>();
         public virtual List<Order> Orders { get; set; } = new List<Order>();
+        public virtual List<UserVoucher> UserVouchers { get; set; } = new List<UserVoucher>();
 
         public User()
         {
