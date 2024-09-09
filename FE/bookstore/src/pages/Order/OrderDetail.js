@@ -164,30 +164,34 @@ function OrderDetail() {
     }
 
     const onFinish = async (values) => {
-        setWait(true)
-        var url
-        // if (values.imageUpload)
-        //     url = await UploadImageAPI(values.imageUpload.file)
-
+        setWait(true);
         var order = {
             description: values.description,
             status: values.status,
             shippingModeId: values.shippingMode,
+        };
+    
+        try {
+            var res = await UpdateOrder(params?.id, order);
+            if (res?.code === 200) {
+                openNotificationWithIcon('success', "Thành công");
+                
+                // Instead of reloading the page, re-fetch the data or update the state
+                await fecthData(params?.id); // Re-fetch the data to get the updated state
+                
+                // Optionally, update the local state directly without fetching if feasible
+                // setOrder((prevOrder) => ({ ...prevOrder, ...order }));
+            } else {
+                openNotificationWithIcon('error', "Thất bại");
+            }
+        } catch (error) {
+            console.error("Update failed:", error);
+            openNotificationWithIcon('error', "Error updating order");
+        } finally {
+            setWait(false);
         }
-        console.log(params?.id);
-        console.log(order);
-        var res = await UpdateOrder(params?.id, order)
-        if (res?.code == 200) {
-            openNotificationWithIcon('success', "Thành công")
-            setTimeout(() => {
-                window.location.reload()
-            }, 500);
-        }
-        else
-            openNotificationWithIcon('error', "Thất bại")
-
-        setWait(false)
-    }
+    };
+    
     const statusLabels = {
         NEW: "Mới",
         COM: "Xác nhận",
