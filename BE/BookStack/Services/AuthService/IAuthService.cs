@@ -10,5 +10,6 @@ namespace BookStack.Services.AuthService
         Task<ResponseDTO> LoginWithGoogle(string code);
         Task<ResponseDTO> LoginWithFacebook(string code);
         ResponseDTO ChangePassword(ChangePasswordDTO changePasswordDTO);
+        Task<ResponseDTO> ForgotPassword(string email);
     }
 }

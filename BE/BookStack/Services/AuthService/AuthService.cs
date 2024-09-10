@@ -7,6 +7,7 @@ using BookStack.Persistence.Repositories.UserRepository;
 using BookStack.Services.CacheService;
 using BookStack.Services.FacebookService;
 using BookStack.Services.GoogleService;
+using BookStack.Services.MailService;
 using BookStack.Services.TokenService;
 using BookStack.Utilities;
 using Microsoft.AspNetCore.Authorization;
@@ -22,13 +23,90 @@ namespace BookStack.Services.AuthService
         private readonly IGoogleService _googleService;
         private readonly IFacebookService _facebookService;
         private readonly ICacheService _cacheService;
+        private readonly IMailService _mailService;
         private readonly UserAccessor _userAccessor;
+
+        private const string EmailTemplate = $$"""
+                                         <!DOCTYPE html>
+                                         <html lang="vi">
+                                         <head>
+                                             <meta charset="UTF-8">
+                                             <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                             <style>
+                                                 body {
+                                                     font-family: Arial, sans-serif;
+                                                     background-color: #f4f4f4;
+                                                     margin: 0;
+                                                     padding: 20px;
+                                                 }
+                                                 .email-container {
+                                                     background-color: #ffffff;
+                                                     max-width: 600px;
+                                                     margin: 0 auto;
+                                                     padding: 20px;
+                                                     border-radius: 8px;
+                                                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                                                 }
+                                                 .header {
+                                                     text-align: center;
+                                                     padding: 10px 0;
+                                                 }
+                                                 .header h1 {
+                                                     color: #333;
+                                                 }
+                                                 .content {
+                                                     padding: 20px 0;
+                                                     text-align: center;
+                                                 }
+                                                 .content p {
+                                                     color: #555;
+                                                     line-height: 1.5;
+                                                 }
+                                                 .button {
+                                                     display: inline-block;
+                                                     padding: 12px 24px;
+                                                     margin-top: 20px;
+                                                     background-color: #007bff;
+                                                     color: #ffffff;
+                                                     text-decoration: none;
+                                                     border-radius: 5px;
+                                                     font-weight: bold;
+                                                 }
+                                                 .footer {
+                                                     text-align: center;
+                                                     padding: 10px 0;
+                                                     color: #888;
+                                                     font-size: 12px;
+                                                 }
+                                             </style>
+                                         </head>
+                                         <body>
+                                             <div class="email-container">
+                                                 <div class="header">
+                                                     <h1>BookStack</h1>
+                                                 </div>
+                                                 <div class="content">
+                                                     <p>Xin chào,</p>
+                                                     <p>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn. Nhấn vào nút bên dưới để đặt lại mật khẩu:</p>
+                                                     <a href="{resetLink}" class="button">Đặt lại mật khẩu</a>
+                                                     <p>Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này.</p>
+                                                 </div>
+                                                 <div class="footer">
+                                                     <p>&copy; 2024 BookStack. All rights reserved.</p>
+                                                 </div>
+                                             </div>
+                                         </body>
+                                         </html>
+                                 """;
+        
         public AuthService(IUserRepository userRepository, 
             ICartRepository cartRepository, IMapper mapper, 
             ITokenService tokenService, IGoogleService googleService, 
             IFacebookService facebookService, 
             ICacheService cacheService,
-            UserAccessor userAccessor)
+            UserAccessor userAccessor,
+            IMailService mailService)
         {
             _userRepository = userRepository;
             _cartRepository = cartRepository;
@@ -38,6 +116,7 @@ namespace BookStack.Services.AuthService
             _facebookService = facebookService;
             _cacheService = cacheService;
             _userAccessor = userAccessor;
+            _mailService = mailService;
         }
         public ResponseDTO Login(string username, string password)
         {
@@ -250,6 +329,29 @@ namespace BookStack.Services.AuthService
             {
                 Code = 400,
                 Message = "Thay đổi mật khẩu thất bại",
+            };
+        }
+
+        public async Task<ResponseDTO> ForgotPassword(string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            if (user == null)
+            {
+                return new ResponseDTO()
+                {
+                    Code = 400,
+                    Message = "User không tồn tại"
+                };
+            }
+            
+            var token = _tokenService.GenerateToken(user);
+            var resetLink = $"https://localhost:3001/reset-password?token={token}";
+            var message = EmailTemplate.Replace("{resetLink}", resetLink);
+            await _mailService.SendEmailAsync(email, "Yêu cầu đổi mật khẩu", message);
+            return new ResponseDTO()
+            {
+                Code = 200,
+                Message = "Gửi link quên mật khẩu thành công"
             };
         }
     }
