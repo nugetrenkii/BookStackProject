@@ -89,13 +89,52 @@ namespace BookStack.Services.OrderService
             }
 
             _orderRepository.CreateOrder(order);
+            
             if (_orderRepository.IsSaveChanges())
             {
-                //after create need clear cart
-                _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+                // Retrieve the OrderId after SaveChanges
+                var orderId = order.Id;
+
+                // Update book quantities
+                foreach (var orderBook in order.OrderBooks)
+                {
+                    var book = _bookRepository.GetBookById(orderBook.BookId);
+                    if (book != null)
+                    {
+                        // Ensure the book has enough stock
+                        if (book.Count >= orderBook.Quantity)
+                        {
+                            book.Count -= orderBook.Quantity;
+                            _bookRepository.UpdateBook(book);
+                        }
+                        else
+                        {
+                            return new ResponseDTO()
+                            {
+                                Code = 400,
+                                Message = $"Không đủ số lượng cho sách ID {book.Id}"
+                            };
+                        }
+                    }
+                }
+
+                // Save changes for the updated book quantities
+                if (_bookRepository.IsSaveChanges())
+                {
+                    // Clear cart books
+                    _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+
+                    return new ResponseDTO()
+                    {
+                        Message = "Tạo thành công",
+                        Data = orderId // Return the OrderId in response
+                    };
+                }
+
                 return new ResponseDTO()
                 {
-                    Message = "Tạo thành công"
+                    Code = 400,
+                    Message = "Cập nhật số lượng sách thất bại"
                 };
             }
 
@@ -161,18 +200,53 @@ namespace BookStack.Services.OrderService
                 }
 
                 _orderRepository.CreateOrder(order);
+
+                // Check if save changes were successful
                 if (_orderRepository.IsSaveChanges())
                 {
                     // Retrieve the OrderId after SaveChanges
                     var orderId = order.Id;
 
-                    // Clear cart books
-                    _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+                    // Update book quantities
+                    foreach (var orderBook in order.OrderBooks)
+                    {
+                        var book = _bookRepository.GetBookById(orderBook.BookId);
+                        if (book != null)
+                        {
+                            // Ensure the book has enough stock
+                            if (book.Count >= orderBook.Quantity)
+                            {
+                                book.Count -= orderBook.Quantity;
+                                _bookRepository.UpdateBook(book);
+                            }
+                            else
+                            {
+                                return new ResponseDTO()
+                                {
+                                    Code = 400,
+                                    Message = $"Không đủ số lượng cho sách ID {book.Id}"
+                                };
+                            }
+                        }
+                    }
+
+                    // Save changes for the updated book quantities
+                    if (_bookRepository.IsSaveChanges())
+                    {
+                        // Clear cart books
+                        _cartRepository.ClearCartBook(order.OrderBooks.Select(c => c.BookId).ToList());
+
+                        return new ResponseDTO()
+                        {
+                            Message = "Tạo thành công",
+                            Data = orderId // Return the OrderId in response
+                        };
+                    }
 
                     return new ResponseDTO()
                     {
-                        Message = "Tạo thành công",
-                        Data = orderId // Return the OrderId in response
+                        Code = 400,
+                        Message = "Cập nhật số lượng sách thất bại"
                     };
                 }
 
@@ -189,7 +263,6 @@ namespace BookStack.Services.OrderService
                 Message = "User không tồn tại"
             };
         }
-
 
         public ResponseDTO DeleteOrder(int id)
         {
