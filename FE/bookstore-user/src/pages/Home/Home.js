@@ -5,6 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Home.css"
 import { GetBookById, GetBookByIds, GetBooks, GetBooksRecomend, GetTopOrderedBooks, GetTopRatedBooks } from '../../axios/BookAPI';
 import { GetTags } from '../../axios/TagAPI';
+import banner1 from '../../assets/images/Banner1.png';
+import banner2 from '../../assets/images/Banner2.png';
+import banner3 from '../../assets/images/Banner3.png';
+import card1 from '../../assets/images/Card1.png';
+import card2 from '../../assets/images/Card2.png';
+import card3 from '../../assets/images/Card3.png';
+import card4 from '../../assets/images/Card4.png';
+
 const contentStyle = {
     margin: 0,
     height: '400px',
@@ -95,19 +103,13 @@ function Home() {
                         cover={
                             <Carousel autoplay>
                                 <div>
-                                    <img src='https://cdn0.fahasa.com/media/magentothem/banner7/Manga_mainbanner_T10_Slide_840x320_1.jpg' style={contentStyle}></img>
+                                    <img src={banner1} style={contentStyle}></img>
                                 </div>
                                 <div>
-                                    <img src='https://cdn0.fahasa.com/media/magentothem/banner7/NCCMcBooksT1023_Silver_BannerSlide_840x320.jpg' style={contentStyle}></img>
+                                    <img src={banner2} style={contentStyle}></img>
                                 </div>
                                 <div>
-                                    <img src='https://cdn0.fahasa.com/media/magentothem/banner7/WimpyKid_banner_840x320.jpg' style={contentStyle}></img>
-                                </div>
-                                <div>
-                                    <img src='https://cdn0.fahasa.com/media/magentothem/banner7/NCCDinhTiT1023_Diamond_BannerSlide_840x320.jpg' style={contentStyle}></img>
-                                </div>
-                                <div>
-                                    <img src='https://cdn0.fahasa.com/media/magentothem/banner7/NCC1980BooksT1023_Gold_BannerSlide_840x320.jpg' style={contentStyle}></img>
+                                    <img src={banner3} style={contentStyle}></img>
                                 </div>
                             </Carousel>
                         }
@@ -200,7 +202,7 @@ function Home() {
                             preview={false}
                             // height={210}
                             width={"100%"}
-                            src='https://cdn0.fahasa.com/media/wysiwyg/Thang-11-2023/Quatang_FahasaT3_840x320_SmallBanner_310x210.png'
+                            src={card1}
                         />
                     </Card>
                 </Col>
@@ -220,7 +222,7 @@ function Home() {
                             preview={false}
                             // height={210}
                             width={"100%"}
-                            src='https://cdn0.fahasa.com/media/wysiwyg/Thang-11-2023/TrangThieuNhiT923_Banner_SmallBanner_310x210-22_1.png'
+                            src={card2}
                         />
                     </Card>
                 </Col>
@@ -240,7 +242,7 @@ function Home() {
                             preview={false}
                             // height={210}
                             width={"100%"}
-                            src='https://cdn0.fahasa.com/media/wysiwyg/Thang-11-2023/20_11_mainbanner_Smallbanner_310x210.png'
+                            src={card3}
                         />
                     </Card>
                 </Col>
@@ -260,7 +262,7 @@ function Home() {
                             preview={false}
                             // height={210}
                             width={"100%"}
-                            src='https://cdn0.fahasa.com/media/wysiwyg/Thang-11-2023/TopSanPhamT1023_Banner_SmallBanner_310x210.png'
+                            src={card4}
                         />
                     </Card>
                 </Col>

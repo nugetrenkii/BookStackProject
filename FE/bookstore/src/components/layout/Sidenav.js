@@ -179,9 +179,9 @@ function Sidenav({ color }) {
           <span className="span5" style={{ __i: "5" }}> </span>
           <span className="span6" style={{ __i: "6" }}>S</span>
           <span className="span7" style={{ __i: "7" }}>t</span>
-          <span className="span8" style={{ __i: "8" }}>o</span>
-          <span className="span9" style={{ __i: "9" }}>r</span>
-          <span className="span10" style={{ __i: "10" }}>e</span>
+          <span className="span8" style={{ __i: "8" }}>a</span>
+          <span className="span9" style={{ __i: "9" }}>c</span>
+          <span className="span10" style={{ __i: "10" }}>k</span>
         </div>
         {/* <span className="logo">Book Store</span> */}
       </div>

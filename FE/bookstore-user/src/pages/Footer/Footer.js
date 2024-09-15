@@ -28,7 +28,7 @@ function Footer() {
                 <div style={{ fontSize: "18px", fontWeight: "600" }}>DỊCH VỤ</div>
                 <span style={{ margin: "5px 0px" }}>Điều khoản sử dụng</span>
                 <span style={{ margin: "5px 0px" }}>Chính sách bảo mật</span>
-                <span style={{ margin: "5px 0px" }}>Giới thiệu BookStore.com</span>
+                <span style={{ margin: "5px 0px" }}>Giới thiệu BookStack.com</span>
               </div>
             </Col>
 
@@ -50,7 +50,9 @@ function Footer() {
                 flexDirection: "column"
               }}>
                 <div style={{ fontSize: "18px", fontWeight: "600" }}>LIÊN HỆ</div>
-                <span style={{ margin: "5px 0px" }}>13 Khái Đông 2, Q. Ngũ Hành Sơn, TP. Đà Nẵng</span>
+                <span style={{ margin: "5px 0px" }}>313 Trường Chinh, Thanh Xuân, Hà Nội</span>
+                <span style={{ margin: "5px 0px" }}>SĐT: 0398204444</span>
+                <span style={{ margin: "5px 0px" }}>Email: kienptph26160@fpt.edu.vn</span>
               </div>
             </Col>
           </Row>

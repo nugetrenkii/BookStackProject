@@ -4,7 +4,7 @@ import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/
 import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, Popover } from 'antd';
 import { GetUserById, GetPersonalInfo } from '../../axios/AuthAPI';
-
+import logo from '../../assets/images/BookStack.png';
 function Navbar() {
     const navigate = useNavigate();
     const [content, setContent] = useState()
@@ -112,24 +112,17 @@ function Navbar() {
 
     return (
         <div className='navbar-main'>
-            <div className='navbar-logo' onClick={() => navigate("")}>
                 {/* Book Store */}
-                <div className="waviy">
-                    <span className="span1" style={{ __i: "1" }}>B</span>
-                    <span className="span2" style={{ __i: "2" }}>o</span>
-                    <span className="span3" style={{ __i: "3" }}>o</span>
-                    <span className="span4" style={{ __i: "4" }}>k</span>
-                    <span className="span5" style={{ __i: "5" }}> </span>
-                    <span className="span6" style={{ __i: "6" }}>S</span>
-                    <span className="span7" style={{ __i: "7" }}>t</span>
-                    <span className="span8" style={{ __i: "8" }}>o</span>
-                    <span className="span9" style={{ __i: "9" }}>r</span>
-                    <span className="span10" style={{ __i: "10" }}>e</span>
+                <div className="waviy" onClick={() => navigate("/")}>
+                    <img src={logo} alt="Logo" style={{
+                        width: "250px",
+                        height: "100px",
+                        objectFit: 'cover'
+                    }}/>
                 </div>
-            </div>
             <div className='navbar-search'>
                 <input className='navbar-input' onChange={(e) => setKey(e.target.value)}></input>
-                <Link state={{ search: key}} to={{ pathname: '/book' }} style={{ color: "#000" }} >
+                <Link state={{search: key}} to={{pathname: '/book' }} style={{ color: "#000" }} >
                     <SearchOutlined className='navbar-icon' />
                 </Link>
             </div>
