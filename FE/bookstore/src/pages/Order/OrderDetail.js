@@ -41,24 +41,24 @@ dayjs.extend(localeData);
 dayjs.locale("vi");
 const columns = [
     {
-        title: "INDEX",
+        title: "ID",
         dataIndex: "index",
         key: "index",
         width: "10%",
     },
     {
-        title: "BOOK TITLE",
+        title: "SÁCH",
         dataIndex: "title",
         key: "title",
     },
 
     {
-        title: "PRICE",
+        title: "GIÁ",
         key: "price",
         dataIndex: "price",
     },
     {
-        title: "QUANTITY",
+        title: "SỐ LƯỢNG",
         key: "quantity",
         dataIndex: "quantity",
     },
@@ -126,7 +126,7 @@ function OrderDetail() {
                         <div className="ant-employed">
                             <span>
                                 {
-                                    item?.book?.price
+                                    item?.price
                                 }
                             </span>
                         </div>
@@ -149,11 +149,11 @@ function OrderDetail() {
         form.setFieldsValue({
             description: res?.data?.description,
             user: res?.data?.user?.lastName + " " + res?.data?.user?.firstName,
-            address: res?.data?.address?.phone + ", " + res?.data?.address?.street + ", " + res?.data?.address?.state + ", " + res?.data?.address?.city,
+            address: res?.data?.type === "ONLINE" ? res?.data?.address?.phone + ", " + res?.data?.address?.street + ", " + res?.data?.address?.state + ", " + res?.data?.address?.city : res?.data?.address.state,
             status: res?.data?.status,
             total: res?.data?.totalPrice,
             shippingMode: res?.data?.shippingMode?.id,
-
+            type: res?.data?.type
         })
         // setImageURL(res?.data?.image)
 
@@ -229,7 +229,7 @@ function OrderDetail() {
                 <Col xs={24} md={24} className="mb-24">
                     <Card
                         bordered={false}
-                        title={<h6 className="font-semibold m-0">Order Information</h6>}
+                        title={<h6 className="font-semibold m-0">Thông tin đơn hàng</h6>}
                         className="header-solid h-full card-profile-information"
                         bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
                     >
@@ -245,7 +245,7 @@ function OrderDetail() {
                             onFinish={onFinish}
                         >
 
-                            <Form.Item name="user" label="User"
+                            <Form.Item name="user" label="Người dùng"
                                 rules={[
                                     {
                                         required: true,
@@ -258,7 +258,7 @@ function OrderDetail() {
                                 <Input disabled />
                             </Form.Item>
 
-                            <Form.Item name="address" label="Address" 
+                            <Form.Item name="address" label="Địa chỉ" 
                                 rules={[
                                     {
                                         required: true,
@@ -271,7 +271,7 @@ function OrderDetail() {
                                 <Input disabled />
                             </Form.Item>
 
-                            <Form.Item name="total" label="Total"
+                            <Form.Item name="total" label="Tổng tiền"
                                 rules={[
                                     {
                                         required: true,
@@ -281,7 +281,7 @@ function OrderDetail() {
                                 <Input disabled />
                             </Form.Item>
 
-                            <Form.Item name="description" label="Description"
+                            <Form.Item name="description" label="Mô tả"
                                 rules={[
                                     {
                                         type: 'string',
@@ -295,7 +295,7 @@ function OrderDetail() {
                                 <Col span={24} md={12}>
                                     <Form.Item 
                                         name="status" 
-                                        label="Status"
+                                        label="Trạng thái"
                                         rules={[
                                             {
                                                 required: true,
@@ -312,7 +312,7 @@ function OrderDetail() {
                                     </Form.Item>
                                 </Col>
                                 <Col span={24} md={12}>
-                                    <Form.Item name="shippingMode" label="Shipping"
+                                    <Form.Item name="shippingMode" label="Vận chuyển"
                                         rules={[
                                             {
                                                 required: true,
@@ -342,7 +342,7 @@ function OrderDetail() {
                 <Col xs={24} md={24} className="mb-24">
                     <Card
                         bordered={false}
-                        title={<h6 className="font-semibold m-0">List book order</h6>}
+                        title={<h6 className="font-semibold m-0">Chi tiết đơn hàng</h6>}
                         className="header-solid h-full card-profile-information"
                         bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
                     >

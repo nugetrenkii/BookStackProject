@@ -24,7 +24,7 @@ function History() {
     const CalculateMoney = (orderBooks) => {
         var total = 0;
         for (var i = 0; i < orderBooks.length; i++) {
-            total += orderBooks[i]?.book?.price * orderBooks[i]?.quantity
+            total += orderBooks[i]?.price * orderBooks[i]?.quantity
         }
         return total
     }

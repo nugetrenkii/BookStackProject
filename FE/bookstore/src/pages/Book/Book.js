@@ -67,28 +67,28 @@ const formProps = {
 // table code start
 const columns = [
     {
-        title: "TITLE",
+        title: "TIÊU ĐỀ",
         dataIndex: "title",
         key: "title",
         width: "30%",
     },
     {
-        title: "DESCRIPTION",
+        title: "MÔ TẢ",
         key: "description",
         dataIndex: "description",
     },
     {
-        title: "COUNT",
+        title: "SỐ LƯỢNG",
         key: "count",
         dataIndex: "count",
     },
     {
-        title: "AUTHOR",
+        title: "TÁC GIẢ",
         key: "author",
         dataIndex: "author",
     },
     {
-        title: "PUBLISHER",
+        title: "NHÀ XUẤT BẢN",
         key: "publisher",
         dataIndex: "publisher",
     },
@@ -293,7 +293,7 @@ function Book() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Books Table"
+                            title="Quản lý sách"
                             extra={
                                 <>
                                     <Space>

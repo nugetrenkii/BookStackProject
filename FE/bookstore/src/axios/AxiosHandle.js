@@ -38,6 +38,8 @@ instance.interceptors.response.use(
       !error.response // No response, indicating server might be down
     ) {
       handleNetworkError();
+    } else if(error.response.status === 400){
+      console.error("Bad Request:", error.response.data);
     } else {
       // Catch-all for other unspecified errors
       console.error("Unhandled error:", error);

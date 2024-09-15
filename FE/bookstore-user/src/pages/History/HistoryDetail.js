@@ -26,7 +26,7 @@ function HistoryDetail() {
         var total = 0;
         console.log(orderBooks);
         for (var i = 0; i < orderBooks?.length; i++) {
-            total += orderBooks[i]?.book?.price * orderBooks[i]?.quantity
+            total += orderBooks[i]?.price * orderBooks[i]?.quantity
         }
         return total
     }
@@ -188,7 +188,7 @@ function HistoryDetail() {
                                                             Intl.NumberFormat('vi-VN', {
                                                                 style: 'currency',
                                                                 currency: 'VND',
-                                                            }).format(item?.book?.price)
+                                                            }).format(item?.price)
                                                         }
                                                     </div>
                                                     <div style={{ width: "10%" }}>
@@ -199,7 +199,7 @@ function HistoryDetail() {
                                                             Intl.NumberFormat('vi-VN', {
                                                                 style: 'currency',
                                                                 currency: 'VND',
-                                                            }).format(item?.book?.price * item?.quantity)
+                                                            }).format(item?.price * item?.quantity)
                                                         }
                                                     </div>
                                                     <div style={{ width: "10%" }}>

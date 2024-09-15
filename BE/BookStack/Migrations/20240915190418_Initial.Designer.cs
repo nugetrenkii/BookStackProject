@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStack.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240909144916_Initial")]
+    [Migration("20240915190418_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -290,6 +290,9 @@ namespace BookStack.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

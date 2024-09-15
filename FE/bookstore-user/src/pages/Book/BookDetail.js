@@ -56,12 +56,14 @@ function BookDetail() {
             return
         }
         else{
-            setWait(true)
             var res = await SelfAddToCart(param?.id, quantity)
             if (res?.code == 200){
                 toast.success("Đã thêm vào giỏ hàng")
             }
-            setWait(false)
+            else {
+                toast.error(res?.data?.message)
+                setWait(false)
+            }
         }
     }
 
@@ -71,6 +73,14 @@ function BookDetail() {
             toast.error("Bạn phải đăng nhập để sử dụng tính năng này")
             return
         }
+        else if (quantity > book?.quantity) {
+            toast.error("Sản phẩm hiện không đủ số lượng để thêm")
+            return
+        }else if (quantity > book?.maxOrder) {
+            toast.error("Số lượng vượt quá số lượng tối đa có thể đặt hàng")
+            return
+        }
+        
         var order = {
             books: [],
             quantities: []
@@ -119,7 +129,8 @@ function BookDetail() {
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Năm xuất bản: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.publishDate?.slice(0, 4)}</div></div>
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tác giả: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.author?.name}</div></div>
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Ngôn ngữ: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.language}</div></div>
-                                    <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tổng số sách: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.count}</div></div>
+                                    <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tổng số sách: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.count > 0 ? book?.count : "Hết hàng"}</div></div>
+                                    <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Đã bán <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.sold}</div></div>
                                     <div style={{ margin: "20px 0px", display: "flex", alignItems: "center" }}>Tổng số trang: <div style={{ fontSize: "18px", fontWeight: "400", margin: "0px 0px 0px 10px", fontWeight: "600" }}>{book?.numberOfPages}</div></div>
                                     <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
                                         Thể loại: {book?.tags?.map((tag, index) => (

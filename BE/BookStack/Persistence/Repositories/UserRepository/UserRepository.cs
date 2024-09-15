@@ -60,7 +60,7 @@ namespace BookStack.Persistence.Repositories.UserRepository
             }
             if (page == null || pageSize == null || sortBy == null) { return query.ToList(); }
             else
-                return query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
+                return query.Where(r => r.Username != "guest").Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value).ToList();
         }
 
         public bool IsSaveChanges()

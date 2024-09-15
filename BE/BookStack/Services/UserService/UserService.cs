@@ -2,6 +2,7 @@
 using BookStack.DTOs.Response;
 using BookStack.DTOs.User;
 using BookStack.Entities;
+using BookStack.Persistence.Repositories.AddressRepository;
 using BookStack.Persistence.Repositories.CartRepository;
 using BookStack.Persistence.Repositories.UserRepository;
 using BookStack.Utilities;
@@ -12,14 +13,16 @@ namespace BookStack.Services.UserService
     {
         private readonly IUserRepository _userRepository;
         private readonly ICartRepository _cartRepository;
+        private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
         private readonly UserAccessor _userAccessor;
-        public UserService(IUserRepository userRepository, ICartRepository cartRepository, IMapper mapper, UserAccessor userAccessor)
+        public UserService(IUserRepository userRepository, ICartRepository cartRepository, IMapper mapper, UserAccessor userAccessor, IAddressRepository addressRepository)
         {
             _userRepository = userRepository;
             _cartRepository = cartRepository;
             _mapper = mapper;
             _userAccessor = userAccessor;
+            _addressRepository = addressRepository;
         }
 
         public ResponseDTO CreateUser(CreateUserDTO createUserDTO)
@@ -38,6 +41,19 @@ namespace BookStack.Services.UserService
             PasswordHelper.CreatePasswordHash(createUserDTO.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            var address = new Address
+            {
+                UserId = user.Id,
+                Name = user.FirstName + " " + user.LastName,
+                Phone = string.Empty,
+                Street = string.Empty,
+                City = string.Empty,
+                State = "Mua hàng tại quầy",
+                Create = DateTime.Now,
+                Update = DateTime.Now,
+                IsDeleted = true
+            };
+            _addressRepository.CreateAddress(address);
             _userRepository.CreateUser(user);
 
 

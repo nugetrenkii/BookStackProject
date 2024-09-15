@@ -47,7 +47,7 @@ const columns = [
         width: "20%",
     },
     {
-        title: "NAME",
+        title: "TÊN",
         dataIndex: "name",
         key: "name",
         width: "60%",
@@ -192,7 +192,7 @@ function Publisher() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Publishers Table"
+                            title="Quản lý nhà xuất bản"
                             extra={
                                 <>
                                     <Space>
@@ -230,7 +230,7 @@ function Publisher() {
                         </Card>
                     </Col>
                 </Row>
-                <Modal title="Form create publisher" open={isModalOpen}
+                <Modal title="Form nhà xuất bản" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -249,7 +249,7 @@ function Publisher() {
                         }}
                         layout="vertical"
                     >
-                        <Form.Item name="name" label="Name"
+                        <Form.Item name="name" label="Tên"
                             rules={[
                                 {
                                     required: true,

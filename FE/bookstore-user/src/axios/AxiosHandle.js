@@ -41,7 +41,7 @@ instance.interceptors.response.use(
         // Catch-all for other unspecified errors
         console.error("Unhandled error:", error);
       }
-      return Promise.reject(error);
+      return error.response;
     }
   );
   

@@ -301,7 +301,7 @@ function Sidenav({ color }) {
             >
               <DeliveredProcedureOutlined />
             </span>
-            <span className="label">Đơn vị giao hàng</span>
+            <span className="label">Đơn vị vận chuyển</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item className="menu-item-header" key="10">
