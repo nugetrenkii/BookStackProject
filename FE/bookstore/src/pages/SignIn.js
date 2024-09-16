@@ -134,7 +134,7 @@ export default class SignIn extends Component {
         <Layout className="layout-default layout-signin">
           <Header>
             <div className="header-col header-brand">
-              <h5>Book store</h5>
+              <h5>BookStack</h5>
             </div>
           </Header>
           <Content className="signin">
@@ -144,9 +144,9 @@ export default class SignIn extends Component {
                 lg={{ span: 6, offset: 2 }}
                 md={{ span: 12 }}
               >
-                <Title className="mb-15">Sign In</Title>
+                <Title className="mb-15">Đăng nhập</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your username and password to sign in
+                  Nhập tên tài khoản và mật khẩu để đăng nhập
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -156,30 +156,30 @@ export default class SignIn extends Component {
                 >
                   <Form.Item
                     className="username"
-                    label="Username"
+                    label="Tài khoản"
                     name="username"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Vui lòng nhập tên tài khoản!",
                       },
                     ]}
                   >
-                    <Input placeholder="Username" />
+                    <Input placeholder="Tên tài khoản" />
                   </Form.Item>
 
                   <Form.Item
                     className="username"
-                    label="Password"
+                    label="Mật khẩu"
                     name="password"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Vui lòng nhập mật khẩu!",
                       },
                     ]}
                   >
-                    <Input placeholder="Password" type="password" />
+                    <Input placeholder="Mật khẩu" type="password" />
                   </Form.Item>
 
                   <Form.Item>
@@ -188,7 +188,7 @@ export default class SignIn extends Component {
                       htmlType="submit"
                       style={{ width: "100%" }}
                     >
-                      SIGN IN
+                      ĐĂNG NHẬP
                     </Button>
                   </Form.Item>
                 </Form>
@@ -200,7 +200,7 @@ export default class SignIn extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                <img src="https://cdn5.vectorstock.com/i/1000x1000/44/54/bookstore-word-concepts-banner-buying-books-vector-29164454.jpg" alt="" />
+                <img src="https://i.pinimg.com/736x/36/24/e6/3624e650ec342dd00e8bf2b05ead4062.jpg" alt="" />
               </Col>
             </Row>
           </Content>
@@ -239,10 +239,6 @@ export default class SignIn extends Component {
                 <Link to="#">{<GithubOutlined />}</Link>
               </Menu.Item>
             </Menu>
-            <p className="copyright">
-              {" "}
-              Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
-            </p>
           </Footer>
         </Layout>
       </>

@@ -8,9 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background: rgba(124, 94, 94, 0.5); */
-    background-image: url("https://img.freepik.com/free-photo/abundant-collection-antique-books-wooden-shelves-generated-by-ai_188544-29660.jpg?t=st=1698564489~exp=1698568089~hmac=bfc94097dda55db920ac301c92acb1554f6f1f78dcb9b76edbdc1becabe76dc3&w=1060");
-    /* background-image: url("https://wallpapers.com/images/high/marvel-3420-x-1420-226llx9be5dff48o.webp"); */
+    background: linear-gradient(0deg, rgba(78,34,195,1) 0%, rgba(45,180,253,1) 100%);
     background-size: cover;
 }
 

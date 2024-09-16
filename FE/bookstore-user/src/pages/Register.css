@@ -12,7 +12,7 @@
     justify-content: center;
 
     background-size: cover;
-    background-image: url("https://img.freepik.com/free-photo/abundant-collection-antique-books-wooden-shelves-generated-by-ai_188544-29660.jpg?t=st=1698564489~exp=1698568089~hmac=bfc94097dda55db920ac301c92acb1554f6f1f78dcb9b76edbdc1becabe76dc3&w=1060");
+    background: linear-gradient(0deg, rgba(78,34,195,1) 0%, rgba(45,180,253,1) 100%);
     /* background-image: url("https://www.refugeecouncil.org.au/wp-content/uploads/2018/02/University_library-1024x683.jpg"); */
 }
 
