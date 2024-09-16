@@ -64,7 +64,7 @@ const columns = [
         width: "20%",
     },
     {
-        title: "NAME",
+        title: "TÊN",
         dataIndex: "name",
         key: "name",
         width: "60%",
@@ -211,7 +211,7 @@ function Tag() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Tags Table"
+                            title="Quản lý thẻ mục"
                             extra={
                                 <>
                                     <Space>
@@ -249,7 +249,7 @@ function Tag() {
                         </Card>
                     </Col>
                 </Row>
-                <Modal title="Form create tag" open={isModalOpen}
+                <Modal title="Form thẻ" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -268,7 +268,7 @@ function Tag() {
                         }}
                         layout="vertical"
                     >
-                        <Form.Item name="name" label="Name"
+                        <Form.Item name="name" label="Tên"
                             rules={[
                                 {
                                     required: true,

@@ -111,7 +111,7 @@ function UserDetails() {
                 <Col xs={24} md={16} className="mb-24">
                     <Card
                         bordered={false}
-                        title={<h6 className="font-semibold m-0">User Information</h6>}
+                        title={<h6 className="font-semibold m-0">Thông tin người dùng</h6>}
                         className="header-solid h-full card-profile-information"
                         // extra={<Button type="link">{pencil}</Button>}
                         bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
@@ -133,7 +133,7 @@ function UserDetails() {
                         >
                             <Row gutter={[24, 0]} >
                                 <Col span={24} md={12}>
-                                    <Form.Item name="firstName" label="First name"
+                                    <Form.Item name="firstName" label="Tên"
                                         rules={[
                                             {
                                                 required: true,
@@ -149,7 +149,7 @@ function UserDetails() {
                                     </Form.Item>
                                 </Col>
                                 <Col span={24} md={12}>
-                                    <Form.Item name="lastName" label="Last name"
+                                    <Form.Item name="lastName" label="Họ"
                                         rules={[
                                             {
                                                 required: true,
@@ -183,7 +183,7 @@ function UserDetails() {
                             >
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="phone" label="Phone"
+                            <Form.Item name="phone" label="SĐT"
                                 rules={[
                                     {
                                         required: true,
@@ -199,7 +199,7 @@ function UserDetails() {
                             </Form.Item>
                             <Row gutter={[24, 0]} >
                                 <Col span={24} md={12}>
-                                    <Form.Item name="dob" label="Day of birth"
+                                    <Form.Item name="dob" label="Ngày sinh"
                                         rules={[
                                             {
                                                 required: true,
@@ -210,7 +210,7 @@ function UserDetails() {
                                     </Form.Item>
                                 </Col>
                                 <Col span={24} md={12}>
-                                    <Form.Item label="Gender" name="gender"
+                                    <Form.Item label="Giới tính" name="gender"
                                         rules={[{ required: true }]}
                                     >
                                         <Radio.Group name="gender" >

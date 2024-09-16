@@ -36,6 +36,10 @@ namespace BookStack.Services.CartService
 
             var cart = _cartRepository.GetCartByUser(userId);
             if (cart == null) return new ResponseDTO { Code = 400, Message = "Cart của user không tồn tại" };
+            
+            if (count > book.Count) return new ResponseDTO { Code = 400, Message = "Sản phẩm hiện không đủ số lượng để thêm" };
+            
+            if(count > book.MaxOrder) return new ResponseDTO { Code = 400, Message = "Số lượng vượt quá số lượng tối đa có thể đặt hàng" };
 
             if (cart.CartBooks.FirstOrDefault(b => b.Book.Id == bookId) == null)
             {
@@ -52,10 +56,11 @@ namespace BookStack.Services.CartService
                 {
                     if (cart.CartBooks[i].Book.Id == bookId)
                     {
+                        if (cart.CartBooks[i].Quantity + count > book.Count) return new ResponseDTO { Code = 400, Message = "Sản phẩm hiện không đủ số lượng để thêm" };
+                        if (cart.CartBooks[i].Quantity + count > book.MaxOrder) return new ResponseDTO { Code = 400, Message = "Số lượng vượt quá số lượng tối đa có thể đặt hàng" };
                         if (cart.CartBooks[i].Quantity + count == 0) cart.CartBooks.RemoveAt(i);
                         else
                             cart.CartBooks[i].Quantity += count;
-
                         break;
                     }
                 }

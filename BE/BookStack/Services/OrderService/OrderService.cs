@@ -84,6 +84,7 @@ namespace BookStack.Services.OrderService
                     {
                         BookId = book.Id,
                         Quantity = createOrderDTO.QuantitieCounts[i],
+                        Price = book.Price
                     });
                 }
             }
@@ -195,6 +196,7 @@ namespace BookStack.Services.OrderService
                         {
                             BookId = book.Id,
                             Quantity = selfCreateOrderDTO.QuantitieCounts[i],
+                            Price = book.Price
                         });
                     }
                 }
@@ -329,7 +331,7 @@ namespace BookStack.Services.OrderService
             OrderDTO orderDTO = _mapper.Map<OrderDTO>(order);
             List<OrderBookDTO> tmp = _mapper.Map<List<OrderBookDTO>>(order.OrderBooks);
             orderDTO.OrderBooks = tmp;
-            orderDTO.TotalPrice = tmp.Sum(b => b.Book.Price * b.Quantity);
+            orderDTO.TotalPrice = tmp.Sum(b => b.Price * b.Quantity);
             return new ResponseDTO
             {
                 Data = orderDTO
@@ -340,7 +342,7 @@ namespace BookStack.Services.OrderService
         {
             var orders = _orderRepository.GetOrders(page, pageSize, key, sortBy, status);
             var tmp = _mapper.Map<List<OrderDTO>>(orders);
-            tmp.ForEach(c => c.TotalPrice = c.OrderBooks.Sum(b => b.Book.Price * b.Quantity));
+            tmp.ForEach(c => c.TotalPrice = c.OrderBooks.Sum(b => b.Price * b.Quantity));
             return new ResponseDTO()
             {
                 Data = tmp,

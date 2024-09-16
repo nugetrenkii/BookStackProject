@@ -60,13 +60,13 @@ const formProps = {
 // table code start
 const columns = [
     {
-        title: "NAME",
+        title: "TÊN",
         dataIndex: "name",
         key: "name",
         width: "25%",
     },
     {
-        title: "STATUS",
+        title: "TRẠNG THÁI",
         key: "status",
         dataIndex: "status",
     },
@@ -76,12 +76,12 @@ const columns = [
         dataIndex: "email",
     },
     {
-        title: "PHONE",
+        title: "SĐT",
         key: "phone",
         dataIndex: "phone",
     },
     {
-        title: "DAY OF BIRTH",
+        title: "NGÀY SINH",
         key: "dob",
         dataIndex: "dob",
     },
@@ -263,7 +263,7 @@ function Users() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Users Table"
+                            title="Quản lý người dùng"
                             extra={
                                 <>
                                     <Space>

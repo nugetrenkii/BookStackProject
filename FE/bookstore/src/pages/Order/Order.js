@@ -65,27 +65,27 @@ const columns = [
         width: "5%",
     },
     {
-        title: "STATUS",
+        title: "TRẠNG THÁI",
         key: "status",
         dataIndex: "status",
     },
     {
-        title: "TOTAL",
+        title: "TỔNG TIỀN",
         key: "total",
         dataIndex: "total",
     },
     {
-        title: "DESCRIPTION",
+        title: "MÔ TẢ",
         key: "description",
         dataIndex: "description",
     },
     {
-        title: "USER",
+        title: "NGƯỜI DÙNG",
         key: "user",
         dataIndex: "user",
     },
     {
-        title: "SHIPPING MODE",
+        title: "ĐƠN VỊ VẬN CHUYỂN",
         key: "shippingMode",
         dataIndex: "shippingMode",
     },
@@ -311,13 +311,13 @@ function Order() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Orders Table"
+                            title="Quản lý đơn hàng"
                             extra={
                                 <>
                                     <Space>
                                        <Select value={statusFilter}
                                         onChange={value => setStatusFilter(value)} style={{ width: 120 }}>
-                                            <Select.Option value="">All</Select.Option>
+                                            <Select.Option value="">Tất cả</Select.Option>
                                             <Select.Option value="DON">Hoàn thành</Select.Option>
                                             <Select.Option value="COM">Đã xác nhận</Select.Option>
                                             <Select.Option value="SHI">Đang giao</Select.Option>
@@ -328,7 +328,7 @@ function Order() {
                                         <Button type="primary" onClick={handleSearch}>
                                             {/* <SearchOutlined /> */}
                                             <SearchOutlined style={{ fontSize: 18 }} />
-                                            Search
+                                            Tìm kiếm
                                         </Button>
                                         {/* <Button type="success" onClick={showModal}>
                                             <UserAddOutlined style={{ fontSize: 18 }} />
@@ -358,7 +358,7 @@ function Order() {
                         </Card>
                     </Col>
                 </Row>
-                {/* <Modal title="Form create order" open={isModalOpen}
+                <Modal title="Form create order" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -449,7 +449,7 @@ function Order() {
                         </Form.Item>
 
                     </Form>
-                </Modal> */}
+                </Modal>
             </div >
         </>
     );

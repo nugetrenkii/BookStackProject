@@ -64,7 +64,7 @@ const columns = [
         width: "20%",
     },
     {
-        title: "NAME",
+        title: "TÊN",
         dataIndex: "name",
         key: "name",
         width: "60%",
@@ -212,7 +212,7 @@ function Author() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Authors Table"
+                            title="Quản lý tác giả"
                             extra={
                                 <>
                                     <Space>
@@ -250,7 +250,7 @@ function Author() {
                         </Card>
                     </Col>
                 </Row>
-                <Modal title="Form create author" open={isModalOpen}
+                <Modal title="Form tác giả" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -269,7 +269,7 @@ function Author() {
                         }}
                         layout="vertical"
                     >
-                        <Form.Item name="name" label="Name"
+                        <Form.Item name="name" label="Tên"
                             rules={[
                                 {
                                     required: true,

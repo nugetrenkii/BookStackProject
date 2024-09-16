@@ -47,7 +47,7 @@ const columns = [
         width: "20%",
     },
     {
-        title: "NAME",
+        title: "TÊN",
         dataIndex: "name",
         key: "name",
         width: "60%",
@@ -194,7 +194,7 @@ function ShippingMode() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="ShippingModes Table"
+                            title="Quản lý đơn vị vận chuyển"
                             extra={
                                 <>
                                     <Space>
@@ -232,7 +232,7 @@ function ShippingMode() {
                         </Card>
                     </Col>
                 </Row>
-                <Modal title="Form create shippingMode" open={isModalOpen}
+                <Modal title="Form đơn vị vận chuyển" open={isModalOpen}
                     onOk={() => {
                         form.validateFields().then(() => {
                             handleOk()
@@ -251,7 +251,7 @@ function ShippingMode() {
                         }}
                         layout="vertical"
                     >
-                        <Form.Item name="name" label="Name"
+                        <Form.Item name="name" label="Tên"
                             rules={[
                                 {
                                     required: true,

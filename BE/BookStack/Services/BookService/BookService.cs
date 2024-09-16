@@ -100,9 +100,11 @@ namespace BookStack.Services.BookService
                 Message = "Book không tồn tại"
             };
 
+            var data = _mapper.Map<BookDTO>(book);
+            data.Sold = book.OrderBooks.Where(o => o.Order.Status == "DON").Sum(o => o.Quantity);
             return new ResponseDTO()
             {
-                Data = _mapper.Map<BookDTO>(book)
+                Data = data
             };
         }
         public ResponseDTO GetBookByIds(List<int> ids)

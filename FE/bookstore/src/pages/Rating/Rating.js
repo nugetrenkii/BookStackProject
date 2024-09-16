@@ -31,25 +31,25 @@ const columns = [
         width: "5%",
     },
     {
-        title: "RATE",
+        title: "ĐÁNH GIÁ",
         dataIndex: "rate",
         key: "rate",
         width: "5%",
     },
     {
-        title: "USER",
+        title: "NGƯỜI DÙNG",
         dataIndex: "user",
         key: "user",
         width: "20%",
     },
     {
-        title: "BOOK",
+        title: "SÁCH",
         dataIndex: "book",
         key: "book",
         width: "20%",
     },
     {
-        title: "COMMENT",
+        title: "BÌNH LUẬN",
         dataIndex: "comment",
         key: "comment",
         width: "45%",
@@ -162,7 +162,7 @@ function Rating() {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Ratings Table"
+                            title="Quản lý đánh giá"
                         // extra={
                         //     <>
                         //         <Space>

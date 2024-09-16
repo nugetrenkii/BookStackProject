@@ -82,7 +82,7 @@ namespace BookStack.Services.StatisticalService
                     double totalMonth = 0;
                     for (int i = 0; i < order.OrderBooks.Count(); i++)
                     {
-                        totalMonth += (order.OrderBooks[i].Book.Price * order.OrderBooks[i].Quantity);
+                        totalMonth += (order.OrderBooks[i].Price * order.OrderBooks[i].Quantity);
                     }
                     arrOrder[order.Create.Month - 1] += totalMonth;
                     countOrder++;

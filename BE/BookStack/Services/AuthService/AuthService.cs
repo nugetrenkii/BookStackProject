@@ -2,6 +2,7 @@
 using BookStack.DTOs.Response;
 using BookStack.DTOs.User;
 using BookStack.Entities;
+using BookStack.Persistence.Repositories.AddressRepository;
 using BookStack.Persistence.Repositories.CartRepository;
 using BookStack.Persistence.Repositories.UserRepository;
 using BookStack.Services.CacheService;
@@ -25,6 +26,7 @@ namespace BookStack.Services.AuthService
         private readonly ICacheService _cacheService;
         private readonly IMailService _mailService;
         private readonly UserAccessor _userAccessor;
+        private readonly IAddressRepository _addressRepository;
 
         private const string EmailTemplate = $$"""
                                          <!DOCTYPE html>
@@ -106,7 +108,7 @@ namespace BookStack.Services.AuthService
             IFacebookService facebookService, 
             ICacheService cacheService,
             UserAccessor userAccessor,
-            IMailService mailService)
+            IMailService mailService, IAddressRepository addressRepository)
         {
             _userRepository = userRepository;
             _cartRepository = cartRepository;
@@ -117,6 +119,7 @@ namespace BookStack.Services.AuthService
             _cacheService = cacheService;
             _userAccessor = userAccessor;
             _mailService = mailService;
+            _addressRepository = addressRepository;
         }
         public ResponseDTO Login(string username, string password)
         {
@@ -170,7 +173,18 @@ namespace BookStack.Services.AuthService
             PasswordHelper.CreatePasswordHash(registerUserDTO.Password, out var passwordHash, out var passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            
+            var address = new Address
+            {
+                UserId = user.Id,
+                Name = string.Empty,
+                Phone = string.Empty,
+                Street = string.Empty,
+                City = string.Empty,
+                State = "Mua hàng tại quầy",
+                Create = DateTime.Now,
+                Update = DateTime.Now
+            };
+            _addressRepository.CreateAddress(address);
             _userRepository.CreateUser(user);
             if (_userRepository.IsSaveChanges())
             {

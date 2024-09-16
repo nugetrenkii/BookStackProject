@@ -7,6 +7,7 @@ import { GetBookById } from '../../axios/BookAPI';
 import "./Cart.css"
 import { AddToCart, GetCartByUser, GetSelfCart, SelfAddToCart } from '../../axios/CartAPI';
 import Waiting from '../Waiting/Waiting.js';
+import { toast } from 'react-toastify';
 
 const bookTmps = [
     {
@@ -225,6 +226,9 @@ function Cart() {
 
                 // Recalculate the cart total
                 Canculate();
+            }
+            else {
+                toast.error(res?.data?.message);
             }
         } catch (error) {
             console.error('Error updating cart:', error);

@@ -9,6 +9,7 @@ public static class DataSeeder
     {
         await dbContext.SeedRoles();
         await dbContext.SeedUsers();
+        await dbContext.SeedAddresses();
     }
 
     private static async Task SeedRoles(this DataContext dbContext)
@@ -21,21 +22,6 @@ public static class DataSeeder
             }, new Role
             {
                 Name = "user"
-            });
-            await dbContext.SaveChangesAsync();
-        }
-    }
-    
-    private static async Task SeedCarts(this DataContext dbContext)
-    {
-        if (!dbContext.Carts.Any())
-        {
-            await dbContext.Carts.AddRangeAsync(new Cart
-            {
-                Id = 1
-            }, new Cart
-            {
-                Id = 2
             });
             await dbContext.SaveChangesAsync();
         }
@@ -53,7 +39,6 @@ public static class DataSeeder
                 FirstName = "Admin",
                 LastName = string.Empty,
                 Email = "admin@test.com",
-                CartId = 1,
                 PasswordSalt = passwordSalt,
                 PasswordHash = passwordHash,
                 RoleId = dbContext.Roles.First(r => r.Name == "admin").Id
@@ -63,10 +48,58 @@ public static class DataSeeder
                 FirstName = "User",
                 LastName = string.Empty,
                 Email = "user@test.com",
-                CartId = 2,
                 PasswordSalt = passwordSalt,
                 PasswordHash = passwordHash,
                 RoleId = dbContext.Roles.First(r => r.Name == "user").Id
+            }, new User
+            {
+                Username = "guest",
+                FirstName = "Khách vãng lai",
+                LastName = string.Empty,
+                Email = "guest@test.com",
+                PasswordSalt = passwordSalt,
+                PasswordHash = passwordHash,
+                RoleId = dbContext.Roles.First(r => r.Name == "user").Id
+            });
+            await dbContext.SaveChangesAsync();
+        }
+    }
+    
+    private static async Task SeedAddresses(this DataContext dbContext)
+    {
+        if (!dbContext.Addresses.Any())
+        {
+            await dbContext.Addresses.AddRangeAsync(new Address
+            {
+                UserId = 1,
+                Name = "Admin",
+                Phone = "0123456789",
+                Street = "Admin Street",
+                City = "Admin City",
+                State = "Admin State",
+                Create = DateTime.Now,
+                Update = DateTime.Now
+            }, new Address
+            {
+                UserId = 2,
+                Name = "User",
+                Phone = "0123456789",
+                Street = "User Street",
+                City = "User City",
+                State = "User State",
+                Create = DateTime.Now,
+                Update = DateTime.Now
+            }, new Address
+            {
+                UserId = 3,
+                Name = string.Empty,
+                Phone = string.Empty,
+                Street = string.Empty,
+                City = string.Empty,
+                State = "Mua hàng tại quầy",
+                IsDeleted = true,
+                Create = DateTime.Now,
+                Update = DateTime.Now
             });
             await dbContext.SaveChangesAsync();
         }

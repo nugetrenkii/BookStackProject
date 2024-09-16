@@ -6,5 +6,6 @@ namespace BookStack.DTOs.OrderBook
     {
         public BookDTO Book { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
     }
 }

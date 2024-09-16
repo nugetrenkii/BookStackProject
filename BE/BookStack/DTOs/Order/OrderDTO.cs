@@ -10,6 +10,7 @@ namespace BookStack.DTOs.Order
     public class OrderDTO
     {
         public int Id { get; set; }
+        public string Type { get; set; }
         public string Status { get; set; }
         public string PayMode { get; set; }
         public string Description { get; set; }
